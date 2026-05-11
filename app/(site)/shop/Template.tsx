@@ -1,43 +1,258 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Header, Footer, ProductCard } from "@/components/index.js";
-import type { Product } from "@/modules/products/types";
-import { useProductStore } from "@/modules/products/store";
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Header,
+  Footer,
+  ProductCard,
+  BreadcrumbDemo,
+  FilterSelect,
+  ButtonDemo,
+  ToggleGroupDemo,
+  PaginationDemo,
+} from "@/components/index.js";
+import type { Product, ProductWithCart } from "@/modules/products/types";
+import useProductsWithCart from "@/modules/products/hooks/useProductsWithCart";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
+import { CATEGORIES, COLLECTIONS, BRANDS, PRICES } from "@/constants/index";
+import { LOCAL_DATA } from "@/constants/index";
+import { X } from "lucide-react";
+
+const { productImage } = LOCAL_DATA.images;
+
+const DEFAULT_FILTERS = {
+  category: "all-categories",
+  brand: "all-brands",
+  price: "all-prices",
+  collections: ["all-collections"],
+};
 
 const Template = () => {
+  const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "Shop" }];
+
   return (
-    <main className="home-page pt-37.5  min-h-screen">
+    <main className="shop-page pt-25  min-h-screen">
+      <div className="container ">
+        <BreadcrumbDemo items={breadcrumbItems} />
+      </div>
+
       <ShowcaseSection />
     </main>
   );
 };
 
 const ShowcaseSection = () => {
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(12);
+
+  const query = useMemo(() => {
+    const params = new URLSearchParams();
+
+    params.set("page", String(page));
+    params.set("limit", String(limit));
+
+    if (filters.category !== "all-categories") {
+      params.set("category", filters.category);
+    }
+
+    if (filters.brand !== "all-brands") {
+      params.set("brand", filters.brand);
+    }
+
+    if (filters.price !== "all-prices") {
+      params.set("price", filters.price);
+    }
+
+    if (!filters.collections.includes("all-collections")) {
+      params.set("collections", filters.collections.join(","));
+    }
+
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+
+    return params.toString() ? `?${params.toString()}` : "";
+  }, [filters, page, limit]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [filters]);
+
+  const { productsWithCart, pagination, isLoading } = useProductsWithCart({ query });
+
+  const isDefaultFilters =
+    filters.category === DEFAULT_FILTERS.category &&
+    filters.brand === DEFAULT_FILTERS.brand &&
+    filters.price === DEFAULT_FILTERS.price &&
+    filters.collections[0] === DEFAULT_FILTERS.collections[0];
+
   return (
-    <section>
+    <section className="pt-7!">
       <div className="container">
-        <h2 className="text-3xl mb-4">All Products</h2>
-        <ProductList />
+        <div className="flex gap-x-5 justify-between items-center flex-wrap min-h-8  mb-4">
+          <div className="flex gap-3 items-center">
+            <h2 className="text-xl">Products </h2>
+            <div className="h-1 w-1 bg-secondary-v2 rounded-full -mb-1"></div>
+            <span className="text-xs font-semibold  text-secondary-v2 -mb-1">
+              {isLoading ? "Loading..." : `${productsWithCart.length} of ${pagination.totalCount} displayed`}{" "}
+            </span>
+          </div>
+
+          {!isDefaultFilters && (
+            <ButtonDemo
+              variant="ghostDanger"
+              text="CLEAR ALL"
+              startIcon={<X />}
+              size="xs"
+              onClick={() => setFilters(DEFAULT_FILTERS)}
+            />
+          )}
+        </div>
+
+        <div className="flex gap-3 flex-col lg:items-start lg:flex-row">
+          <Filters filters={filters} setFilters={setFilters} />
+          <div className="flex-1">
+            <ProductList
+              filters={filters}
+              setFilters={setFilters}
+              productsWithCart={productsWithCart}
+              isLoading={isLoading}
+            />
+            <PaginationDemo page={page} totalPages={pagination.totalPages} onPageChange={setPage} />
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
-const ProductList = () => {
-  const products = useProductStore((s) => s.products);
-  const isProductsLoading = useProductStore((s) => s.isProductsLoading);
+type ProductsProps = {
+  filters: any;
+  setFilters: (value: any) => void;
+  productsWithCart?: ProductWithCart[];
+  isLoading?: boolean;
+};
 
+const Filters = ({ filters, setFilters }: ProductsProps) => {
   return (
-    <div
-      className={`${isProductsLoading  ? "pointer-events-none opacity-60" : ""} transition card-group products-card-group grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-2.5 gap-y-10`}
-    >
-      {!products.length
-        ? "Empty"
-        : products.map((product) => {
+    <Card className="flex-1 lg:max-w-[280px] shadow-sm ring-black/2 rounded-3xl">
+      <CardContent className="border-none shadow-none pb-8">
+        <div className=" flex flex-col sm:flex-row lg:flex-col items-start gap-3 mb-3 gap-y-6 pb-4 ">
+          <FilterSelect
+            className="flex-1 w-full"
+            label="Category"
+            items={CATEGORIES}
+            value={filters.category}
+            hasDefaultValue={filters.category === DEFAULT_FILTERS.category}
+            onChange={(item) => {
+              setFilters((prev: any) => ({ ...prev, category: item.value }));
+            }}
+            onClear={() => {
+              setFilters((prev: any) => ({ ...prev, category: DEFAULT_FILTERS.category }));
+            }}
+          />
+          <FilterSelect
+            className="flex-1 w-full"
+            label="Brand"
+            items={BRANDS}
+            value={filters.brand}
+            hasDefaultValue={filters.brand === DEFAULT_FILTERS.brand}
+            onChange={(item) => {
+              setFilters((prev: any) => ({ ...prev, brand: item.value }));
+            }}
+            onClear={() => {
+              setFilters((prev: any) => ({ ...prev, brand: DEFAULT_FILTERS.brand }));
+            }}
+          />
+          <FilterSelect
+            className="flex-1 w-full"
+            label="Price"
+            items={PRICES}
+            value={filters.price}
+            hasDefaultValue={filters.price === DEFAULT_FILTERS.price}
+            onChange={(item) => {
+              setFilters((prev: any) => ({ ...prev, price: item.value }));
+            }}
+            onClear={() => {
+              setFilters((prev: any) => ({ ...prev, price: DEFAULT_FILTERS.price }));
+            }}
+          />
+        </div>
+        <ToggleGroupDemo
+          type="multiple"
+          value={filters.collections}
+          items={COLLECTIONS}
+          label="Product Type"
+          onValueChange={(value: any) => {
+            setFilters((prev: any) => {
+              let next = [...value];
+
+              const hasAll = next.includes("all-collections");
+              const prevHasAll = prev.collections.includes("all-collections");
+
+              // Case 1: user clicked "all"
+              if (hasAll && !prevHasAll) {
+                next = ["all-collections"];
+              }
+              // Case 2: user selected something else while "all" was active
+              else {
+                next = next.filter((v) => v !== "all-collections");
+              }
+
+              // Case 3: nothing selected → fallback to "all"
+              if (next.length === 0) next = ["all-collections"];
+
+              return {
+                ...prev,
+                collections: next,
+              };
+            });
+          }}
+          hasDefaultValue={filters.collections[0] === DEFAULT_FILTERS.collections[0]}
+          onClear={() => {
+            setFilters((prev: any) => ({ ...prev, collections: DEFAULT_FILTERS.collections }));
+          }}
+        />
+      </CardContent>
+    </Card>
+  );
+};
+
+const ProductList = ({ setFilters, productsWithCart = [], isLoading }: ProductsProps) => {
+  return (
+    <>
+      {isLoading ? (
+        <div className={` card-group products-card-group grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3`}>
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+          <Skeleton className="min-h-[360px] w-full rounded-xl" />
+        </div>
+      ) : !productsWithCart.length ? (
+        <div className="bg-white border border-primary/10 rounded-xl p-10 flex flex-col justify-center  lg:max-w-[400px] min-h-[300px] text-center">
+          <img src={productImage} alt="" className="max-w-30 mx-auto" />
+          <h2 className="text-xl mb-5">No Products Found</h2>
+          <p className="text-secondary-v3 mb-5">No products match your selected filters.</p>
+          <ButtonDemo
+            className="rounded-full w-full sm:w-auto"
+            text={`Reset Filters`}
+            onClick={() => {
+              setFilters(DEFAULT_FILTERS);
+            }}
+          />
+        </div>
+      ) : (
+        <div className={` card-group products-card-group grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3`}>
+          {productsWithCart.map((product) => {
             return <ProductCard key={product.id} product={product} />;
           })}
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

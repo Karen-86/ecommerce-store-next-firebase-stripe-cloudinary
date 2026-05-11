@@ -1,115 +1,88 @@
 import { create } from "zustand";
-import type { Product, ProductResponse, StoredProduct } from "@/modules/products/types";
-// import * as blogsApi from "@/modules/blogs/api"
-// import { getProductsAction, getProductAction } from "@/modules/products/actions";
+import type { ProductWithCart, Product, StripeProduct } from "@/modules/products/types";
+import type { CartBaseItem } from "@/modules/carts/types";
 import Stripe from "stripe";
-import * as productsApi from '@/modules/products/api'
+import * as productsApi from "@/modules/products/api";
+import LOCAL_DATA from "@/constants/localData";
+import { useCartStore } from "@/modules/carts/store";
+
+const { exampleImage } = LOCAL_DATA.images;
+
+const USER = null;
 
 const noop = () => {};
 
 type ProductStore = {
-  products: Product[];
-  isProductsLoading: boolean;
-  isProductLoading: boolean;
-  // isProductUpdating: boolean;
-  isCartSheetOpen: boolean;
-  getProductsAsync: (params?: any) => Promise<void>;
-  getProductAsync: (params?: any) => Promise<void>;
-  // updateProductAsync: (params?: any) => Promise<void>;
-  setIsCartSheetOpen: (params?: any) => void;
+  getProductsAsync: (params?: any) => Promise<any[] | []>;
+  getProductAsync: (params?: any) => Promise<any | null>;
 };
 
 export const useProductStore = create<ProductStore>((set, get) => ({
-  products: [],
-  isProductsLoading: false,
-  isProductLoading: false,
-  // isProductUpdating: false,
-  isCartSheetOpen: false,
+  getProductsAsync: async ({ query = "", successCB = noop, errorCB = noop } = {}) => {
+    const data = await productsApi.getProducts({ query });
 
-  getProductsAsync: async ({ successCB = noop, errorCB = noop } = {}) => {
-    set({ isProductsLoading: true });
-
-    try {
-      // const data = await getProductsAction();
-      const data = await productsApi.getProducts();
-
-      if (!data.success) return errorCB(data.message);
-      console.log(data, " =getProductsAsync=");
-
-      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
-
-      const filteredData = data.data.data.map((product: ProductResponse) => {
-        const price = product.default_price as Stripe.Price;
-        const storedProduct = cartItems.find((item: StoredProduct) => item.productId === product.id);
-
-        return {
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          images: product.images,
-          // price: (price.unit_amount! / 100).toFixed(2),
-          price: price.unit_amount,
-          quantity: storedProduct?.quantity || 1,
-          isInCart: !!storedProduct,
-        };
-      });
-
-      set({ products: filteredData });
-      successCB(data.message);
-    } finally {
-      set({ isProductsLoading: false });
+    if (!data.success) {
+      errorCB(data.message);
+      return [];
     }
-  },
+    console.log(data, " =getProductsAsync=");
 
-  getProductAsync: async ({ productId = "", successCB = noop, errorCB = noop }) => {
-    set({ isProductLoading: true });
-
-    try {
-      // const data = await getProductAction({ id: productId });
-      const data = await productsApi.getProduct({id: productId});
-
-      if (!data.success) return errorCB(data.message);
-      console.log(data, " =getProductAsync=");
-      
-      const product = data.data
-
-      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
-      
-      const price = product.default_price as Stripe.Price;
-      const storedProduct = cartItems.find((item: StoredProduct) => item.productId === product.id);
-
-      const filteredData = {
+    const formattedProducts = data.data.products.map((product: Product) => {
+      return {
+        // base
         id: product.id,
         name: product.name,
         description: product.description,
-        images: product.images,
-        // price: (price.unit_amount! / 100).toFixed(2),
-        price: price.unit_amount,
-        quantity: storedProduct?.quantity || 1,
-        isInCart: !!storedProduct,
+        content: product.content,
+        rating: product.rating,
+        category: product.category,
+        brand: product.brand,
+        collections: product.collections,
+        currency: product.currency,
+        options: product.options,
+        variants: product.variants,
+
+        // extended with product
+        primaryImage: product.variants[0].images[0].url,
       };
-      // set({ product: data.data })
-      successCB(filteredData);
-    } finally {
-      set({ isProductLoading: false });
-    }
+    });
+
+    successCB(data.message);
+    return {...data.data,  formattedProducts };
   },
 
-  // updateProductAsync: async ({ productId = "", isInCart = false, successCB = noop, errorCB = noop }) => {
-  //   set({ isProductUpdating: true });
+  getProductAsync: async ({ productId = "", successCB = noop, errorCB = noop }) => {
+    const data = await productsApi.getProduct({ id: productId });
 
-  //   try {
-  //     const data = await updateProductAction({ id: productId, isInCart });
+    if (!data.success) {
+      errorCB(data.message);
+      return null;
+    }
+    console.log(data, " =getProductAsync=");
 
-  //     if (!data.success) return errorCB(data.message);
-  //     console.log(data, " =updateProductAsync=");
+    const product = data.data;
 
-  //     await get().getProductsAsync();
-  //     successCB(data.message || "Product has been updated successfully.");
-  //   } finally {
-  //     set({ isProductUpdating: false });
-  //   }
-  // },
+    const price = product.default_price as Stripe.Price;
 
-  setIsCartSheetOpen: (isOpen) => set({ isCartSheetOpen: isOpen }),
+    const formattedData = {
+      // base
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      content: product.content,
+      rating: product.rating,
+      category: product.category,
+      brand: product.brand,
+      collections: product.collections,
+      currency: product.currency,
+      options: product.options,
+      variants: product.variants,
+
+      // extended with product
+      primaryImage: product.variants[0].images[0].url,
+    };
+
+    successCB(formattedData);
+    return formattedData;
+  },
 }));

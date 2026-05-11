@@ -4,14 +4,15 @@ import request, { createHeaders, urls, requestMiddleware } from "@/lib/api/clien
 // import axios from "axios";
 
 // const api = axios.create({
-//   baseURL: urls.apiApp,
+//   baseURL: urls.localData,
 //   withCredentials: true,
 // });
 
 // api.interceptors.request.use(requestMiddleware);
 
-export async function getProducts() {
+export async function getProducts({query =''}) {
   let url = "/products"
+  if(query ) url += query 
   const headers = createHeaders()
   return request({ url, method: "GET", headers })
 }
@@ -21,8 +22,9 @@ export async function getProduct({ id }: any) {
   const headers = createHeaders()
   return request({ url, method: "GET", headers })
 }
-export async function checkout({ body }: any) {
-  const url = `/checkout`
+
+export async function uploadProducts({body}: any) {
+  let url = "/products"
   const headers = createHeaders()
   return request({ url, method: "POST", headers, body })
 }

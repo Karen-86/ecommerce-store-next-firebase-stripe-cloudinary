@@ -1,26 +1,29 @@
 // /app/api/checkout/route.ts
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/Stripe";
+import { stripe } from "@/lib/stripe/Stripe";
 import type { Product } from "@/modules/products/types";
+import type { CartBaseItem } from "@/modules/carts/types";
 import createError from "@/lib/utils/createError";
 import errorHandlerMiddleware from "@/lib/server/middlewares/system/errorHandler.middleware";
 
 export async function POST(req: Request) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  
+
   try {
     const body = await req.json();
-    if (!body.cartProducts) throw createError("Cart products are missing", 400);
+    if (!body.cart) throw createError("Cart items are missing", 400);
 
-    const line_items = body.cartProducts.map((product: Product) => ({
+    const line_items = body.cart.items.map((cartItem: CartBaseItem) => ({
       price_data: {
-        currency: "usd", //cad, amd 
-        product_data: { name: product.name },
-        unit_amount: product.price, // Stripe expects amount in cents
+        currency: cartItem.productDetails.currency, //cad, amd
+        product_data: {
+          name: cartItem.productDetails.name,
+          images: [cartItem.variantDetails.images[0].url],
+        },
+        unit_amount: Math.round(Number(cartItem.variantDetails.price) * 100), // Stripe expects amount in cents
       },
-      quantity: product.quantity,
+      quantity: cartItem.quantity,
     }));
-
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],

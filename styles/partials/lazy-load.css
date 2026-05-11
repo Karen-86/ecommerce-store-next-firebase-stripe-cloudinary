@@ -1,5 +1,6 @@
 main {
-    overflow: hidden;
+    /* overflow: hidden; */
+    /* overflow-x: hidden; */
 }
 
 [data-lazy] {

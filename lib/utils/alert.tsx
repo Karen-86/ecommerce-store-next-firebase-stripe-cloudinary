@@ -1,9 +1,12 @@
-import React from "react"
-import { toast } from "sonner"
-import { Check, X, AlertTriangle } from "lucide-react"
+import React from "react";
+import { toast } from "sonner";
+import { X, AlertTriangle } from "lucide-react";
+import { LOCAL_DATA } from "@/constants";
+
+const { checkIcon } = LOCAL_DATA.svgs;
 
 const formatDate = () => {
-  const date = new Date() // Get the current date and time
+  const date = new Date(); // Get the current date and time
   const options: Intl.DateTimeFormatOptions = {
     weekday: "long", // Sunday
     year: "numeric", // 2023
@@ -12,62 +15,63 @@ const formatDate = () => {
     hour: "2-digit", // 9:00
     minute: "2-digit", // 00
     hour12: true, // AM/PM
-  }
-  return new Intl.DateTimeFormat("en-US", options).format(date)
-}
+  };
+  return new Intl.DateTimeFormat("en-US", options).format(date);
+};
 
-export const alert = (message: string) => {
+export const alert = (message: string, description = "", action: any = null) => {
   toast(message, {
-    description: `${formatDate()}`,
-    action: {
-      label: "Close",
-      onClick: () => console.log("Close"),
-    },
+    description: description,
+    action: action,
+
+    duration: 5000,
+    position: "bottom-right",
+    icon: checkIcon,
     className: "sonner-toast",
-  })
-}
+  });
+};
 
 export const successAlert = (message: string) => {
   toast(message, {
-    description: `${formatDate()}`,
-    action: {
-      label: "Close",
-      onClick: () => console.log("Close"),
-    },
+    // description: `${formatDate()}`,
+    // action: {
+    //   label: "Close",
+    //   onClick: () => console.log("Close"),
+    // },
     duration: 5000,
     position: "bottom-right",
-    icon: <Check style={{ width: "16px" }} />,
+    icon: checkIcon,
     style: { borderColor: "rgba(46, 125, 50,.3)", color: "rgb(46, 125, 50)" },
     className: "sonner-toast sonner-toast-success",
-  })
-}
+  });
+};
 
 export const errorAlert = (message: string) => {
   toast(message, {
     description: "Something went wrong.",
-    action: {
-      label: "Close",
-      onClick: () => console.log("Retrying"),
-    },
+    // action: {
+    //   label: "Close",
+    //   onClick: () => console.log("Retrying"),
+    // },
     duration: 5000,
     position: "bottom-right",
     icon: <X style={{ width: "16px" }} />,
     style: { borderColor: "rgba(211, 47, 47,.3)", color: "rgb(211, 47, 47)" },
     className: "sonner-toast sonner-toast-error",
-  })
-}
+  });
+};
 
 export const warningAlert = (message: string) => {
   toast(message, {
-    description: "Something went wrong.",
-    action: {
-      label: "Close",
-      onClick: () => console.log("Retrying"),
-    },
+    description: "Warning.",
+    // action: {
+    //   label: "Close",
+    //   onClick: () => console.log("Retrying"),
+    // },
     duration: 5000,
     position: "bottom-right",
     icon: <AlertTriangle style={{ width: "16px" }} />,
     style: { borderColor: "rgb(237, 108, 2,.3)", color: "rgb(237, 108, 2)" },
     className: "sonner-toast sonner-toast-error",
-  })
-}
+  });
+};

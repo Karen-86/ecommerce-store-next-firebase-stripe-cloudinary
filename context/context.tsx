@@ -2,6 +2,7 @@
 
 import React, { useState, createContext, useContext, useEffect } from "react";
 import { useProductStore } from "@/modules/products/store";
+import { useCartStore } from "@/modules/carts/store";
 
 type StateType = {
   [key: string]: any;
@@ -24,9 +25,11 @@ export default function Provider({
 }>) {
   const [state, setState] = useState<StateType>({});
   const getProductsAsync = useProductStore((s) => s.getProductsAsync);
+  const getCartAsync = useCartStore((s) => s.getCartAsync);
   
   useEffect(() => {
-    getProductsAsync();
+    // getProductsAsync();
+    getCartAsync()
   }, []);
 
   return (

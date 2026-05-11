@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { ButtonDemo } from "@/components/index";
 import Link from "next/link";
-import LOCAL_DATA from "@/conststants/localData";
+import LOCAL_DATA from "@/constants/localData";
 import { ChevronLeft } from "lucide-react";
 
 const { successImage } = LOCAL_DATA.images;
@@ -18,11 +18,10 @@ const Template = () => {
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex items-center">
+    <section className="min-h-screen pt-40!">
       <div className="container text-center">
-        <h1 className="text-6xl mb-8 text-green-700 uppercase">SUCCESS</h1>
-        <br />
-        <img src={successImage} className="w-full max-w-30 mx-auto mb-12" />
+          <img src={successImage} className="w-full h-full max-w-20 mx-auto mb-7" />
+        <h2 className="text-3xl sm:text-4xl mb-5">SUCCESS</h2>
       </div>
     </section>
   );

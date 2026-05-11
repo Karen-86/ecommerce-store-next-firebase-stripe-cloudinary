@@ -35,7 +35,7 @@ const SubscribeBanner = () => {
 
     const CONTENT =
       (email ? `<p><strong>email</strong>: ${email}</p>` : "") +
-      (image ? `<img src="${image}" width='200' style="height:auto;"  />` : "");
+      (image ? `<img src="${image}" width='100' style="height:auto;"  />` : "");
     form.CONTENT.value = CONTENT;
 
     sendEmail({ form });
@@ -58,7 +58,7 @@ const SubscribeBanner = () => {
           name="email"
           type="email"
           value={state.email}
-          callback={handleOnChange}
+          onChange={handleOnChange}
         />
         <input type="text" name="image" defaultValue={`${siteUrl}/assets/images/logo.png`} className="hidden" />
         <input type="text" name="CONTENT" className="hidden" />
@@ -69,7 +69,7 @@ const SubscribeBanner = () => {
           disabled={isLoading}
           className="rounded-full px-7 w-full sm:w-auto"
           variant="light"
-          size="lg"
+          size="xl"
           text="Subscribe"
         />
       </form>

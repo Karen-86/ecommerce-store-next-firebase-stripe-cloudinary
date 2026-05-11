@@ -54,6 +54,8 @@
   --text-6xl: 3rem;
   --font-poppins: var(--font-poppins);
   --color-secondary-v2: rgb(144, 161, 185);
+  --color-secondary-v3: rgb(153, 153, 153);
+  --color-secondary-v4: rgb(69, 85, 108);
 }
 
 :root {
@@ -67,8 +69,9 @@
   /* --primary: oklch(0.205 0 0); */
   --primary: rgb(32, 122, 186);
   --primary-foreground: oklch(0.985 0 0);
-  /* --secondary: oklch(0.97 0 0); */
-  --secondary: rgb(69, 85, 108);
+  --secondary: oklch(0.97 0 0);
+  /* --secondary: rgb(69, 85, 108); */
+   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);

@@ -3,6 +3,10 @@ import { Geist, Geist_Mono, Poppins, Plus_Jakarta_Sans } from "next/font/google"
 import { Header, Footer } from "@/components/index";
 import Provider from "@/context/context";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/modules/auth/AuthProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+
 import "../styles/index.css";
 
 const geistSans = Geist({
@@ -27,7 +31,7 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://next-modules.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://next-modules.vercel.app";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -60,13 +64,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${jakarta.variable} antialiased`}
       >
         <Provider>
-          {children}
-          <Toaster />
+          <ThemeProvider>
+            <AuthProvider>
+              <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
+            </AuthProvider>
+          </ThemeProvider>
+          <Toaster className="pointer-events-auto!" />
+
         </Provider>
       </body>
     </html>

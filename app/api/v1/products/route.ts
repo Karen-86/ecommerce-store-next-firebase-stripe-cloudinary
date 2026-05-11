@@ -1,21 +1,168 @@
 import { NextRequest, NextResponse } from "next/server";
 import errorHandlerMiddleware from "@/lib/server/middlewares/system/errorHandler.middleware";
-import { stripe } from "@/lib/Stripe";
+// import { stripe } from "@/lib/stripe/Stripe";
+
+import { db } from "@/lib/firebase/config/firebaseAdmin";
+import isAuthenticatedMiddleware from "@/lib/server/middlewares/authentication/isAuthenticated.middleware";
+import allowRolesMiddleware from "@/lib/server/middlewares/authorization/allowRoles.middleware";
+import loadUserMiddleware from "@/lib/server/middlewares/authentication/loadUser.middleware";
+
+// STRIPE
+// export async function GET(req: NextRequest) {
+//   try {
+//     const products = await stripe.products.list({
+//       expand: ["data.default_price"],
+//     });
+//     const plainProducts = JSON.parse(JSON.stringify(products));
+
+//     return NextResponse.json(
+//       {
+//         success: true,
+//         message: "Products found successfully",
+//         data: plainProducts,
+//       },
+//       { status: 200 },
+//     );
+//   } catch (err: any) {
+//     return errorHandlerMiddleware(err);
+//   }
+// }
+
+const DEFAULT_LIMIT = 60;
+const MAX_LIMIT = 100;
 
 export async function GET(req: NextRequest) {
   try {
-    const products = await stripe.products.list({
-      expand: ["data.default_price"],
-    });
-    const plainProducts = JSON.parse(JSON.stringify(products));
+    const url = req.nextUrl;
+    const userId = url.searchParams.get("userId");
+    const sort = url.searchParams.get("sort");
+    const order = url.searchParams.get("order");
+    const category = url.searchParams.get("category");
+    const brand = url.searchParams.get("brand");
+    const price = url.searchParams.get("price");
+    const search = url.searchParams.get("search")?.toLowerCase().trim();
+
+    const page = Number(url.searchParams.get("page") || 1);
+    const limit = Math.min(Number(url.searchParams.get("limit") || DEFAULT_LIMIT), MAX_LIMIT);
+
+    const collectionsParam = url.searchParams.get("collections");
+    const collections = collectionsParam ? collectionsParam.split(",").filter(Boolean) : [];
+
+    let productsRef: FirebaseFirestore.Query = db.collection("products");
+
+    if (userId) productsRef = productsRef.where("userId", "==", userId);
+
+    if (sort) {
+      const safeOrder = order === "asc" ? "asc" : "desc"; // default to desc if sort is provided
+      productsRef = productsRef.orderBy(sort, safeOrder);
+    }
+
+    if (category) productsRef = productsRef.where("category", "==", category);
+    if (brand) productsRef = productsRef.where("brand", "==", brand);
+    if (price) {
+      const [min, max] = price.split("-");
+
+      productsRef = productsRef.where("minPrice", ">=", Number(min));
+
+      if (max !== "*") {
+        productsRef = productsRef.where("minPrice", "<=", Number(max));
+      }
+    }
+
+    if (collections.length) {
+      productsRef = productsRef.where("collections", "array-contains-any", collections);
+    }
+
+    // old simple scenario
+    // const limit = url.searchParams.get("limit");
+    // if (limit) {
+    //   const safeLimit = Math.min(Number(limit), 100); // max 100
+    //   productsRef = productsRef.limit(safeLimit);
+    // }
+
+    // pagination
+    const offset = (page - 1) * limit;
+    const totalSnap = await productsRef.get();
+    const total = totalSnap.size;
+
+    // const productsSnap = await productsRef.get();
+    const productsSnap = await productsRef.offset(offset).limit(limit).get();
+    let productsData = productsSnap.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    if (search) {
+      productsData = productsData.filter((product: any) => {
+        return product.name?.toLowerCase().includes(search);
+        // ||
+        // product.description?.toLowerCase().includes(search) ||
+        // product.brand?.toLowerCase().includes(search) ||
+        // product.category?.toLowerCase().includes(search)
+      });
+    }
 
     return NextResponse.json(
       {
         success: true,
-        message: "Products found successfully",
-        data: plainProducts,
+        message: "products found successfully",
+        data: {
+          totalPages: Math.ceil(total / limit),
+          totalCount: total, 
+          currentPage: page,
+          products: productsData,
+        },
       },
       { status: 200 },
+    );
+  } catch (err: any) {
+    return errorHandlerMiddleware(err);
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const decoded = await isAuthenticatedMiddleware(req);
+
+    const body = await req.json();
+
+    const { userData } = await loadUserMiddleware({ decoded });
+
+    const user = userData;
+
+    allowRolesMiddleware({ userRoles: user.roles, allowedRoles: ["superAdmin"] });
+
+    const productsRef = db.collection("products");
+
+    // 1. delete all existing products
+    const existingProductsSnap = await productsRef.get();
+
+    const deleteBatch = db.batch();
+
+    existingProductsSnap.docs.forEach((doc) => {
+      deleteBatch.delete(doc.ref);
+    });
+
+    await deleteBatch.commit();
+
+    // 2. upload new products
+    const uploadBatch = db.batch();
+
+    // firebase allow max 500 items
+    body.products.forEach((product: any) => {
+      const productRef = productsRef.doc(product.id);
+      uploadBatch.set(productRef, product);
+    });
+
+    await uploadBatch.commit();
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: `${body.products.length} products uploaded successfully`,
+        data: null,
+      },
+      { status: 201 },
     );
   } catch (err: any) {
     return errorHandlerMiddleware(err);

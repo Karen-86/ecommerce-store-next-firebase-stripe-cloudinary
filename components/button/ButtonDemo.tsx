@@ -6,8 +6,21 @@ import { Button } from "@/components/ui/button";
 type ButtonDemoProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string;
   text?: ReactNode;
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "success" | "dark" | "light";
-  size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "outlineDanger"
+    | "secondary"
+    | "ghost"
+    | "link"
+    | "success"
+    | "dark"
+    | "light"
+    | "ghostDanger"
+    | "ghostStrong"
+    | "ghostSecondary";
+  size?: "default" | "xs" | "sm" | "lg" | "xl" | "icon" | "icon-sm" | "icon-lg" | null | undefined;
   icon?: ReactElement | null;
   startIcon?: ReactElement | null;
   endIcon?: ReactElement | null;

@@ -3,12 +3,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import {  ButtonDemo, GuideBanner, SubscribeBanner } from "@/components/index.js";
 import Image from "next/image";
-import LOCAL_DATA from "@/conststants/localData";
+import LOCAL_DATA from "@/constants/localData";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import FeaturesSection from "./sections/FeaturesSection";
-import TrendsSection from "./sections/TrendsSection";
+import TrendingsSection from "./sections/TrendingsSection";
 
 const { exampleSVGImage } = LOCAL_DATA.images;
 
@@ -23,9 +23,9 @@ const Template = () => {
       <div className="container">
         <GuideBanner/>
       </div>
-      <TrendsSection />
+      <TrendingsSection />
       <div className="container">
-        <hr className="border-primary/10 my-10" />
+        <hr className="border-primary/10" />
       </div>
       <div className="container">
         <SubscribeBanner/>
@@ -42,7 +42,7 @@ const HeroSection = () => {
       <motion.div
         onViewportEnter={() => setIsInView(true)}
         viewport={{ amount: 0.7 }}
-        className={`${inView ? "lazy-animate" : ""} container flex flex-1 flex-col md:flex-row gap-10 items-center justify-between`}
+        className={`${inView ? "lazy-animate" : ""}  overflow-hidden container flex flex-1 flex-col md:flex-row gap-10 items-center justify-between`}
         data-lazy="fade"
       >
         <div className="hero-content max-w-[500px] text-center md:text-left">
@@ -53,7 +53,7 @@ const HeroSection = () => {
             statement pieces.
           </h2>
           <Link href="/shop">
-            <ButtonDemo className="rounded-full" variant="dark" size="lg" text="Shop Now" endIcon={<ArrowRight />} />
+            <ButtonDemo className="rounded-full" variant="dark" size="xl" text="Shop Now" endIcon={<ArrowRight />} />
           </Link>
         </div>
         <div className="w-full max-w-[450px]">

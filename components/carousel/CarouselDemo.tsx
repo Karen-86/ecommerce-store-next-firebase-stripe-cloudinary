@@ -13,6 +13,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 type CarouselDemoProps = {
   className?: string;
+  contentClassName?: string;
   itemClassName?: string;
   orientation?: "horizontal" | "vertical" | undefined;
   loop?: boolean;
@@ -25,6 +26,7 @@ type CarouselDemoProps = {
 
 export function CarouselDemo({
   className = "",
+  contentClassName= "",
   itemClassName = "md:basis-1/2 lg:basis-1/3",
   orientation = "horizontal",
   loop = false,
@@ -44,7 +46,7 @@ export function CarouselDemo({
 
     api.on("select", () => {
       // Do something on select.
-      console.log("trigger");
+      // console.log("trigger");
     });
   }, [api]);
 
@@ -52,7 +54,7 @@ export function CarouselDemo({
     <Carousel
       ref={carouselRef}
       setApi={setApi}
-      className={`${className} mb-[30px]`}
+      className={`${className}`}
       opts={{
         align: align,
         loop: loop,
@@ -60,7 +62,7 @@ export function CarouselDemo({
       orientation={orientation}
       plugins={autoplay ? [Autoplay({ delay: 2000 })] : []}
     >
-      <CarouselContent className="-ml-1">
+      <CarouselContent className={`-ml-1 ${contentClassName}`}>
         {items.map((item:any, index:number) => (
           <CarouselItem key={index} className={`pl-1 ${itemClassName}`}>
             <div className="p-1">

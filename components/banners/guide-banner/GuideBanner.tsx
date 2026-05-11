@@ -1,5 +1,5 @@
 import React from "react";
-import LOCAL_DATA from "@/conststants/localData";
+import LOCAL_DATA from "@/constants/localData";
 
 const { guideBannerImage1, guideBannerImage2, guideBannerImage3 } = LOCAL_DATA.images;
 

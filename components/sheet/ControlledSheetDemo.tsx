@@ -45,7 +45,7 @@ export function ControlledSheetDemo({
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
-        <div className="sheet-body">{typeof children === "function" ? children(closeSheet) : children}</div>
+        <div className="sheet-body flex-1 flex flex-col">{typeof children === "function" ? children(closeSheet) : children}</div>
         {/* <SheetFooter>
           <SheetClose asChild>
             <Button type="submit" size="sm">
