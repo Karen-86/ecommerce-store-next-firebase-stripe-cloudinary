@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     if (authUser && guestRoutes.includes(pathname)) {
-      router.replace("/dashboard")
+      router.replace("/")
       return
     }
 

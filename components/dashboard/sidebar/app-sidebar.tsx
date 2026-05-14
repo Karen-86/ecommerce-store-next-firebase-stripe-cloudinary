@@ -22,7 +22,8 @@ import { usePathname } from "next/navigation";
 
 const { userIcon, userGearIcon, gridIcon, globIcon } = LOCAL_DATA.svgs;
 
-const {} = LOCAL_DATA.images;
+
+const { logo, productImage } = LOCAL_DATA.images;
 
 const data = {
   navMain: [
@@ -74,12 +75,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="py-[18px] ">
         <SidebarMenuButton className="hover:bg-transparent active:bg-transparent">
           <Link href="/">
-            <h2
-              className={`text-gray-600 text-lg font-medium group-data-[collapsible=icon]:hidden whitespace-nowrap duration-200 pointer-events-none`}
-            >
-              Logo
-            </h2>
+    
+
+          <img src={logo} alt="" className="max-w-[90px] h-auto group-data-[collapsible=icon]:hidden whitespace-nowrap duration-200" />
           </Link>
+
+          
         </SidebarMenuButton>
       </SidebarHeader>
 

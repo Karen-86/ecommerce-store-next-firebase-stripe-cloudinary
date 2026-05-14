@@ -6,10 +6,12 @@ import { ButtonDemo, CheckboxDemo } from "@/components/index";
 import LOCAL_DATA from "@/constants/localData";
 import type { ProductWithCart } from "@/modules/products/types";
 import { useCartStore } from "@/modules/carts/store";
+import { useAuthStore } from "@/modules/auth/store";
 import { ShoppingCartIcon, ShoppingBag, StarIcon, Minus, Plus, Trash } from "lucide-react";
 import { DetailsSection } from "@/app/(site)/products/[id]/Template";
 import useProductWithCart from "@/modules/products/hooks/useProductWithCart";
 import type { Cart, CartItemWithCheckbox } from "@/modules/carts/types";
+import { alert } from "@/lib/utils/alert";
 
 const { productImage, preloader } = LOCAL_DATA.images;
 
@@ -23,7 +25,7 @@ export const CartItemCard = ({
   cartItem,
   isInSheet = false,
   onClose,
-  setCartItemsWithCheckbox=()=>{},
+  setCartItemsWithCheckbox = () => {},
 }: {
   cartItem: CartItemWithCheckbox;
   isInSheet?: boolean;
@@ -33,16 +35,23 @@ export const CartItemCard = ({
   const [imageURL, setImageURL] = useState(productImage);
 
   const deleteCartItemAsync = useCartStore((s) => s.deleteCartItemAsync);
-  const isCartItemDeleting = useCartStore((s) => s.isCartItemDeleting);
+  const authUser = useAuthStore((s) => s.authUser);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteCart = async () => {
     try {
       setIsDeleting(true);
+
       await deleteCartItemAsync({
-        productId: cartItem.productId,
-        variantKey: cartItem.variantKey,
+        cartId: authUser?.uid,
+        cartItemId: cartItem?.id,
+        successCB: () => {
+          alert("Removed from cart successfully!");
+        },
+        errorCB: (message: string) => {
+          alert(message || "Something went wrong. Please try again!");
+        },
       });
     } finally {
       setIsDeleting(false);
@@ -60,10 +69,10 @@ export const CartItemCard = ({
           checked={cartItem.isSelected}
           onCheckedChange={(checked) => {
             setCartItemsWithCheckbox((prev: CartItemWithCheckbox[]) => {
-              return prev.map(item => ({
+              return prev.map((item) => ({
                 ...item,
-                isSelected: cartItem.id == item.id ? checked : item.isSelected
-              }))
+                isSelected: cartItem.id == item.id ? checked : item.isSelected,
+              }));
             });
           }}
         />
@@ -140,8 +149,7 @@ export const CartItemCard = ({
 
 const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithCheckbox; deleteCart: () => void }) => {
   const updateCartItemAsync = useCartStore((s) => s.updateCartItemAsync);
-  const deleteCartItemAsync = useCartStore((s) => s.deleteCartItemAsync);
-  const isCartItemDeleting = useCartStore((s) => s.isCartItemDeleting);
+  const authUser = useAuthStore((s) => s.authUser);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -171,10 +179,15 @@ const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithChec
     debounceRef.current = setTimeout(() => {
       try {
         updateCartItemAsync({
-          productId: cartItem.productId,
-          variantKey: getVariantKey(cartItem.variantDetails.attributes || {}),
+          cartId: authUser?.uid,
+          cartItemId: cartItem.id,
           body: {
+            // productId: productWithCart.id,
+            // variantKey: getVariantKey(activeVariant.attributes || {}),
             quantity: next,
+          },
+          errorCB: (message: string) => {
+            alert(message || "Something went wrong. Please try again!");
           },
         });
       } finally {

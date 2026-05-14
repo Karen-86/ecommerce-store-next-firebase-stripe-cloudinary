@@ -3,6 +3,7 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 import { useProductStore } from "@/modules/products/store";
 import { useCartStore } from "@/modules/carts/store";
+import { useAuthStore } from "@/modules/auth/store";
 
 type StateType = {
   [key: string]: any;
@@ -24,13 +25,16 @@ export default function Provider({
   // CMSFetchedData: any;
 }>) {
   const [state, setState] = useState<StateType>({});
-  const getProductsAsync = useProductStore((s) => s.getProductsAsync);
   const getCartAsync = useCartStore((s) => s.getCartAsync);
-  
+  const setCartMode = useCartStore((s) => s.setCartMode);
+  const authUser = useAuthStore((s) => s.authUser);
+
   useEffect(() => {
-    // getProductsAsync();
-    getCartAsync()
-  }, []);
+    // auth still loading
+    if (authUser === undefined) return;
+
+    setCartMode();
+  }, [authUser, ]);
 
   return (
     <Context.Provider

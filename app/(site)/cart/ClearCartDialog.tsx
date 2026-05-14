@@ -5,6 +5,8 @@ import { ButtonDemo, DialogDemo, InputDemo } from "@/components/index";
 import { useUserStore } from "@/modules/users/store";
 import { successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
 import { useCartStore } from "@/modules/carts/store";
+import { useAuthStore } from "@/modules/auth/store";
+import { alert } from "@/lib/utils/alert";
 
 export const ClearCartDialog = () => {
   return (
@@ -23,9 +25,14 @@ const ClearCartDialogContent = ({ closeDialog = () => {} }) => {
   const isTargetUserDeleting = useUserStore((s) => s.isTargetUserDeleting);
   const deleteCartAsync = useCartStore((s) => s.deleteCartAsync);
   const isCartDeleting = useCartStore((s) => s.isCartDeleting);
+  const authUser = useAuthStore((s) => s.authUser);
 
   const clearCart = async () => {
-    await deleteCartAsync();
+    await deleteCartAsync({
+      cartId: authUser?.uid,
+      successCB: (message: string) => alert(message),
+      errorCB: (message: string) => alert(message),
+    });
   };
 
   return (
@@ -48,12 +55,7 @@ const ClearCartDialogContent = ({ closeDialog = () => {} }) => {
           disabled={isTargetUserDeleting}
         />
 
-        <ButtonDemo
-          disabled={isCartDeleting}
-          variant="destructive"
-          text={`Submit`}
-          onClick={clearCart}
-        />
+        <ButtonDemo disabled={isCartDeleting} variant="destructive" text={`Submit`} onClick={clearCart} />
       </div>
     </div>
   );
