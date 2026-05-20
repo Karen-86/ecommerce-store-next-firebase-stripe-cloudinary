@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       amount: cart.items.reduce((sum: number, item: any) => sum + item.quantity * Number(item.variantDetails.price), 0),
       status: "pending",
       paymentStatus: "unpaid",
-      ...(user ? { shippingAddress: user.addresses?.find((address: any) => address.isDefault) } : {}),
+      ...(user?.addresses ? { shippingAddress: user.addresses?.find((address: any) => address.isDefault) } : {}),
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
