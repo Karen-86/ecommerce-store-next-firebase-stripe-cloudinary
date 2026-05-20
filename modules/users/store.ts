@@ -1,24 +1,30 @@
-import { create } from "zustand"
-import type { UserResponse } from "@/modules/users/types"
-import { useAuthStore } from "@/modules/auth/store"
-import * as usersApi from "@/modules/users/api"
+import { create } from "zustand";
+import type { UserResponse } from "@/modules/users/types";
+import { useAuthStore } from "@/modules/auth/store";
+import * as usersApi from "@/modules/users/api";
 
-const noop = () => {}
+const noop = () => {};
 
 type UserStore = {
-  users: UserResponse[]
-  targetUser: UserResponse
-  isTargetUserLoading: boolean
-  isUsersLoading: boolean
-  isTargetUserUpdating: boolean
-  isTargetUserRolesUpdating: boolean
-  isTargetUserDeleting: boolean
-  getUsersAsync: (params?: any) => Promise<void>
-  getTargetUserAsync: (params?: any) => Promise<void>
-  updateTargetUserAsync: (params?: any) => Promise<void>
-  updateTargetUserRolesAsync: (params?: any) => Promise<void>
-  deleteTargetUserAsync: (params?: any) => Promise<void>
-}
+  users: UserResponse[];
+  targetUser: UserResponse;
+  isTargetUserLoading: boolean;
+  isUsersLoading: boolean;
+  isTargetUserUpdating: boolean;
+  isTargetUserRolesUpdating: boolean;
+  isTargetUserAddressCreating: boolean;
+  isTargetUserAddressUpdating: boolean;
+  isTargetUserAddressDeleting: boolean;
+  isTargetUserDeleting: boolean;
+  getUsersAsync: (params?: any) => Promise<void>;
+  getTargetUserAsync: (params?: any) => Promise<void>;
+  updateTargetUserAsync: (params?: any) => Promise<void>;
+  updateTargetUserRolesAsync: (params?: any) => Promise<void>;
+  createTargetUserAddressAsync: (params?: any) => Promise<void>;
+  updateTargetUserAddressAsync: (params?: any) => Promise<void>;
+  deleteTargetUserAddressAsync: (params?: any) => Promise<void>;
+  deleteTargetUserAsync: (params?: any) => Promise<void>;
+};
 
 export const useUserStore = create<UserStore>((set, get) => ({
   users: [],
@@ -27,98 +33,163 @@ export const useUserStore = create<UserStore>((set, get) => ({
   isUsersLoading: false,
   isTargetUserUpdating: false,
   isTargetUserRolesUpdating: false,
+  isTargetUserAddressCreating: false,
+  isTargetUserAddressUpdating: false,
+  isTargetUserAddressDeleting: false,
   isTargetUserDeleting: false,
 
   getUsersAsync: async ({ successCB = noop, errorCB = noop } = {}) => {
-    set({ isUsersLoading: true })
+    set({ isUsersLoading: true });
 
     try {
-      const data = await usersApi.getUsers()
+      const data = await usersApi.getUsers();
 
-      if (!data.success) return errorCB(data.message)
-      console.log(data, " =getUsersAsync=")
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =getUsersAsync=");
 
-      set({ users: data.data })
-      successCB(data.message)
+      set({ users: data.data });
+      successCB(data.message);
     } finally {
-      set({ isUsersLoading: false })
+      set({ isUsersLoading: false });
     }
   },
 
   getTargetUserAsync: async ({ userId = "", successCB = noop, errorCB = noop }) => {
-    set({ isTargetUserLoading: true })
+    set({ isTargetUserLoading: true });
 
     try {
-      const userData= await usersApi.getUser({ id: userId })
+      const userData = await usersApi.getTargetUser({ userId: userId });
 
-      if (!userData.success) return errorCB(userData.message)
-      console.log(userData, " =getTargetUserAsync=")
+      if (!userData.success) return errorCB(userData.message);
+      console.log(userData, " =getTargetUserAsync=");
 
-      set({ targetUser: userData.data })
-      successCB(userData.message)
+      set({ targetUser: userData.data });
+      successCB(userData.message);
     } finally {
-      set({ isTargetUserLoading: false })
+      set({ isTargetUserLoading: false });
     }
   },
 
-  updateTargetUserAsync: async ({ userId = "", fields = {}, successCB = noop, errorCB = noop }) => {
-    set({ isTargetUserUpdating: true })
+  updateTargetUserAsync: async ({ userId = "", body = {}, successCB = noop, errorCB = noop }) => {
+    set({ isTargetUserUpdating: true });
 
     try {
-      const data = await usersApi.updateUser({ id: userId, body: fields })
+      const data = await usersApi.updateTargetUser({ userId: userId, body: body });
 
-      if (!data.success) return errorCB(data.message)
-      console.log(data, " =updateTargetUserAsync=")
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =updateTargetUserAsync=");
 
-      await get().getUsersAsync()
-      successCB(data.message || "User has been updated successfully.")
+      await get().getUsersAsync();
+      successCB(data.message || "User has been updated successfully.");
     } finally {
-      set({ isTargetUserUpdating: false })
+      set({ isTargetUserUpdating: false });
     }
   },
 
   updateTargetUserRolesAsync: async ({
     userId = "",
-    fields = {},
+    body = {},
     successCB = noop,
     errorCB = noop,
     warningCB = noop,
   }) => {
-    set({ isTargetUserRolesUpdating: true })
+    set({ isTargetUserRolesUpdating: true });
 
     try {
-      const data = await usersApi.updateUserRoles({ id: userId, body: fields })
+      const data = await usersApi.updateTargetUserRoles({ userId: userId, body: body });
 
-      if (!data.success && data.message === "Field roles is required") return warningCB("No changes was made.")
-      if (!data.success) return errorCB(data.message)
-      console.log(data, " =updateTargetUserRolesAsync=")
+      if (!data.success && data.message === "Field roles is required") return warningCB("No changes was made.");
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =updateTargetUserRolesAsync=");
 
-      await get().getUsersAsync()
-      successCB(data.message || "User roles has been updated successfully.")
+      await get().getUsersAsync();
+      successCB(data.message || "User roles has been updated successfully.");
     } finally {
-      set({ isTargetUserRolesUpdating: false })
+      set({ isTargetUserRolesUpdating: false });
+    }
+  },
+
+  createTargetUserAddressAsync: async ({ userId = "", body = {}, successCB = noop, errorCB = noop }) => {
+    set({ isTargetUserAddressCreating: true });
+
+    try {
+      const data = await usersApi.createTargetUserAddress({ userId: userId, body: body });
+
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =createTargetUserAddressAsync=");
+
+      await useAuthStore.getState().getProfileAsync();
+      successCB("Address added.");
+    } finally {
+      set({ isTargetUserAddressCreating: false });
+    }
+  },
+
+  updateTargetUserAddressAsync: async ({
+    userId = "",
+    addressId = "",
+    query = "",
+    body = {},
+    successCB = noop,
+    errorCB = noop,
+  }) => {
+    set({ isTargetUserAddressUpdating: true });
+
+    try {
+      const data = await usersApi.updateTargetUserAddress({ userId, addressId, body, query });
+
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =updateTargetUserAddressAsync=");
+
+      await useAuthStore.getState().getProfileAsync();
+
+      successCB("Address updated.");
+    } finally {
+      set({ isTargetUserAddressUpdating: false });
+    }
+  },
+  deleteTargetUserAddressAsync: async ({
+    userId = "",
+    addressId = "",
+    body = {},
+    successCB = noop,
+    errorCB = noop,
+  }) => {
+    set({ isTargetUserAddressDeleting: true });
+
+    try {
+      const data = await usersApi.deleteTargetUserAddress({ userId, addressId, body });
+
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =deleteTargetUserAddressAsync=");
+
+      await useAuthStore.getState().getProfileAsync();
+
+      successCB("Address deleted.");
+    } finally {
+      set({ isTargetUserAddressDeleting: false });
     }
   },
 
   deleteTargetUserAsync: async ({ userId = "", successCB = noop, errorCB = noop }) => {
-    set({ isTargetUserDeleting: true })
+    set({ isTargetUserDeleting: true });
     try {
-      const user = useAuthStore.getState().user
+      const user = useAuthStore.getState().user;
 
-      const data = await usersApi.deleteUser({ id: userId })
+      const data = await usersApi.deleteTargetUser({ userId: userId });
 
-      if (!data.success) return errorCB(data.message)
-      console.log(data, " =deleteTargetUserAsync=")
+      if (!data.success) return errorCB(data.message);
+      console.log(data, " =deleteTargetUserAsync=");
 
       if (userId === user.id) {
-        successCB("Account deleted successfully")
+        successCB("Account deleted successfully");
         // setTimeout(() => handleSignOut(), 3000)
       } else {
-        await get().getUsersAsync()
-        successCB(data.message || "User has been deleted successfully.")
+        await get().getUsersAsync();
+        successCB(data.message || "User has been deleted successfully.");
       }
     } finally {
-      set({ isTargetUserDeleting: false })
+      set({ isTargetUserDeleting: false });
     }
   },
-}))
+}));

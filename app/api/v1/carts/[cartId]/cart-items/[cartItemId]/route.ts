@@ -24,7 +24,6 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ ca
       id: cartId,
       reqKey: "cart",
       collectionName: "carts",
-      ignoreNotFound: true,
     });
 
     if (!cart) throw createError("Cart not found", 404);

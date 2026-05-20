@@ -115,7 +115,7 @@ const SignInForm = () => {
           className={`w-full text-sm text-gray-700`}
           disabled={isLoading}
           variant="outline"
-          onClick={handleSignInWithGoogle}
+          onClick={()=>handleSignInWithGoogle()}
         />
       </div>
     </div>

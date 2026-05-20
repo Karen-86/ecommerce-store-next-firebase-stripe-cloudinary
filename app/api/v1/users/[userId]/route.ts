@@ -52,7 +52,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ us
       collectionName: "users",
     })
 
-    const isAllowed = isOwnerMiddleware({ actingUser: decoded, targetUser: foundUser })
+    isOwnerMiddleware({ actingUser: decoded, targetUser: foundUser })
 
     const updatedUser = {
       ...value,

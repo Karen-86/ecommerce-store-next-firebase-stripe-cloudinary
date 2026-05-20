@@ -1,13 +1,8 @@
 import { create } from "zustand";
 import type { Cart, CartBaseItem } from "@/modules/carts/types";
-import Stripe from "stripe";
 import * as cartsApi from "@/modules/carts/api";
-import { useProductStore } from "../products/store";
 import { useAuthStore } from "../auth/store";
-import { ProductWithCart } from "../products/types";
 import { v4 as uuidv4 } from "uuid";
-
-const USER = null;
 
 const noop = () => {};
 
@@ -55,8 +50,6 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
         await get().attachGuestCartItemsAsync({ cartId: authUser?.uid, body: { guestCartItems: guestCart.items } });
         localStorage.removeItem("cart");
-        
-        // console.log(cart.items, ' hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
       }
     } else {
       set({ cartMode: "guest" });
@@ -69,12 +62,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   getCartAsync: async ({ cartId = "", successCB = noop, errorCB = noop } = {}) => {
     set({ isCartLoading: true });
-        console.log(cartId,' jjjjjjjjjjjjjjjjjjjjjjj')
 
     try {
       // Firestore
       if (get().cartMode === "user") {
-        const data = await cartsApi.getCart({ id: cartId });
+        const data = await cartsApi.getCart({  cartId });
 
         if (!data.success) return errorCB(data.message);
         console.log(data, " =getCartAsync=");
@@ -165,7 +157,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
       else {
         await new Promise((r) => setTimeout(() => r(false), 300));
 
-        let cart: Cart = get().cart || { userId: "guest", items: [] };
+        let cart: Cart = get().cart || { guestId: `guest-${Date.now()}`, items: [] };
 
         cart = {
           ...cart,
@@ -211,7 +203,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
       else {
         await new Promise((r) => setTimeout(() => r(false), 300));
 
-        let cart: Cart = get().cart || { userId: "guest", items: [] };
+        let cart: Cart = get().cart || { guestId: `guest-${Date.now()}`, items: [] };
 
         cart = {
           ...cart,
@@ -254,7 +246,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
       else {
         await new Promise((r) => setTimeout(() => r(false), 300));
 
-        let cart: Cart = get().cart || { userId: "guest", items: [] };
+        let cart: Cart = get().cart || { guestId: `guest-${Date.now()}`, items: [] };
 
         cart = {
           ...cart,

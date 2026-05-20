@@ -16,8 +16,8 @@ export async function checkout({ body }: any) {
   return request({ url, method: "POST", headers, body });
 }
 
-export async function getCart({ id }: any) {
-  const url = `/carts/${id}`;
+export async function getCart({ cartId }: any) {
+  const url = `/carts/${cartId}`;
   const headers = createHeaders();
   return request({ url, method: "GET", headers });
 }

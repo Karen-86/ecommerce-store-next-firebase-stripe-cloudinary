@@ -23,17 +23,24 @@ const CartSheet = () => {
   // const isProductsLoading = useProductStore((s) => s.isProductsLoading);
 
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-    const { cartItemsWithCheckbox } = useCartItemsWithCheckbox();
+  const { cartItemsWithCheckbox } = useCartItemsWithCheckbox();
 
   const handleCheckout = async () => {
     setIsCheckingOut(true);
-    // const res = await checkoutAction({ cartProducts });
+
     const selectedItems = cartItemsWithCheckbox.filter((item) => item.isSelected);
-    const res = await cartsApi.checkout({ body: { cart: { items: selectedItems } } });
+    const res = await cartsApi.checkout({
+      body: {
+        cart: {
+          ...(cart?.guestId ? { guestId: cart?.guestId } : {}),
+          items: selectedItems,
+        },
+      },
+    });
     setIsCheckingOut(false);
 
     if (!res.success) return errorAlert(res.message || "error");
-    redirect(res.url!);
+    redirect(res.data.url!);
   };
 
   return (

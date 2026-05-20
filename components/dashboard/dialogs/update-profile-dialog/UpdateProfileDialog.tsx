@@ -67,7 +67,7 @@ const UpdateProfileContent = ({ closeDialog = () => {} }) => {
 
     updateTargetUserAsync({
       userId: authUser?.uid,
-      fields,
+      body: fields,
       successCB: () => {
         closeDialog();
         getProfileAsync();

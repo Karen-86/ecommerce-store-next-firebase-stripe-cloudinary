@@ -14,4 +14,12 @@ export const updateUserRolesSchema = Joi.object({
   .min(1)
   .options({ abortEarly: false });
 
+export const createUserAddressSchema = Joi.object({
+  country: Joi.string().min(2).required(),
+  state: Joi.string().min(3).allow(""),
+  city: Joi.string().min(3).required(),
+  streetAddress: Joi.string().min(3).required(),
+  postalCode: Joi.string().required(),
+})
+
   

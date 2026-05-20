@@ -8,7 +8,8 @@ export type CartBaseItem = {
 };
 
 export type CartBase = {
-  userId: string;
+  userId?: string;
+  guestId?: string;
   items: CartBaseItem[];
   shipping?: number;
   tax?: number;

@@ -30,7 +30,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ us
       collectionName: "users",
     })
 
-    const isAllowed = checkRoleHierarchyMiddleware({ user, foundUser })
+     checkRoleHierarchyMiddleware({ user, foundUser })
 
     const updatedUser = {
       ...value,

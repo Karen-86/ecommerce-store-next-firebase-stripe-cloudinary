@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 type InputDemoProps = React.InputHTMLAttributes<HTMLInputElement> & {
   className?: string;
   inputClassName?: string;
+  labelClassName?: string;
   label?: ReactNode;
   errorMessage?: string;
   successMessage?: string;
@@ -15,6 +16,7 @@ type InputDemoProps = React.InputHTMLAttributes<HTMLInputElement> & {
 export function InputDemo({
   className = "",
   inputClassName = "",
+  labelClassName='',
   label = "",
   successMessage = "",
   errorMessage = "",
@@ -25,7 +27,7 @@ export function InputDemo({
   return (
     <div className={`field grid items-center gap-1.5 relative ${className}`}>
       {label && (
-        <Label htmlFor={id} className="w-fit mb-3">
+        <Label htmlFor={id} className={`w-fit ${labelClassName}`}>
           {label}
         </Label>
       )}

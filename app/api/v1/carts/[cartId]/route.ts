@@ -48,7 +48,6 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ c
       id: cartId,
       reqKey: "cart",
       collectionName: "carts",
-      ignoreNotFound: true,
     });
 
     isResourceOwnerMiddleware({ actingUser: decoded, resource: cart });

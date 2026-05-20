@@ -1,84 +1,70 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import {
   ButtonDemo,
   DialogDemo,
   InputDemo,
   SelectDemo,
   // SelectScrollable
-} from "@/components/index"
-import { successAlert, errorAlert, warningAlert } from "@/lib/utils/alert"
+} from "@/components/index";
+import { successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
 
-import { DropdownMenuCheckboxes } from "@/components/index.js"
-import { ChevronDown } from "lucide-react"
-import { useAuthActions } from "@/modules/auth/hooks/useAuthActions"
-import { useUserStore } from "@/modules/users/store"
-import { useAuthStore } from "@/modules/auth/store"
+import { DropdownMenuCheckboxes } from "@/components/index.js";
+import { ChevronDown } from "lucide-react";
+import { useAuthActions } from "@/modules/auth/hooks/useAuthActions";
+import { useUserStore } from "@/modules/users/store";
+import { useAuthStore } from "@/modules/auth/store";
 
 export const SetupUserDialog = ({ user = {} }) => {
   return (
     <DialogDemo contentClassName="" trigger={<div>{`${"Edit Settings"}`}</div>}>
       {(closeDialog) => <SetupUserDialogContent user={user} closeDialog={closeDialog} />}
     </DialogDemo>
-  )
-}
+  );
+};
 
 type StateProps = {
-  roles: any
-}
+  roles: any;
+};
 
 const SetupUserDialogContent = ({ user = {}, closeDialog = () => {} }: { user: any; closeDialog: () => void }) => {
-  const updateTargetUserRolesAsync = useUserStore((s) => s.updateTargetUserRolesAsync)
-  const getProfileAsync = useAuthStore((s) => s.getProfileAsync)
-  const isTargetUserRolesUpdating = useUserStore(s=>s.isTargetUserRolesUpdating)
+  const updateTargetUserRolesAsync = useUserStore((s) => s.updateTargetUserRolesAsync);
+  const getProfileAsync = useAuthStore((s) => s.getProfileAsync);
+  const isTargetUserRolesUpdating = useUserStore((s) => s.isTargetUserRolesUpdating);
 
   const [state, setState] = useState<StateProps>({
     roles: user.roles,
-  })
+  });
 
-  const [defaultRoles, setDefaultRoles] = useState<any>([])
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setState((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const [defaultRoles, setDefaultRoles] = useState<any>([]);
 
   const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const fields: { [key: string]: any } = {}
+    const fields: { [key: string]: any } = {};
 
-    if (state.roles !== user.roles) fields.roles = state.roles
+    if (state.roles !== user.roles) fields.roles = state.roles;
 
     updateTargetUserRolesAsync({
       userId: user.id,
-      fields,
+      body: fields,
       successCB: (message: string) => {
-        closeDialog()
-        successAlert(message)
+        closeDialog();
+        successAlert(message);
         // getProfileAsync()
       },
       warningCB: (message: string) => {
-        warningAlert(message)
-      }
-    })
-  }
-
-  const callback = (items: any) => {
-    setState((prev) => ({
-      ...prev,
-      roles: items.filter((role: any) => role.isChecked).map((role: any) => role.name),
-    }))
-  }
+        warningAlert(message);
+      },
+    });
+  };
 
   useEffect(() => {
     setState((prev) => ({
       ...prev,
       roles: user.roles,
-    }))
+    }));
 
     setDefaultRoles(
       [
@@ -88,22 +74,37 @@ const SetupUserDialogContent = ({ user = {}, closeDialog = () => {} }: { user: a
         id: role.id,
         name: role.name,
         isChecked: user.roles.includes(role.name),
-      }))
-    )
-  }, [user])
+      })),
+    );
+  }, [user]);
+
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   return (
     <div className="crop-avatar-dialog">
       <h2 className="mb-5 text-2xl font-semibold!">Change user settings</h2>
       <form onSubmit={onSubmit} className={`${""}`}>
         <DropdownMenuCheckboxes
-          defaultItems={defaultRoles}
-          callback={callback}
+          items={defaultRoles}
+          onCheckedChange={({ isChecked, checkboxId }) => {
+            let tempItems = [...defaultRoles];
+            tempItems = tempItems.map((item) => ({
+              ...item,
+              isChecked: item.id === checkboxId ? isChecked : false,
+            }));
+            setDefaultRoles(tempItems);
+            setState((prev) => ({
+              ...prev,
+              roles: tempItems.filter((role: any) => role.isChecked).map((role: any) => role.name),
+            }));
+          }}
           triggerClassName={`w-full mb-10`}
           contentClassName={`w-full! mx-0 max-w-full!`}
           trigger={
             <ButtonDemo text="Assign Roles" className="justify-between" variant="outline" endIcon={<ChevronDown />} />
           }
+          open={openDropdown}
+          setOpen={setOpenDropdown}
           // side="right"
           // align="end"
         />
@@ -151,10 +152,21 @@ const SetupUserDialogContent = ({ user = {}, closeDialog = () => {} }: { user: a
         )} */}
 
         <div className="button-group flex justify-end gap-2">
-          <ButtonDemo className="" disabled={isTargetUserRolesUpdating} text="Cancel" variant="outline" type="button" onClick={closeDialog} />
-          <ButtonDemo className="" disabled={isTargetUserRolesUpdating} text={`${isTargetUserRolesUpdating ? "Loading..." : "Save"}`} />
+          <ButtonDemo
+            className=""
+            disabled={isTargetUserRolesUpdating}
+            text="Cancel"
+            variant="outline"
+            type="button"
+            onClick={closeDialog}
+          />
+          <ButtonDemo
+            className=""
+            disabled={isTargetUserRolesUpdating}
+            text={`${isTargetUserRolesUpdating ? "Loading..." : "Save"}`}
+          />
         </div>
       </form>
     </div>
-  )
-}
+  );
+};

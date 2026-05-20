@@ -3,6 +3,7 @@
 import React, { ReactNode, ReactElement, useState, useEffect } from "react";
 // import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import type { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,63 +14,53 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-type ItemsProps = {
+type DropdownItem = {
   name?: string;
-  isChecked?: boolean;
+  isChecked: boolean;
   disabled?: boolean;
   startIcon?: ReactElement;
   endIcon?: ReactElement;
   id: string;
 };
 
-type DropdownProps = {
+type DropdownMenuCheckboxesProps = DropdownMenuContentProps & {
+  items: DropdownItem[];
+  onCheckedChange: (value: { isChecked: boolean; checkboxId: string }) => void;
   trigger?: ReactNode;
   buttonName?: string;
   title?: string;
   triggerClassName?: string;
   contentClassName?: string;
+  checkboxItemClassName?: string;
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
-  side?: "top" | "right" | "bottom" | "left";
-  align?: "start" | "center" | "end",
-  defaultItems: ItemsProps[];
   children?: ReactNode;
-  callback?: (items: ItemsProps[]) => void;
+  open?: boolean;
+setOpen?: (open: boolean) => void;
 };
 
 export function DropdownMenuCheckboxes({
+  items = [],
+  onCheckedChange = () => {},
   trigger = null,
   buttonName = "Open",
   title = "",
   contentClassName = "",
   triggerClassName = "",
+  checkboxItemClassName = '',
   variant = "outline",
-  side = "bottom",
-  align = 'center',
-  defaultItems = [],
   children = null,
-  callback = () => {},
-}: DropdownProps) {
-  const [open, setOpen] = useState(false);
+  open = false,
+  setOpen = ()=>{},
+  ...props
+}: DropdownMenuCheckboxesProps) {
+ 
 
   const handleOpenChange = (openState: boolean) => {
     setOpen(openState);
   };
 
-  const [items, setItems] = useState<ItemsProps[]>([]);
-
-  useEffect(() => {
-    setItems([...defaultItems]);
-  }, [defaultItems]);
-
-  const onCheckedChange = (id: string) => {
-    let tempItems = [...items];
-    tempItems = tempItems.map((item) => (item.id === id ? { ...item, isChecked: !item.isChecked } : item));
-    setItems(tempItems);
-    callback(tempItems);
-  };
-
   return (
-    <DropdownMenu open={open} onOpenChange={handleOpenChange}>
+    <DropdownMenu  open={open} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild className={`dropdown-menu-checkboxes-trigger ${triggerClassName}`}>
         {trigger || (
           <Button variant={variant} size="sm">
@@ -78,22 +69,25 @@ export function DropdownMenuCheckboxes({
           </Button>
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent side={side} align={align} className={`w-56 mx-3 dropdown-menu-checkboxes-content ${contentClassName}`}>
+      <DropdownMenuContent
+        className={`mx-3 dropdown-menu-checkboxes-content  p-0 w-80 ${contentClassName}`}
+        {...props}
+      >
         {title && <DropdownMenuLabel>{title}</DropdownMenuLabel>}
         {/* <DropdownMenuSeparator /> */}
         {items.length
           ? items.map((item, index) => {
               return (
                 <DropdownMenuCheckboxItem
-                  onSelect={(e) => e.preventDefault()}
-                  key={index}
+                  // onSelect={(e) => e.preventDefault()}
+                  key={`${item.id}-${index}`}
                   checked={item.isChecked}
-                  onCheckedChange={() => onCheckedChange(item.id)}
+                  onCheckedChange={(isChecked) => onCheckedChange({ isChecked, checkboxId: item.id })}
                   disabled={item.disabled}
-                  className="dropdown-menu-checkbox-item flex items-center gap-2"
+                  className={`dropdown-menu-checkbox-item flex items-center gap-2 rounded-none cursor-pointer py-2 px-3  ${checkboxItemClassName} ${item.isChecked ? "":' **:text-black/60!'}  `}
                 >
                   {item.startIcon && <span className="">{item.startIcon}</span>}
-                  {item.name}
+                  <span className="line-clamp-2 max-w-[85%]">{item.name}</span>
                   {item.endIcon && <span className="ml-auto">{item.endIcon}</span>}
                 </DropdownMenuCheckboxItem>
               );

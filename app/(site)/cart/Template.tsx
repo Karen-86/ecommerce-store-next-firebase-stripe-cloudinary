@@ -1,21 +1,32 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Header, CheckboxDemo, CartItemCard, ButtonDemo, BreadcrumbDemo } from "@/components/index.js";
+import React, { useEffect, useState, useMemo } from "react";
+import {
+  Header,
+  CheckboxDemo,
+  CartItemCard,
+  ButtonDemo,
+  BreadcrumbDemo,
+  DropdownMenuCheckboxes,
+} from "@/components/index.js";
 import LOCAL_DATA from "@/constants/localData";
 import * as cartsApi from "@/modules/carts/api";
 import { redirect } from "next/navigation";
-import { successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
+import { alert,successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
 import { useCartStore } from "@/modules/carts/store";
+import { useAuthStore } from "@/modules/auth/store";
+import { useAppStore } from "@/store/app";
+import { useUserStore } from "@/modules/users/store";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingCartIcon, ArrowLeft } from "lucide-react";
+import { ShoppingCartIcon, ArrowLeft, MapPin, Plus, Pen, Trash } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { subtotal, discount, total } from "@/modules/carts/utils/cartTotals";
 import type { CartItemWithCheckbox } from "@/modules/carts/types";
 import useCartItemsWithCheckbox from "@/modules/carts/hooks/useCartItemsWithCheckbox";
 import { ClearCartDialog } from "./ClearCartDialog";
+import AddressFormSheet from "@/components/sheet/AddressFormSheet";
 
 const { exampleImage, preloader } = LOCAL_DATA.images;
 
@@ -43,7 +54,7 @@ const ShowcaseSection = () => {
         {!!cartItemsWithCheckbox?.length && <h2 className="text-xl mb-4">Cart</h2>}
 
         {isCartLoading ? (
-          <div className="flex gap-3 flex-col xl:items-start xl:flex-row">
+          <div className="flex gap-3 flex-col lg:items-start lg:flex-row">
             <Card className="flex-1">
               <CardContent>
                 <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
@@ -52,7 +63,7 @@ const ShowcaseSection = () => {
               </CardContent>
             </Card>
 
-            <Card className="flex-1 xl:max-w-[350px]">
+            <Card className="flex-1 lg:max-w-[350px]">
               <CardContent>
                 <Skeleton className="min-h-[360px] w-full rounded-lg mb-2" />
               </CardContent>
@@ -61,7 +72,7 @@ const ShowcaseSection = () => {
         ) : !cartItemsWithCheckbox?.length ? (
           <EmptyCart />
         ) : (
-          <div className="flex gap-7 flex-col xl:items-start xl:flex-row">
+          <div className="flex gap-7 flex-col lg:items-start lg:flex-row">
             <CartList {...{ cartItemsWithCheckbox, setCartItemsWithCheckbox, isAllCartItemsChecked }} />
             <CartTotals
               {...{
@@ -90,8 +101,6 @@ const CartList = ({
   setCartItemsWithCheckbox = () => {},
   isAllCartItemsChecked = false,
 }: CartItemsWithCheckboxProps) => {
-
-
   return (
     <Card className="flex-1">
       <CardContent>
@@ -138,6 +147,7 @@ const CartTotals = ({ selectedCartItemsWithCheckbox = [] }: CartItemsWithCheckbo
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const cart = useCartStore((s) => s.cart);
+  const cartMode = useCartStore((s) => s.cartMode);
 
   // const handleCheckout = async () => {
   //   try {
@@ -173,19 +183,24 @@ const CartTotals = ({ selectedCartItemsWithCheckbox = [] }: CartItemsWithCheckbo
 
   const handleCheckout = async () => {
     setIsCheckingOut(true);
-    // const res = await checkoutAction({ cartProducts });
-    // const selectedItems = cartItemsWithCheckbox.filter((item) => item.isSelected);
-    const res = await cartsApi.checkout({ body: { cart: { items: selectedCartItemsWithCheckbox } } });
+    const res = await cartsApi.checkout({
+      body: {
+        cart: {
+          ...(cart?.guestId ? { guestId: cart?.guestId } : {}),
+          items: selectedCartItemsWithCheckbox,
+        },
+      },
+    });
     setIsCheckingOut(false);
 
     if (!res.success) return errorAlert(res.message || "error");
-    redirect(res.url!);
+    redirect(res.data.url!);
   };
 
   return (
-    <Card className="flex-1 xl:max-w-[350px] min-h-[360px] sticky top-4">
+    <Card className="flex-1 lg:max-w-[350px] min-h-[360px] sticky top-4">
       <CardContent>
-        <h2 className="text-xl mb-7">Cart Totals</h2>
+        <h2 className="text-xl mb-7">Order Summary</h2>
 
         <div className="row flex justify-between items-center gap-2 mb-7">
           <div className="col text-black/60">Subtotal</div>
@@ -203,6 +218,10 @@ const CartTotals = ({ selectedCartItemsWithCheckbox = [] }: CartItemsWithCheckbo
           <div className="col text-green-600">Discount</div>
           <div className="col ">-${discount(selectedCartItemsWithCheckbox)}</div>
         </div>
+
+        <Separator className="mb-6" />
+
+        <Addresses />
 
         <Separator className="mb-6" />
 
@@ -224,6 +243,143 @@ const CartTotals = ({ selectedCartItemsWithCheckbox = [] }: CartItemsWithCheckbo
         <div className="text-xs text-secondary-v3 text-center">Secure checkout</div>
       </CardContent>
     </Card>
+  );
+};
+
+const Addresses = () => {
+  const [addressList, setAddressList] = useState<any>([]);
+
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [addressFormSheetIsOpen, setAddressFormSheetIsOpen] = useState(false);
+
+  const user = useAuthStore((s) => s.user);
+  const updateTargetUserAddressAsync = useUserStore((s) => s.updateTargetUserAddressAsync);
+  const deleteTargetUserAddressAsync = useUserStore((s) => s.deleteTargetUserAddressAsync);
+  const isTargetUserAddressUpdating = useUserStore((s) => s.isTargetUserAddressUpdating);
+  const isTargetUserAddressDeleting = useUserStore((s) => s.isTargetUserAddressDeleting);
+
+  const defaultAddress = user?.addresses?.find((address: any) => address.isDefault);
+
+  useEffect(() => {
+    if (!user) return;
+    setAddressList(
+      user.addresses?.map((address) => {
+        return {
+          id: address.id,
+          name: [address.streetAddress, address.country, address.city, address.state, address.postalCode]
+            .filter(Boolean)
+            .join(", "),
+          isChecked: address.isDefault,
+          startIcon: <MapPin />,
+        };
+      }),
+    );
+  }, [user]);
+
+  return (
+    <div className="addresses">
+      <div className="flex  items-center justify-be mb-1">
+        <MapPin className="text-black/60 h-4" />
+        <div className="text-xs uppercase tracking-wide font-medium w-fit text-secondary-v2 flex-1">
+          SHIPPING ADDRESS
+        </div>
+
+        <DropdownMenuCheckboxes
+          items={addressList}
+          onCheckedChange={({ isChecked, checkboxId }) => {
+            let tempItems = [...addressList];
+            tempItems = tempItems.map((item) => ({
+              ...item,
+              isChecked: item.id === checkboxId ? isChecked : false,
+            }));
+            setAddressList(tempItems);
+            updateTargetUserAddressAsync({
+              userId: user.id,
+              addressId: checkboxId,
+              query: "?action=setDefaultAddress",
+            });
+          }}
+          triggerClassName={``}
+          contentClassName={``}
+          checkboxItemClassName="min-h-15"
+          trigger={<ButtonDemo text="Change" variant="ghostStrong" size="xs" />}
+          side="bottom"
+          align="end"
+          open={openDropdown}
+          setOpen={setOpenDropdown}
+        >
+          <ButtonDemo
+            startIcon={<Plus />}
+            text="Add new address"
+            variant="ghostStrong"
+            className="w-full min-h-11 rounded-none"
+            onClick={() => {
+              if (!Object.keys(user).length) {
+                return alert('Sign in to add address')
+              }
+
+              setEditingItem(null);
+              setOpenDropdown(false);
+              setAddressFormSheetIsOpen(true);
+            }}
+          />
+        </DropdownMenuCheckboxes>
+        <AddressFormSheet
+          {...{
+            isOpen: addressFormSheetIsOpen,
+            setIsOpen: setAddressFormSheetIsOpen,
+            editingItem,
+            setEditingItem,
+          }}
+        />
+      </div>
+
+      <div
+        className={`flex flex-col border rounded-xl p-4 mb-4 min-h-27 text-xs ${isTargetUserAddressUpdating || isTargetUserAddressDeleting ? "animate-pulse bg-black/5 opacity-70 pointer-events-none" : ""}`}
+      >
+        {defaultAddress ? (
+          <>
+            <div className="leading-4 flex-1 mb-3">
+              {[
+                defaultAddress.streetAddress,
+                defaultAddress.country,
+                defaultAddress.city,
+                defaultAddress.state,
+                defaultAddress.postalCode,
+              ]
+                .filter(Boolean)
+                .join(", ")}
+            </div>
+
+            <div className="flex justify-end">
+              <ButtonDemo
+                onClick={() => {
+                  setEditingItem(defaultAddress);
+                  setAddressFormSheetIsOpen(true);
+                }}
+                className="rounded-full"
+                variant="ghostSecondary"
+                size="icon-sm"
+                icon={<Pen />}
+              />
+              <ButtonDemo
+                onClick={() => {
+                  deleteTargetUserAddressAsync({ userId: user.id, addressId: defaultAddress.id });
+                }}
+                className="rounded-full"
+                variant="ghostSecondary"
+                size="icon-sm"
+                icon={<Trash />}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="text-black/60 text-xs text-secondary-v3 flex-1">No address found.</div>
+        )}
+      </div>
+    </div>
   );
 };
 

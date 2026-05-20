@@ -8,10 +8,11 @@ export type User = {
   base64PhotoURL?: string
   roles?: [string]
   uid?: string
+  addresses?: {[key:string]:any}[]
 }
 
 // api response data
-export type UserResponse = FirestoreDoc & User & { id?: string; banner?: { base64URL: string } }
+export type UserResponse = FirestoreDoc & User & { id?: string }
 
 // api request/payload data
 export type UserDto = User

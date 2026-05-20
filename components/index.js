@@ -28,6 +28,7 @@ export { ManageAccountTabs } from "./tabs/ManageAccountTabs.tsx";
 export { ControlledSheetDemo } from "./sheet/ControlledSheetDemo.tsx";
 export { CommandPopoverDemo } from "./command/CommandPopoverDemo.tsx";
 export { CommandDialogDemo } from "./command/CommandDialogDemo.tsx";
+export { ComboboxDemo } from "./combobox/ComboboxDemo.tsx";
 export { CarouselDemo } from "./carousel/CarouselDemo.tsx";
 export { default as CarouselGallery } from "./carousel/CarouselGallery.tsx";
 export { default as GuideBanner } from "./banners/guide-banner/GuideBanner.tsx";

@@ -25,7 +25,6 @@ type ButtonDemoProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   startIcon?: ReactElement | null;
   endIcon?: ReactElement | null;
   disabled?: boolean;
-  onClick?: () => void;
 };
 
 export function ButtonDemo({
@@ -38,7 +37,6 @@ export function ButtonDemo({
   endIcon = null,
   color = "defaultColor",
   disabled = false,
-  onClick = () => {},
   children,
   ...props
 }: ButtonDemoProps) {
@@ -48,7 +46,6 @@ export function ButtonDemo({
       size={size}
       disabled={disabled}
       className={`${className} cursor-pointer fill-current`}
-      onClick={onClick}
       {...props}
     >
       {startIcon}

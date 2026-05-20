@@ -15,7 +15,7 @@ import { ButtonDemo } from "@/components/index";
 
 type SheetDemoProps = {
   contentClassName?: string;
-  title?: string;
+  title?: React.ReactNode;
   description?: string;
   side?: "right" | "top" | "bottom" | "left" | undefined;
   trigger?: ReactNode;
