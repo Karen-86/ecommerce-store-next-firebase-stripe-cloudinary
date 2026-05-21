@@ -62,6 +62,7 @@ export async function POST(req: NextRequest) {
   const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
 
   await orderRef.update({
+    expiresAt: null,
     status: "paid",
     paymentStatus: "paid",
 

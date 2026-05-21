@@ -13,8 +13,6 @@ import isOwnerMiddleware from "@/lib/server/middlewares/authorization/isOwner.mi
 import { db } from "@/lib/firebase/config/firebaseAdmin";
 import admin from "firebase-admin";
 
-
-
 export async function POST(req: NextRequest) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 
@@ -45,6 +43,8 @@ export async function POST(req: NextRequest) {
       status: "pending",
       paymentStatus: "unpaid",
       ...(user?.addresses ? { shippingAddress: user.addresses?.find((address: any) => address.isDefault) } : {}),
+      // expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // auto-delete after 24h
+      expiresAt: new Date(Date.now() + 1000 * 60 ), // auto-delete after 1m
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
