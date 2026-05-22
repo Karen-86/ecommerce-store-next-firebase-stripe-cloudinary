@@ -47,7 +47,6 @@ export const useCartStore = create<CartStore>((set, get) => ({
       let guestCart = JSON.parse(localStorage.getItem("cart") || "null");
 
       if (guestCart) {
-
         await get().attachGuestCartItemsAsync({ cartId: authUser?.uid, body: { guestCartItems: guestCart.items } });
         localStorage.removeItem("cart");
       }
@@ -66,13 +65,16 @@ export const useCartStore = create<CartStore>((set, get) => ({
     try {
       // Firestore
       if (get().cartMode === "user") {
-        const data = await cartsApi.getCart({  cartId });
+        const data = await cartsApi.getCart({ cartId });
 
-        if (!data.success) return errorCB(data.message);
+        if (!data.success) {
+          errorCB(data);
+          return data;
+        }
         console.log(data, " =getCartAsync=");
 
         set({ cart: data.data });
-        successCB(data.message);
+        successCB(data);
       }
 
       // LocalStorage
@@ -103,11 +105,14 @@ export const useCartStore = create<CartStore>((set, get) => ({
       if (get().cartMode === "user") {
         const data = await cartsApi.deleteCart({ cartId });
 
-        if (!data.success) return errorCB(data.message);
+        if (!data.success) {
+          errorCB(data);
+          return data;
+        }
         console.log(data, " =deleteCartAsync=");
 
         set({ cart: null });
-        successCB("Your cart has been cleared.");
+        successCB({ ...data, message: "Your cart has been cleared." });
       }
 
       // LocalStorage
@@ -128,11 +133,14 @@ export const useCartStore = create<CartStore>((set, get) => ({
     try {
       const data = await cartsApi.attachGuestCartItems({ cartId, body });
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =attachGuestCartItemsAsync=");
 
       set({ cart: data.data });
-      successCB("Attached to cart successfully!");
+      successCB({ ...data, message: "Attached to cart successfully!" });
     } finally {
       set({ isCartItemCreating: false });
     }
@@ -146,11 +154,14 @@ export const useCartStore = create<CartStore>((set, get) => ({
       if (get().cartMode === "user") {
         const data = await cartsApi.createCartItem({ cartId, body });
 
-        if (!data.success) return errorCB(data.message);
+        if (!data.success) {
+          errorCB(data);
+          return data;
+        }
         console.log(data, " =createCartItemAsync=");
 
         set({ cart: data.data });
-        successCB("Added to cart successfully!");
+        successCB({ ...data, message: "Added to cart successfully!" });
       }
 
       // LocalStorage
@@ -192,11 +203,14 @@ export const useCartStore = create<CartStore>((set, get) => ({
       if (get().cartMode === "user") {
         const data = await cartsApi.updateCartItem({ cartId, cartItemId, body });
 
-        if (!data.success) return errorCB(data.message);
+        if (!data.success) {
+          errorCB(data);
+          return data;
+        }
         console.log(data, " =updateCartItemAsync=");
 
         set({ cart: data.data });
-        successCB("Updated successfully!");
+        successCB({ ...data, message: "Updated successfully!" });
       }
 
       // LocalStorage
@@ -236,10 +250,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
       // Firestore
       if (get().cartMode === "user") {
         const data = await cartsApi.deleteCartItem({ cartId, cartItemId });
-        if (!data.success) return errorCB(data.message);
+        if (!data.success) {
+          errorCB(data);
+          return data
+        }
         console.log(data, " =deleteCartItemAsync=");
         set({ cart: data.data });
-        successCB("Deleted successfully!");
+        successCB({ ...data, message: "Deleted successfully!" });
       }
 
       // LocalStorage

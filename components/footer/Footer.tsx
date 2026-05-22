@@ -96,45 +96,41 @@ const Footer = () => {
           <div className="col">
             <h4 className="mb-5">Quick Links</h4>
             <ul className="flex flex-col items-start">
-              <Link href="/about" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <Link href="/about" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 About Us
               </Link>
-              <Link href="/contact" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <Link href="/contact" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 Contact Us
               </Link>
-              <Link href="/privacy" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <Link href="/privacy" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <Link href="/terms" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 Terms and Conditions
               </Link>
-              <Link href="/faqs" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
-                FAQs
-              </Link>
+            
             </ul>
           </div>
 
           <div className="col">
             <h4 className="mb-5">Help & Support</h4>
             <ul className="flex flex-col items-start">
-              <Link href="/shop" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <Link href="/shop" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 Shop
               </Link>
-              <Link href="/wishlist" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
-                Wishlist
-              </Link>
-              <Link href="/terms" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
-                My Account
-              </Link>
-              <Link href="/other" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
-                Other
-              </Link>
-              <a href="#features-section" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <a href="#features-section" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 Featured products
               </a>
-              <a href="#trends-section" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300 mb-2">
+              <a href="#trends-section" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
                 Trending products
               </a>
+              <Link href="/my-orders" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
+                My Orders
+              </Link>
+              <Link href="/cart" className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap  mb-2">
+                Cart
+              </Link>
+             
             </ul>
           </div>
 
@@ -175,7 +171,7 @@ const Footer = () => {
               <a
                 href="tel:+1234567890"
                 target="_blank"
-                className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300"
+                className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap "
               >
                 +1 (800) 123-4567
               </a>
@@ -185,7 +181,7 @@ const Footer = () => {
               <a
                 href="mailto:example@gmail.com"
                 target="_blank"
-                className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap duration-300"
+                className="text-sm text-secondary-v3 hover:text-primary whitespace-nowrap "
               >
                 support@example.com
               </a>
@@ -197,17 +193,17 @@ const Footer = () => {
 
         <div className="row py-10 flex gap-5 flex-wrap justify-between">
           <div className="col flex gap-5">
-            <Link href="privacy" className="text-secondary-v3 hover:text-primary text-sm duration-300">
+            <Link href="/privacy" className="text-secondary-v3 hover:text-primary text-sm ">
               Privacy Policy
             </Link>
             <Separator orientation="vertical" className="bg-primary/10" />
-            <Link href="privacy" className="text-secondary-v3 hover:text-primary text-sm duration-300">
+            <Link href="/terms" className="text-secondary-v3 hover:text-primary text-sm ">
               Terms of Service
             </Link>
           </div>
 
           <div className="col">
-            <p className="text-secondary-v3 text-sm duration-300">© 2026 All rights reserved.</p>
+            <p className="text-secondary-v3 text-sm ">© 2026 All rights reserved.</p>
           </div>
         </div>
       </div>

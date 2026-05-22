@@ -125,7 +125,7 @@ const EditProfileContent = ({ user = {}, closeDialog = () => {} }: { user: any; 
     await updateTargetUserAsync({
       userId: authUser?.uid,
       body: fields,
-      errorCB: (m: string) => (errorMessage = m),
+      errorCB: (data: any) => (errorMessage = data.message),
     });
 
     closeDialog();

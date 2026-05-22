@@ -12,7 +12,7 @@ import {
 import LOCAL_DATA from "@/constants/localData";
 import * as cartsApi from "@/modules/carts/api";
 import { redirect } from "next/navigation";
-import { alert,successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
+import { alert, successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
 import { useCartStore } from "@/modules/carts/store";
 import { useAuthStore } from "@/modules/auth/store";
 import { useAppStore } from "@/store/app";
@@ -147,7 +147,8 @@ const CartTotals = ({ selectedCartItemsWithCheckbox = [] }: CartItemsWithCheckbo
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const cart = useCartStore((s) => s.cart);
-  const cartMode = useCartStore((s) => s.cartMode);
+  const isTargetUserAddressUpdating = useUserStore((s) => s.isTargetUserAddressUpdating);
+  const isTargetUserAddressDeleting = useUserStore((s) => s.isTargetUserAddressDeleting);
 
   // const handleCheckout = async () => {
   //   try {
@@ -231,7 +232,9 @@ const CartTotals = ({ selectedCartItemsWithCheckbox = [] }: CartItemsWithCheckbo
         </div>
 
         <ButtonDemo
-          disabled={!selectedCartItemsWithCheckbox?.length}
+          disabled={
+            !selectedCartItemsWithCheckbox?.length || isTargetUserAddressUpdating || isTargetUserAddressDeleting
+          }
           variant="dark"
           className="rounded-full mb-4 hover:bg-black/80 w-full"
           size="lg"
@@ -317,7 +320,7 @@ const Addresses = () => {
             className="w-full min-h-11 rounded-none"
             onClick={() => {
               if (!Object.keys(user).length) {
-                return alert('Sign in to add address')
+                return alert("Sign in to add address");
               }
 
               setEditingItem(null);

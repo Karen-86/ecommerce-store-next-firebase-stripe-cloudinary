@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/Stripe";
 import { headers } from "next/headers";
 import admin from "firebase-admin";
-import { adminAuth } from "@/lib/firebase/config/firebaseAdmin";
 import Stripe from "stripe";
 import loadResourceMiddleware from "@/lib/server/middlewares/database/loadResource.middleware";
 
@@ -65,24 +64,21 @@ export async function POST(req: NextRequest) {
     expiresAt: null,
     status: "paid",
     paymentStatus: "paid",
-
     paidAt: admin.firestore.FieldValue.serverTimestamp(),
-
-    shipping: session.customer_details?.address || null,
-
+    
     stripe: {
+      shippingAddress: session.customer_details?.address || null,
       sessionId: session.id,
       paymentIntent: session.payment_intent,
       amountTotal: session.amount_total,
       currency: session.currency,
+      lineItems: lineItems.data.map((item) => ({
+        name: item.description,
+        quantity: item.quantity,
+        amountTotal: item.amount_total,
+        currency: item.currency,
+      })),
     },
-
-    items: lineItems.data.map((item) => ({
-      name: item.description,
-      quantity: item.quantity,
-      amountTotal: item.amount_total,
-      currency: item.currency,
-    })),
   });
 
   // Clear cart safely after payment confirmed

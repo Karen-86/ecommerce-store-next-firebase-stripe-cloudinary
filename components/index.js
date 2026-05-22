@@ -40,6 +40,7 @@ export {default as PaginationDemo } from "./pagination/PaginationDemo.tsx";
 // CARDS
 export { ProductCard } from "./cards/product-card/ProductCard.tsx";
 export { CartItemCard } from "./cards/cart-item-card/CartItemCard.tsx";
+export { OrderCard } from "./cards/order-card/OrderCard.tsx";
 
 // DASHBOARD
 // export { default as NavUser } from "./dashboard/nav-user/NavUser.tsx";

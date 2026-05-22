@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react"
 
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles, Sun, Moon, User, ChevronDown, Settings } from "lucide-react"
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles, Sun, Moon, Package, ChevronDown, Settings } from "lucide-react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -116,9 +116,9 @@ export default function NavUserDemo({
 
           <DropdownMenuSeparator className="m-0" />
           <DropdownMenuItem asChild className="cursor-pointer rounded-none px-5 py-4">
-            <Link className="" href="/dashboard/my-profile">
-              <User className="w-8!" />
-              My Profile
+            <Link className="" href="/my-orders">
+              <Package className="w-8!" />
+              My Orders
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator className="m-0" />

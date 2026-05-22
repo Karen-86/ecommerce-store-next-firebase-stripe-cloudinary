@@ -108,8 +108,8 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
           onClick: () => router.push("/cart"),
         });
       },
-      errorCB: (message: string) => {
-        alert(message || "Something went wrong. Please try again!");
+      errorCB: (data: any) => {
+        alert(data.message || "Something went wrong. Please try again!");
       },
     });
   };
@@ -384,8 +384,8 @@ const Variants = ({ productWithCart, activeVariant, setActiveVariant, isCartItem
           successCB: () => {
             alert("Removed from cart successfully!", `Name: ${productWithCart.name}`);
           },
-          errorCB: (message: string) => {
-            alert(message || "Something went wrong. Please try again!");
+          errorCB: (data: any) => {
+            alert(data.message || "Something went wrong. Please try again!");
           },
         });
       }

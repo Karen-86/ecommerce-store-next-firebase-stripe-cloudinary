@@ -44,11 +44,14 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const data = await usersApi.getUsers();
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =getUsersAsync=");
 
       set({ users: data.data });
-      successCB(data.message);
+      successCB(data);
     } finally {
       set({ isUsersLoading: false });
     }
@@ -60,11 +63,14 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const userData = await usersApi.getTargetUser({ userId: userId });
 
-      if (!userData.success) return errorCB(userData.message);
+      if (!userData.success) {
+        errorCB(userData);
+        return userData;
+      }
       console.log(userData, " =getTargetUserAsync=");
 
       set({ targetUser: userData.data });
-      successCB(userData.message);
+      successCB(userData);
     } finally {
       set({ isTargetUserLoading: false });
     }
@@ -76,11 +82,14 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const data = await usersApi.updateTargetUser({ userId: userId, body: body });
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =updateTargetUserAsync=");
 
       await get().getUsersAsync();
-      successCB(data.message || "User has been updated successfully.");
+      successCB({ ...data, message: data.message || "User has been updated successfully." });
     } finally {
       set({ isTargetUserUpdating: false });
     }
@@ -98,12 +107,18 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const data = await usersApi.updateTargetUserRoles({ userId: userId, body: body });
 
-      if (!data.success && data.message === "Field roles is required") return warningCB("No changes was made.");
-      if (!data.success) return errorCB(data.message);
+      if (!data.success && data.message === "Field roles is required") {
+        warningCB({ ...data, message: "No changes was made." });
+        return data;
+      }
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =updateTargetUserRolesAsync=");
 
       await get().getUsersAsync();
-      successCB(data.message || "User roles has been updated successfully.");
+      successCB({ ...data, message: data.message || "User roles has been updated successfully." });
     } finally {
       set({ isTargetUserRolesUpdating: false });
     }
@@ -115,11 +130,14 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const data = await usersApi.createTargetUserAddress({ userId: userId, body: body });
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =createTargetUserAddressAsync=");
 
       await useAuthStore.getState().getProfileAsync();
-      successCB("Address added.");
+      successCB({ ...data, message: "Address added." });
     } finally {
       set({ isTargetUserAddressCreating: false });
     }
@@ -138,12 +156,15 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const data = await usersApi.updateTargetUserAddress({ userId, addressId, body, query });
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =updateTargetUserAddressAsync=");
 
       await useAuthStore.getState().getProfileAsync();
 
-      successCB("Address updated.");
+      successCB({ ...data, message: "Address updated." });
     } finally {
       set({ isTargetUserAddressUpdating: false });
     }
@@ -160,12 +181,15 @@ export const useUserStore = create<UserStore>((set, get) => ({
     try {
       const data = await usersApi.deleteTargetUserAddress({ userId, addressId, body });
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =deleteTargetUserAddressAsync=");
 
       await useAuthStore.getState().getProfileAsync();
 
-      successCB("Address deleted.");
+      successCB({ ...data, message: "Address deleted." });
     } finally {
       set({ isTargetUserAddressDeleting: false });
     }
@@ -178,15 +202,18 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       const data = await usersApi.deleteTargetUser({ userId: userId });
 
-      if (!data.success) return errorCB(data.message);
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
       console.log(data, " =deleteTargetUserAsync=");
 
       if (userId === user.id) {
-        successCB("Account deleted successfully");
+        successCB({ ...data, message: "Account deleted successfully" });
         // setTimeout(() => handleSignOut(), 3000)
       } else {
         await get().getUsersAsync();
-        successCB(data.message || "User has been deleted successfully.");
+        successCB({ ...data, message: data.message || "User has been deleted successfully." });
       }
     } finally {
       set({ isTargetUserDeleting: false });

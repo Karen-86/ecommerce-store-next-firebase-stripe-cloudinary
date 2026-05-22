@@ -22,8 +22,8 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     const data = await productsApi.getProducts({ query });
 
     if (!data.success) {
-      errorCB(data.message);
-      return [];
+      errorCB(data);
+      return data;
     }
     console.log(data, " =getProductsAsync=");
 
@@ -47,16 +47,17 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       };
     });
 
-    successCB(data.message);
-    return {...data.data,  formattedProducts };
+    successCB(data);
+    // return { ...data.data, formattedProducts };
+    return { ...data, data: {...data.data, products: formattedProducts} };
   },
 
   getProductAsync: async ({ productId = "", successCB = noop, errorCB = noop }) => {
     const data = await productsApi.getProduct({ id: productId });
 
     if (!data.success) {
-      errorCB(data.message);
-      return null;
+      errorCB(data);
+      return data;
     }
     console.log(data, " =getProductAsync=");
 
@@ -82,7 +83,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       primaryImage: product.variants[0].images[0].url,
     };
 
-    successCB(formattedData);
-    return formattedData;
+    successCB({ ...data, data: formattedData });
+    return { ...data, data: formattedData };
   },
 }));

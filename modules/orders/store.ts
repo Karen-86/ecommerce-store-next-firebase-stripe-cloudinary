@@ -7,37 +7,34 @@ import { v4 as uuidv4 } from "uuid";
 const noop = () => {};
 
 type OrderStore = {
-  isOrderLoading: boolean;
-  getOrderAsync: (params?: any) => Promise<void>;
+  getOrdersAsync: (params?: any) => Promise<void | []>;
+  getOrderAsync: (params?: any) => Promise<void | null>;
 };
 
 export const useOrderStore = create<OrderStore>((set, get) => ({
-  isOrderLoading: false,
+  getOrdersAsync: async ({ query = "", successCB = noop, errorCB = noop } = {}) => {
+    const data = await ordersApi.getOrders({ query });
 
-  getOrderAsync: async ({ orderId = "", query = '', successCB = noop, errorCB = noop } = {}) => {
-    set({ isOrderLoading: true });
-
-    try {
-      // Firestore
-    //   if (get().cartMode === "user") {
-        const data = await ordersApi.getOrder({ orderId, query });
-
-        if (!data.success) return errorCB(data);
-        console.log(data, " =getOrderAsync=");
-
-        // set({ order: data.data });
-        successCB(data);
-    //   }
-
-    //   // LocalStorage
-    //   else {
-    //     await new Promise((r) => setTimeout(() => r(false), 3000));
-
-    //     let cart = JSON.parse(localStorage.getItem("cart") || "null");
-    //     set({ cart: cart });
-    //   }
-    } finally {
-      set({ isOrderLoading: false });
+    if (!data.success) {
+      errorCB(data);
+      return [];
     }
+    console.log(data, " =getOrdersAsync=");
+
+    successCB(data);
+    return data ;
+  },
+
+  getOrderAsync: async ({ orderId = "", query = "", successCB = noop, errorCB = noop } = {}) => {
+    const data = await ordersApi.getOrder({ orderId, query });
+
+    if (!data.success) {
+      errorCB(data);
+      return data;
+    }
+    console.log(data, " =getOrderAsync=");
+
+    successCB(data);
+    return data
   },
 }));

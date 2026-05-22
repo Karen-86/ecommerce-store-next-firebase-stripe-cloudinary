@@ -49,13 +49,13 @@ const SetupUserDialogContent = ({ user = {}, closeDialog = () => {} }: { user: a
     updateTargetUserRolesAsync({
       userId: user.id,
       body: fields,
-      successCB: (message: string) => {
+      successCB: (data: any) => {
         closeDialog();
-        successAlert(message);
+        successAlert(data.message);
         // getProfileAsync()
       },
-      warningCB: (message: string) => {
-        warningAlert(message);
+      warningCB: (data: any) => {
+        warningAlert(data.message);
       },
     });
   };

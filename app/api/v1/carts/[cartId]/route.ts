@@ -66,7 +66,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ c
     return NextResponse.json(
       {
         success: true,
-        message: "cart item created successfully",
+        message: "cart items removed successfully",
         data: updatedCartData,
       },
       { status: 200 },

@@ -33,7 +33,7 @@ const useProductWithCart = ({ id = "" }: { id: any }) => {
     setIsLoading(true);
 
     const data = await getProductAsync({ productId: id });
-    if (data) setProduct(data);
+    if (data.success) setProduct(data.data);
 
     setIsLoading(false);
   };

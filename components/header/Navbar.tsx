@@ -19,8 +19,9 @@ const { cartIcon, accountIcon } = LOCAL_DATA.svgs;
 
 export const navLinks = [
   { title: "Home", href: "/" },
-  { title: "About", href: "/about" },
   { title: "Shop", href: "/shop" },
+  { title: "About", href: "/about" },
+  { title: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -38,9 +39,9 @@ export default function Navbar() {
       setIsLoading(true);
 
       const data:any = await getProductsAsync({ query });
-      if (!data) return setSearchProducts([]);
+      if (!data.success) return setSearchProducts([]);
 
-      const products: SearchProduct[] = data.formattedProducts.map((product: any) => {
+      const products: SearchProduct[] = data.data.products.map((product: any) => {
         return {
           id: product.id,
           label: product.name,

@@ -30,8 +30,8 @@ const ClearCartDialogContent = ({ closeDialog = () => {} }) => {
   const clearCart = async () => {
     await deleteCartAsync({
       cartId: authUser?.uid,
-      successCB: (message: string) => alert(message),
-      errorCB: (message: string) => alert(message),
+      successCB: (data: any) => alert(data.message),
+      errorCB: (data: any) => alert(data.message),
     });
   };
 

@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from "react"
-import { ButtonDemo, DialogDemo, InputDemo } from "@/components/index"
-import { useUserStore } from "@/modules/users/store"
-import { successAlert, errorAlert, warningAlert } from "@/lib/utils/alert"
-import { useAuthActions } from "@/modules/auth/hooks/useAuthActions"
+import React, { useState, useEffect } from "react";
+import { ButtonDemo, DialogDemo, InputDemo } from "@/components/index";
+import { useUserStore } from "@/modules/users/store";
+import { successAlert, errorAlert, warningAlert } from "@/lib/utils/alert";
+import { useAuthActions } from "@/modules/auth/hooks/useAuthActions";
 
 export const DeleteUserDialog = ({ userId = "" }) => {
   return (
     <DialogDemo contentClassName="" trigger={<div>{`${"Remove User"}`}</div>}>
       {(closeDialog) => <DeleteUserDialogContent userId={userId} closeDialog={closeDialog} />}
     </DialogDemo>
-  )
-}
+  );
+};
 
 const DeleteUserDialogContent = ({ userId = "", closeDialog = () => {} }) => {
-  const [confirmationText, setConfirmationText] = useState("")
-  const { handleSignOut } = useAuthActions()
-  
-  const deleteTargetUserAsync = useUserStore((s) => s.deleteTargetUserAsync)
-  const isTargetUserDeleting = useUserStore((s) => s.isTargetUserDeleting)
-  const getUsersAsync = useUserStore((s) => s.getUsersAsync)
+  const [confirmationText, setConfirmationText] = useState("");
+  const { handleSignOut } = useAuthActions();
+
+  const deleteTargetUserAsync = useUserStore((s) => s.deleteTargetUserAsync);
+  const isTargetUserDeleting = useUserStore((s) => s.isTargetUserDeleting);
+  const getUsersAsync = useUserStore((s) => s.getUsersAsync);
 
   return (
     <div className="delete-user-dialog">
@@ -47,7 +47,7 @@ const DeleteUserDialogContent = ({ userId = "", closeDialog = () => {} }) => {
           variant="outline"
           type="button"
           onClick={() => {
-            closeDialog()
+            closeDialog();
           }}
           disabled={isTargetUserDeleting}
         />
@@ -62,21 +62,24 @@ const DeleteUserDialogContent = ({ userId = "", closeDialog = () => {} }) => {
             if (userId) {
               deleteTargetUserAsync({
                 userId,
-                errorCB: (message: string) => errorAlert(message),
-                successCB: (message: string) => {
-                  if (message === 'Account deleted successfully') {
-                    sessionStorage.setItem("signOutDetails", JSON.stringify([{ status: "success", message }]))
-                     handleSignOut()
+                errorCB: (data: any) => errorAlert(data.message),
+                successCB: (data: any) => {
+                  if (data.message === "Account deleted successfully") {
+                    sessionStorage.setItem(
+                      "signOutDetails",
+                      JSON.stringify([{ status: "success", message: data.message }]),
+                    );
+                    handleSignOut();
                   } else {
-                    successAlert(message)
-                    closeDialog()
+                    successAlert(data.message);
+                    closeDialog();
                   }
                 },
-              })
+              });
             }
           }}
         />
       </div>
     </div>
-  )
-}
+  );
+};

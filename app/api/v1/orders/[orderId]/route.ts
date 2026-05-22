@@ -13,6 +13,7 @@ import isResourceOwnerMiddleware from "@/lib/server/middlewares/authorization/is
 
 // GET CART
 export async function GET(req: NextRequest, { params }: { params: Promise<{ orderId: string }> }) {
+
   try {
     const { orderId } = await params;
     const { order } = await loadResourceMiddleware({
@@ -25,7 +26,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ orde
 
     // 1. Authenticated order
     if (order.userId) {
-      if (!decoded) throw createError("Unauthorized attempt to get user", 401);
+      if (!decoded) throw createError("Unauthorized attempt to get user order", 401);
 
       isResourceOwnerMiddleware({  actingUser: decoded,  resource: order  });
     }
@@ -35,7 +36,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ orde
       const guestId = req.nextUrl.searchParams.get("guestId");
 
       if (!guestId || guestId !== order.guestId) {
-        throw createError("Unauthorized attempt to get guest", 403);
+        throw createError("Unauthorized attempt to get guest order", 403);
       }
     }
 

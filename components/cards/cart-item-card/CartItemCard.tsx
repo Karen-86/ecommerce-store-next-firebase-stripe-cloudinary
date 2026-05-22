@@ -49,8 +49,8 @@ export const CartItemCard = ({
         successCB: () => {
           alert("Removed from cart successfully!");
         },
-        errorCB: (message: string) => {
-          alert(message || "Something went wrong. Please try again!");
+        errorCB: (data: any) => {
+          alert(data.message || "Something went wrong. Please try again!");
         },
       });
     } finally {
@@ -186,8 +186,8 @@ const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithChec
             // variantKey: getVariantKey(activeVariant.attributes || {}),
             quantity: next,
           },
-          errorCB: (message: string) => {
-            alert(message || "Something went wrong. Please try again!");
+          errorCB: (data: any) => {
+            alert(data.message || "Something went wrong. Please try again!");
           },
         });
       } finally {

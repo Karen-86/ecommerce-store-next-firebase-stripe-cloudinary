@@ -76,8 +76,8 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
           userId: user.id,
           addressId: editingItem.id,
           body: address,
-          successCB: (message: string) => {
-            alert(message);
+          successCB: (data: any) => {
+            alert(data.message);
             setIsOpen(false);
           },
         });
@@ -85,8 +85,8 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
         createTargetUserAddressAsync({
           userId: user.id,
           body: address,
-          successCB: (message: string) => {
-            alert(message);
+          successCB: (data: any) => {
+            alert(data.message);
             setIsOpen(false);
           },
         });

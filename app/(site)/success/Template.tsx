@@ -47,25 +47,62 @@ const HeroSection = () => {
     const guestId = JSON.parse(localStorage.getItem("cart") || "null")?.guestId;
 
     const checkOrder = async () => {
-      await getOrderAsync({
-        orderId,
-        ...(guestId ? { query: `?guestId=${guestId}` } : {}),
-        successCB: (data: any) => {
-          if (data?.data?.paymentStatus === "paid" && !confirmedRef.current) {
-            confirmedRef.current = true;
-            setLoading(false);
+      const data: any = await getOrderAsync({ orderId, ...(guestId ? { query: `?guestId=${guestId}` } : {}) });
 
-            alert("Your order has been confirmed 🎉");
+      if (data.success) {
+        if (data?.data?.paymentStatus === "paid" && !confirmedRef.current) {
+          confirmedRef.current = true;
+          setLoading(false);
 
-            stop();
-          }
-        },
-        errorCB: (data: any) => {
-          alert(data.message || "Something went wrong");
+          alert("Your order has been confirmed 🎉");
 
           stop();
-        },
-      });
+
+          let guestCart = localStorage.getItem("cart");
+
+          if (guestCart) {
+            const parsedGuestCart = JSON.parse(guestCart);
+
+            parsedGuestCart.items = [];
+
+            localStorage.setItem("cart", JSON.stringify(parsedGuestCart));
+          }
+        }
+      } else {
+        alert(data.message || "Something went wrong");
+
+        stop();
+      }
+
+      // await getOrderAsync({
+      //   orderId,
+      //   ...(guestId ? { query: `?guestId=${guestId}` } : {}),
+      //   successCB: (data: any) => {
+      //     if (data?.data?.paymentStatus === "paid" && !confirmedRef.current) {
+      //       confirmedRef.current = true;
+      //       setLoading(false);
+
+      //       alert("Your order has been confirmed 🎉");
+
+      //       stop();
+
+      //       let guestCart = localStorage.getItem("cart");
+
+      //       if (guestCart) {
+      //         const parsedGuestCart = JSON.parse(guestCart);
+
+      //         parsedGuestCart.items = [];
+
+      //         localStorage.setItem("cart", JSON.stringify(parsedGuestCart));
+      //       }
+      //     }
+      //   },
+      //   errorCB: (data: any) => {
+      //     alert(data.message || "Something went wrong");
+
+      //     stop();
+      //   },
+      // });
     };
 
     alert("Payment received. Confirming your order...");
