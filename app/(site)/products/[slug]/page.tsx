@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 export const revalidate = 60; // 1min
 // export const dynamic = "force-dynamic";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+// const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const slug = (await params).slug;
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: data.name,
       description: data.description,
       type: "article",
-      images: data.media?.map((img) => `${siteUrl}/${img.url}`) || [], // Open Graph doesn’t support base64 data URIs.
+      images: data.media?.map((img) => `${img.url}`) || [], // Open Graph doesn’t support base64 data URIs.
     },
   };
 }
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export async function generateStaticParams() {
   const { data } = await productFetchers.fetchProducts();
   const products = data ?? [];
-  
+
   return products?.map((product) => product);
 }
 
