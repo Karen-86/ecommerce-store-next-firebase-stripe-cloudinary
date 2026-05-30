@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import errorHandlerMiddleware from "@/lib/server/middlewares/system/errorHandler.middleware";
-// import { stripe } from "@/lib/stripe/Stripe";
-
 import { db } from "@/lib/firebase/config/firebaseAdmin";
 import isAuthenticatedMiddleware from "@/lib/server/middlewares/authentication/isAuthenticated.middleware";
 import allowRolesMiddleware from "@/lib/server/middlewares/authorization/allowRoles.middleware";
 import loadUserMiddleware from "@/lib/server/middlewares/authentication/loadUser.middleware";
+import createError from "@/lib/utils/createError";
 
 // STRIPE
 // export async function GET(req: NextRequest) {
@@ -108,7 +107,7 @@ export async function GET(req: NextRequest) {
         message: "products found successfully",
         data: {
           totalPages: Math.ceil(total / limit),
-          totalCount: total, 
+          totalCount: total,
           currentPage: page,
           products: productsData,
         },
@@ -163,6 +162,62 @@ export async function POST(req: NextRequest) {
         data: null,
       },
       { status: 201 },
+    );
+  } catch (err: any) {
+    return errorHandlerMiddleware(err);
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const url = req.nextUrl;
+    const productIds = url.searchParams.get("productIds");
+    const deleteAll = url.searchParams.get("deleteAll");
+
+    const decoded = await isAuthenticatedMiddleware(req);
+
+    const { userData: user } = await loadUserMiddleware({ decoded });
+
+    allowRolesMiddleware({ userRoles: user.roles, allowedRoles: ["admin", "superAdmin"] });
+
+    // DELETE ALL
+    if (deleteAll === "true") {
+      const productsRef = db.collection("products");
+      const existingProductsSnap = await productsRef.get();
+
+      const deleteBatch = db.batch();
+
+      existingProductsSnap.docs.forEach((doc) => {
+        deleteBatch.delete(doc.ref);
+      });
+
+      await deleteBatch.commit();
+    }
+
+    // DELETE SELECTED
+    else if (productIds) {
+      const ids = productIds.split(",");
+
+      const deleteSelectedbatch = db.batch();
+
+      ids.forEach((id) => {
+        const ref = db.collection("products").doc(id);
+
+        deleteSelectedbatch.delete(ref);
+      });
+
+      await deleteSelectedbatch.commit();
+    } else {
+      throw createError("productIds or deleteAll=true is required", 400);
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Products deleted successfully",
+        data: null,
+      },
+      { status: 200 },
     );
   } catch (err: any) {
     return errorHandlerMiddleware(err);

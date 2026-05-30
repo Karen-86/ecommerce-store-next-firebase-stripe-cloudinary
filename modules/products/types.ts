@@ -4,6 +4,7 @@ import Stripe from "stripe";
 
 export type ProductBase = {
   id: string;
+  slug: string;
   name: string;
   description?: string;
   content?: string;
@@ -16,13 +17,14 @@ export type ProductBase = {
     name: string;
     values: string[];
   }[];
-  variants: {[key:string]:any}[]
+  variants: { [key: string]: any }[]
+  media:  { [key: string]: any }[]
 };
 
 /* ---------------- UI / DOMAIN LAYER ---------------- */
 
 export type Product = ProductBase & {
-  primaryImage: string;
+  // primaryImage: string;
 };
 
 export type ProductWithCart = Product & {

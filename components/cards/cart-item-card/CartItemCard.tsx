@@ -8,7 +8,6 @@ import type { ProductWithCart } from "@/modules/products/types";
 import { useCartStore } from "@/modules/carts/store";
 import { useAuthStore } from "@/modules/auth/store";
 import { ShoppingCartIcon, ShoppingBag, StarIcon, Minus, Plus, Trash } from "lucide-react";
-import { DetailsSection } from "@/app/(site)/products/[id]/Template";
 import useProductWithCart from "@/modules/products/hooks/useProductWithCart";
 import type { Cart, CartItemWithCheckbox } from "@/modules/carts/types";
 import { alert } from "@/lib/utils/alert";
@@ -38,6 +37,10 @@ export const CartItemCard = ({
   const authUser = useAuthStore((s) => s.authUser);
 
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const variantPrimaryImage = cartItem.productDetails.media.find(
+    (product: any) => product.id === cartItem.variantDetails.primaryImage,
+  );
 
   const deleteCart = async () => {
     try {
@@ -91,8 +94,8 @@ export const CartItemCard = ({
             className="rounded-xl block absolute top-0 left-0 w-full h-full object-cover overflow-visible"
           />
           <img
-            src={cartItem.variantDetails.images[0].url}
-            onLoad={() => setImageURL(cartItem.variantDetails.images[0].url)}
+            src={variantPrimaryImage.url}
+            onLoad={() => setImageURL(variantPrimaryImage.url)}
             // onError={() => setImageURL(productImage)}
             alt=""
             className="hidden"

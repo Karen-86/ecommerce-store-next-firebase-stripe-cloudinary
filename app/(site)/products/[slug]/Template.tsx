@@ -2,10 +2,8 @@
 
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import { BreadcrumbDemo, ButtonDemo, CarouselGallery } from "@/components/index.js";
-import { useParams } from "next/navigation";
 import { useCartStore } from "@/modules/carts/store";
 import { useAuthStore } from "@/modules/auth/store";
-import LOCAL_DATA from "@/constants/localData";
 import { Home, StarIcon, Minus, Plus, RefreshCw, Undo2, Truck, Package } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,6 +11,7 @@ import useProductWithCart from "@/modules/products/hooks/useProductWithCart";
 import { alert } from "@/lib/utils/alert";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formatDeliveryRange } from "@/lib/utils/formatters";
+import type { Product } from "@/modules/products/types";
 
 const colorMap: any = {
   red: "bg-red-600",
@@ -31,11 +30,8 @@ const getVariantKey = (attributes: any = {}) =>
     .map(([k, v]) => `${k}:${v}`)
     .join("|");
 
-const Template = () => {
-  const params = useParams();
-  const id = params.id as string;
-
-  const { productWithCart, isLoading } = useProductWithCart({ id });
+const Template = ({ product }: { product: Product }) => {
+  const { productWithCart } = useProductWithCart({ product });
 
   const breadcrumbItems = [
     { href: "/", label: "Home" },
@@ -51,7 +47,7 @@ const Template = () => {
         <BreadcrumbDemo items={breadcrumbItems} />
       </div>
 
-      <DetailsSection productWithCart={productWithCart} isLoading={isLoading} />
+      <DetailsSection productWithCart={productWithCart} isLoading={false} />
     </main>
   );
 };
@@ -77,8 +73,7 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
   }, [productWithCart]);
 
   const displayVariant = activeVariant || defaultVariant;
-
-  const galleryImages = displayVariant?.images;
+  const galleryImages = productWithCart?.media.filter((image: any) => displayVariant?.images.includes(image.id));
 
   const variantKey = displayVariant ? getVariantKey(displayVariant.attributes) : null;
 

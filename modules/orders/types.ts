@@ -36,7 +36,7 @@ export type ApiResponse<T> = {
   data: T;
 };
 
-export type OrderssApiResponse = ApiResponse<OrderApi[]>;
+export type OrdersApiResponse = ApiResponse<OrderApi[]>;
 export type OrderApiResponse = ApiResponse<OrderApi>;
 
 /* ---------------- REST ---------------- */

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { PanelLeft, Settings, ChevronRight, SettingsIcon } from "lucide-react";
+import { PanelLeft, Settings, ChevronRight, Users } from "lucide-react";
 import Link from "next/link";
 import {
   SidebarGroup,
@@ -15,13 +15,12 @@ import {
 } from "@/components/ui/sidebar";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import {LOCAL_DATA} from "@/constants/index";
+import { LOCAL_DATA } from "@/constants/index";
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 
-const { userIcon, userGearIcon, gridIcon, globIcon } = LOCAL_DATA.svgs;
-
+const { userIcon, userGearIcon, gridIcon, globIcon, userGroupIcon, cubeIcon, listIcon } = LOCAL_DATA.svgs;
 
 const { logo, productImage } = LOCAL_DATA.images;
 
@@ -39,13 +38,29 @@ const data = {
       icon: userIcon,
       isDisabled: false,
     },
+    {
+      title: "Customers",
+      url: "/dashboard/customers",
+      icon: userGroupIcon,
+      isDisabled: false,
+    },
+    {
+      title: "Products",
+      url: "/dashboard/products",
+      icon: cubeIcon,
+    },
+    {
+      title: "orders",
+      url: "/dashboard/orders",
+      icon: listIcon,
+    },
   ],
   settingsAccount: [
     {
       title: "Account",
       url: "/dashboard/website",
       icon: globIcon,
-      isActive: false,
+      isActive: true,
       items: [
         {
           title: "Profile",
@@ -59,11 +74,11 @@ const data = {
     },
   ],
   settingsRest: [
-    {
-      title: "Products",
-      url: "/dashboard/products",
-      icon: globIcon,
-    },
+    // {
+    //   title: "Products",
+    //   url: "/dashboard/products",
+    //   icon: globIcon,
+    // },
   ],
 };
 
@@ -71,16 +86,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
 
   return (
-    <Sidebar collapsible="icon" {...props} className="sidebar " >
+    <Sidebar collapsible="icon" {...props} className="sidebar ">
       <SidebarHeader className="py-[18px] ">
         <SidebarMenuButton className="hover:bg-transparent active:bg-transparent">
           <Link href="/">
-    
-
-          <img src={logo} alt="" className="max-w-[90px] h-auto group-data-[collapsible=icon]:hidden whitespace-nowrap duration-200" />
+            <img
+              src={logo}
+              alt=""
+              className="max-w-[90px] h-auto group-data-[collapsible=icon]:hidden whitespace-nowrap duration-200"
+            />
           </Link>
-
-          
         </SidebarMenuButton>
       </SidebarHeader>
 
@@ -111,26 +126,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarGroupLabel className="uppercase text-gray-400 font-normal">Settings</SidebarGroupLabel>
           <SidebarMenu>
-            {data.settingsRest.map((item, index) => (
-              <SidebarMenuItem key={index}>
-                <SidebarMenuButton
-                  asChild
-                  className={` ${
-                    (item.url === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(item.url))
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                      : ""
-                  }  px-3 py-[18px]`}
-                >
-                  <Link href={item.url}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {/* {data.settingsRest.length &&
+              data.settingsRest.map((item, index) => (
+                <SidebarMenuItem key={index}>
+                  <SidebarMenuButton
+                    asChild
+                    className={` ${
+                      (item.url === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(item.url))
+                        ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                        : ""
+                    }  px-3 py-[18px]`}
+                  >
+                    <Link href={item.url}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))} */}
 
             {data.settingsAccount.map((item) => (
-              <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible ">
+              <Collapsible  key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible ">
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton tooltip="Account" className="px-3 py-[18px] cursor-pointer">
@@ -146,7 +162,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <SidebarMenuSubButton
                             asChild
                             className={` ${
-                              (subItem.url === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(subItem.url))
+                              (
+                                subItem.url === "/dashboard"
+                                  ? pathname === "/dashboard"
+                                  : pathname.startsWith(subItem.url)
+                              )
                                 ? "bg-sidebar-accent text-sidebar-accent-foreground"
                                 : ""
                             }  px-3 py-[18px]`}

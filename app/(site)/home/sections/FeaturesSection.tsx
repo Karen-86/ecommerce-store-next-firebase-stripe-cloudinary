@@ -48,7 +48,7 @@ const FeaturesSection = () => {
         </motion.div>
 
         <div className="flex justify-end mt-18">
-          <Link href="/shop?productType=featured_products">
+          <Link href="/shop?collections=featured">
             <ButtonDemo className="" variant="ghost" text="View All" endIcon={<ArrowRight />} />
           </Link>
         </div>

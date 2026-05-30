@@ -1,14 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import errorHandlerMiddleware from "@/lib/server/middlewares/system/errorHandler.middleware";
-import { stripe } from "@/lib/stripe/Stripe";
-import createError from "@/lib/utils/createError";
-
-import { db } from "@/lib/firebase/config/firebaseAdmin";
 import isAuthenticatedMiddleware from "@/lib/server/middlewares/authentication/isAuthenticated.middleware";
 import allowRolesMiddleware from "@/lib/server/middlewares/authorization/allowRoles.middleware";
 import loadUserMiddleware from "@/lib/server/middlewares/authentication/loadUser.middleware";
 import loadResourceMiddleware from "@/lib/server/middlewares/database/loadResource.middleware";
-
 
 // STRIPE
 // export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -34,17 +29,17 @@ import loadResourceMiddleware from "@/lib/server/middlewares/database/loadResour
 //   }
 // }
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ productId: string }> }) {
   try {
     // const decoded = await isAuthenticatedMiddleware(req);
 
-    const { id } = await params
+    const { productId } = await params;
 
     const { product } = await loadResourceMiddleware({
-      id: id,
+      id: productId,
       reqKey: "product",
       collectionName: "products",
-    })
+    });
 
     return NextResponse.json(
       {
@@ -52,9 +47,37 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
         message: "Product found successfully",
         data: product,
       },
-      { status: 200 }
-    )
+      { status: 200 },
+    );
   } catch (err: any) {
-    return errorHandlerMiddleware(err)
+    return errorHandlerMiddleware(err);
+  }
+}
+
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ productId: string }> }) {
+  try {
+    const decoded = await isAuthenticatedMiddleware(req);
+    const { userData: user } = await loadUserMiddleware({ decoded });
+    allowRolesMiddleware({ userRoles: user.roles, allowedRoles: ["admin", "superAdmin"] });
+
+    const { productId } = await params;
+    const { productRef, product } = await loadResourceMiddleware({
+      id: productId,
+      reqKey: "product",
+      collectionName: "products",
+    });
+
+    await productRef.delete();
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Product deleted successfully",
+        data: product,
+      },
+      { status: 200 },
+    );
+  } catch (err: any) {
+    return errorHandlerMiddleware(err);
   }
 }

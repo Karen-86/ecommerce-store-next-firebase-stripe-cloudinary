@@ -28,3 +28,15 @@ export async function uploadProducts({body}: any) {
   const headers = createHeaders()
   return request({ url, method: "POST", headers, body })
 }
+
+export async function deleteProducts({query =''}) {
+  let url = "/products"
+  if(query ) url += query 
+  const headers = createHeaders()
+  return request({ url, method: "DELETE", headers })
+}
+export async function deleteProduct({productId =''}) {
+  let url = `/products/${productId}`
+  const headers = createHeaders()
+  return request({ url, method: "DELETE", headers })
+}

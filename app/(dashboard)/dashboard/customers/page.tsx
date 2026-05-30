@@ -1,0 +1,78 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { ButtonDemo, BreadcrumbDemo, TableSkeleton } from "@/components/index";
+import { DataTableDemo } from "./data-table/DataTableDemo";
+import { Payment, columns } from "./data-table/columns";
+import { LOCAL_DATA } from "@/constants/index";
+import { Card, CardContent } from "@/components/ui/card";
+import { useUserStore } from "@/modules/users/store";
+
+const {} = LOCAL_DATA.images;
+
+const breadcrumbItems = [
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    label: `Customers`,
+  },
+];
+
+const Page = () => {
+  const [filteredData, setFilteredData] = useState<Payment[]>([]);
+  const isUsersLoading = useUserStore((s) => s.isUsersLoading);
+  const getUsersAsync = useUserStore((s) => s.getUsersAsync);
+
+  const users = useUserStore((s) => s.users);
+
+  useEffect(() => {
+    if (!users.length) return;
+    const _users: any = users;
+
+    const getData = (): Payment[] => {
+      return _users
+        .filter((item: any) => item.isDeleted !== true)
+        .map((item: any) => {
+          return {
+            status: "active",
+            ...item,
+            name: item.name || "",
+          };
+        });
+    };
+
+    const data = getData();
+
+    setFilteredData(data);
+  }, [users]);
+
+  useEffect(() => {
+    getUsersAsync();
+  }, []);
+
+  return (
+    <main className="dashboard-page p-5 pt-1">
+      <h2 className="mb-1 text-2xl">Dashboard</h2>
+      <BreadcrumbDemo items={breadcrumbItems} />
+      <br />
+
+      {isUsersLoading ? (
+        <Card className="mb-5 pt-5 pb-10">
+          <CardContent>
+            <TableSkeleton value="client loading (products)..." />
+          </CardContent>
+        </Card>
+      ) : (
+        <Card className="mb-37.5">
+          <CardContent>
+            <DataTableDemo data={filteredData} columns={columns} />
+          </CardContent>
+        </Card>
+      )}
+    </main>
+  );
+};
+
+export default Page;

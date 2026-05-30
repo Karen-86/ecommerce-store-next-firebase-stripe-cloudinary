@@ -143,7 +143,7 @@ export function DataTableDemo<TData extends IncludedProps, TValue>({ data, colum
                   >
                     <TableCell className=" ">
                       <Button
-                        variant="ghost"
+                        variant="ghostStrong"
                         className="rounded-full w-[35px] h-[35px] cursor-pointer"
                         onClick={() => toggleExpandedRow(row.id)}
                       >

@@ -6,6 +6,19 @@ export function formatTimestampToDate(timestamp: any) {
   return `${year}/${month}/${day}`;
 }
 
+export const formatFirestoreDate = (timestamp: any) => {
+  if (!timestamp?._seconds) return "";
+
+  return new Date(timestamp._seconds * 1000).toLocaleDateString(
+    "en-GB",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
+};
+
 export const formatWithCommas = (value: string) => {
   const num = value.replace(/,/g, "");
   if (!/^\d+$/.test(num)) return value;

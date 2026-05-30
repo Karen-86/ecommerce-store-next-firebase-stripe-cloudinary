@@ -51,38 +51,42 @@ const ShowcaseSection = () => {
   return (
     <section className="pt-7!">
       <div className="container">
-        {!!cartItemsWithCheckbox?.length && <h2 className="text-xl mb-4">Cart</h2>}
-
         {isCartLoading ? (
-          <div className="flex gap-3 flex-col lg:items-start lg:flex-row">
-            <Card className="flex-1">
-              <CardContent>
-                <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
-                <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
-                <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
-              </CardContent>
-            </Card>
-
-            <Card className="flex-1 lg:max-w-[350px]">
-              <CardContent>
-                <Skeleton className="min-h-[360px] w-full rounded-lg mb-2" />
-              </CardContent>
-            </Card>
-          </div>
+         <>
+           <h2 className="text-xl mb-4">Cart</h2>
+           <div className="flex gap-3 flex-col lg:items-start lg:flex-row">
+             <Card className="flex-1">
+               <CardContent>
+                 <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
+                 <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
+                 <Skeleton className="min-h-[150px] w-full rounded-lg mb-2" />
+               </CardContent>
+             </Card>
+          
+             <Card className="flex-1 lg:max-w-[350px]">
+               <CardContent>
+                 <Skeleton className="min-h-[360px] w-full rounded-lg mb-2" />
+               </CardContent>
+             </Card>
+           </div>
+         </>
         ) : !cartItemsWithCheckbox?.length ? (
           <EmptyCart />
         ) : (
-          <div className="flex gap-7 flex-col lg:items-start lg:flex-row">
-            <CartList {...{ cartItemsWithCheckbox, setCartItemsWithCheckbox, isAllCartItemsChecked }} />
-            <CartTotals
-              {...{
-                cartItemsWithCheckbox,
-                setCartItemsWithCheckbox,
-                isAllCartItemsChecked,
-                selectedCartItemsWithCheckbox,
-              }}
-            />
-          </div>
+          <>
+            <h2 className="text-xl mb-4">Cart</h2>
+            <div className="flex gap-7 flex-col lg:items-start lg:flex-row">
+              <CartList {...{ cartItemsWithCheckbox, setCartItemsWithCheckbox, isAllCartItemsChecked }} />
+              <CartTotals
+                {...{
+                  cartItemsWithCheckbox,
+                  setCartItemsWithCheckbox,
+                  isAllCartItemsChecked,
+                  selectedCartItemsWithCheckbox,
+                }}
+              />
+            </div>
+          </>
         )}
       </div>
     </section>

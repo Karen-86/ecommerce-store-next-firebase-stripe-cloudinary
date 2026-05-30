@@ -37,6 +37,7 @@ const useProductsWithCart = ({ query = "" }) => {
     setIsLoading(true);
 
     const data: any = await getProductsAsync({ query });
+    
     if (data.data.products) {
       setProducts(data.data.products);
       setPagination({

@@ -19,7 +19,8 @@ type ButtonDemoProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     | "light"
     | "ghostDanger"
     | "ghostStrong"
-    | "ghostSecondary";
+    | "ghostSecondary"
+    | "ghostYellow";
   size?: "default" | "xs" | "sm" | "lg" | "xl" | "icon" | "icon-sm" | "icon-lg" | null | undefined;
   icon?: ReactElement | null;
   startIcon?: ReactElement | null;

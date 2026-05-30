@@ -1,6 +1,6 @@
 // /app/api/webhooks/stripe/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe/Stripe";
+import { stripe } from "@/lib/stripe/config/stripe";
 import { headers } from "next/headers";
 import admin from "firebase-admin";
 import Stripe from "stripe";

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Cart, CartBaseItem } from "@/modules/carts/types";
+import type {OrderApiResponse} from "@/modules/orders/types";
 import * as ordersApi from "@/modules/orders/api";
 import { useAuthStore } from "../auth/store";
 import { v4 as uuidv4 } from "uuid";
@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 const noop = () => {};
 
 type OrderStore = {
-  getOrdersAsync: (params?: any) => Promise<void | []>;
-  getOrderAsync: (params?: any) => Promise<void | null>;
+  getOrdersAsync: (params?: any) => Promise<OrderApiResponse>;
+  getOrderAsync: (params?: any) => Promise<OrderApiResponse>;
 };
 
 export const useOrderStore = create<OrderStore>((set, get) => ({
@@ -17,7 +17,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
 
     if (!data.success) {
       errorCB(data);
-      return [];
+      return data;
     }
     console.log(data, " =getOrdersAsync=");
 

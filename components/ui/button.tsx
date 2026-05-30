@@ -89,6 +89,7 @@ const buttonVariants = cva(
         ghostDanger: "text-red-500 hover:bg-red-50 dark:hover:bg-red/50",
         ghostStrong: "hover:bg-black/4 hover:text-accent-foreground dark:hover:bg-accent/50",
         ghostSecondary: "text-black/50 hover:bg-black/4 hover:text-accent-foreground dark:hover:bg-accent/50",
+        ghostYellow: "text-yellow-400 hover:bg-black/4 dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         success: "bg-green-600 text-white shadow-xs hover:bg-green-600/90", // custom added
         dark: "bg-black/90 text-white shadow-xs hover:bg-primary duration-300", // custom added

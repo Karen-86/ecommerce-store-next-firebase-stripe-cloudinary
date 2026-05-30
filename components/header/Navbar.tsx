@@ -38,7 +38,9 @@ export default function Navbar() {
     try {
       setIsLoading(true);
 
-      const data:any = await getProductsAsync({ query });
+      const data: any = await getProductsAsync({ query });
+      
+      // if (!data.success) return alert(data.message || "Something went wrong");
       if (!data.success) return setSearchProducts([]);
 
       const products: SearchProduct[] = data.data.products.map((product: any) => {
@@ -99,7 +101,12 @@ export default function Navbar() {
           <img src={logo} alt="" className="max-w-[90px] h-auto " />
         </a>
 
-        <NavigationMenuDemo />
+        <div className="flex items-center gap-2">
+          <NavigationMenuDemo />{" "}
+          <Link href="/dashboard" target="_blank" className="text-xs px-3 py-1 rounded-full border cursor-pointer">
+            Seller Dashboard
+          </Link>
+        </div>
 
         <SidebarNavigationMenuDemo />
 

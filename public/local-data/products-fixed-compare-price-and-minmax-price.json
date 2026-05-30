@@ -9,6 +9,36 @@
     "brand": "HomeEase",
     "currency": "USD",
     "collections": ["featured", "trending"],
+    "media": [
+      {
+        "id": "IMG1",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552400/New_Project_1_l2oyhl.jpg"
+      },
+      {
+        "id": "IMG2",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552404/New_Project_2_awdmxn.jpg"
+      },
+      {
+        "id": "IMG3",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552401/New_Project_3_pxmlxi.jpg"
+      },
+      {
+        "id": "IMG4",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
+      },
+      {
+        "id": "IMG5",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
+      },
+      {
+        "id": "IMG6",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
+      },
+      {
+        "id": "IMG7",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
+      }
+    ],
     "options": [
       {
         "name": "size",
@@ -26,38 +56,8 @@
         "compareAtPrice": 25.49,
         "price": 19.99,
         "stock": 12,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552400/New_Project_1_l2oyhl.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG1", "IMG4", "IMG5", "IMG6", "IMG7"],
+        "primaryImage": "IMG1",
         "attributes": {
           "size": "S",
           "color": "black"
@@ -69,38 +69,8 @@
         "compareAtPrice": 20.12,
         "price": 15.99,
         "stock": 12,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552401/New_Project_3_pxmlxi.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG3", "IMG4", "IMG5", "IMG6", "IMG7"],
+        "primaryImage": "IMG3",
         "attributes": {
           "size": "S",
           "color": "purple"
@@ -112,38 +82,8 @@
         "compareAtPrice": 29.51,
         "price": 21.99,
         "stock": 18,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552401/New_Project_3_pxmlxi.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG3", "IMG4", "IMG5", "IMG6", "IMG7"],
+        "primaryImage": "IMG3",
         "attributes": {
           "size": "M",
           "color": "purple"
@@ -155,38 +95,8 @@
         "compareAtPrice": 26.69,
         "price": 22.99,
         "stock": 10,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552404/New_Project_2_awdmxn.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG2", "IMG4", "IMG5", "IMG6", "IMG7"],
+        "primaryImage": "IMG2",
         "attributes": {
           "size": "L",
           "color": "white"
@@ -198,38 +108,8 @@
         "compareAtPrice": 26.37,
         "price": 22.99,
         "stock": 10,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777552404/New_Project_2_awdmxn.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG2", "IMG4", "IMG5", "IMG6", "IMG7"],
+        "primaryImage": "IMG2",
         "attributes": {
           "size": "M",
           "color": "white"
@@ -249,6 +129,28 @@
     "brand": "DenimCore",
     "currency": "USD",
     "collections": ["best-deals", "trending"],
+    "media": [
+      {
+        "id": "IMG1",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1778667691/product-placeholder_qkady7.jpg"
+      },
+      {
+        "id": "IMG2",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
+      },
+      {
+        "id": "IMG3",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
+      },
+      {
+        "id": "IMG4",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
+      },
+      {
+        "id": "IMG5",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
+      }
+    ],
     "options": [
       {
         "name": "size",
@@ -262,38 +164,7 @@
         "compareAtPrice": 61.24,
         "price": 49.99,
         "stock": 10,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1778667691/product-placeholder_qkady7.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG1", "IMG2", "IMG3", "IMG4", "IMG5"],
         "attributes": {
           "size": "30"
         }
@@ -304,38 +175,7 @@
         "compareAtPrice": 69.66,
         "price": 52.99,
         "stock": 14,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1778667691/product-placeholder_qkady7.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+        "images": ["IMG1", "IMG2", "IMG3", "IMG4", "IMG5"],
         "attributes": {
           "size": "32"
         }
@@ -346,38 +186,7 @@
         "compareAtPrice": 61.03,
         "price": 54.99,
         "stock": 8,
-        "images": [
-          {
-            "id": "IMG1",
-            "name": "image 1 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1778667691/product-placeholder_qkady7.jpg"
-          },
-          {
-            "id": "IMG2",
-            "name": "image 2 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
-          },
-          {
-            "id": "IMG3",
-            "name": "image 3 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
-          },
-          {
-            "id": "IMG4",
-            "name": "image 4 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
-          },
-          {
-            "id": "IMG5",
-            "name": "image 5 name",
-            "publicId": "",
-            "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
-          }
-        ],
+       "images": ["IMG1", "IMG2", "IMG3", "IMG4", "IMG5"],
         "attributes": {
           "size": "34"
         }
@@ -396,6 +205,44 @@
     "brand": "SoundMax",
     "currency": "USD",
     "collections": ["featured"],
+       "media": [
+      {
+        "id": "IMG1",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777550264/b375d67c-a44d-4d6b-aa01-d527cc447f48_sfreh4.png"
+      },
+      {
+        "id": "IMG2",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777550257/8d976431-491e-4f3b-b7d0-42bdd46331df_1_ybxwkf.png"
+      },
+      {
+        "id": "IMG3",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777550259/7b6b02a4-d16b-4b6a-b26e-0feb4dd024ff_zqirqo.png"
+      },
+      {
+        "id": "IMG4",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777550262/eefc7217-a158-4513-964f-3a5ecfc2a1fc_1_clbfky.png"
+      },
+      {
+        "id": "IMG5",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
+      },
+{
+        "id": "IMG6",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541661/IMG2_v6szvx.jpg"
+      },
+      {
+        "id": "IMG7",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777551465/New_Project_rqq6rh.jpg"
+      },
+      {
+        "id": "IMG8",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541658/IMG4_jtc6dl.jpg"
+      },
+      {
+        "id": "IMG9",
+        "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1777541832/IMG5_kzmvso.jpg"
+      }
+    ],
     "options": [
       {
         "name": "color",

@@ -7,7 +7,7 @@ import LOCAL_DATA from "@/constants/localData";
 import type { ProductWithCart } from "@/modules/products/types";
 import { useCartStore } from "@/modules/carts/store";
 import { ShoppingCartIcon, StarIcon, ShoppingBag } from "lucide-react";
-import { DetailsSection } from "@/app/(site)/products/[id]/Template";
+import { DetailsSection } from "@/app/(site)/products/[slug]/Template";
 import useProductWithCart from "@/modules/products/hooks/useProductWithCart";
 
 const { productImage, preloader } = LOCAL_DATA.images;
@@ -22,12 +22,14 @@ type ProductCardProp = {
 export const ProductCard = ({ product, className }: ProductCardProp) => {
   const [imageURL, setImageURL] = useState(productImage);
 
+  const variantPrimaryImage = product.media.find((image) => image.id === product.variants[0].primaryImage);
+
   return (
     <div
       className={`${className} bg-white hover:[&_.card-image]:scale-110 hover:border-primary/20 hover:shadow-[0_0_10px_rgba(0,0,0,0.05)] duration-300 card product-card border border-primary/10 rounded-xl  flex flex-col`}
     >
       <Link
-        href={`/products/${product.id}`}
+        href={`/products/${product.slug}`}
         className="card-header px-5 py-2 border-b border-primary/10 overflow-hidden"
       >
         <div className="card-image relative pt-[80%] h-0 w-full duration-600">
@@ -38,8 +40,8 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
             className="rounded-xl block absolute top-0 left-0 w-full h-full object-cover overflow-visible"
           />
           <img
-            src={product.primaryImage}
-            onLoad={() => setImageURL(product.primaryImage)}
+            src={variantPrimaryImage?.url}
+            onLoad={() => setImageURL(variantPrimaryImage?.url)}
             // onError={() => setImageURL(productImage)}
             alt=""
             className="hidden"
@@ -51,7 +53,7 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
         <div className="row">
           <p className="text-secondary-v2 text-xs font-medium mb-1.5 capitalize">{product.category}</p>
           <Link
-            href={`/products/${product.id}`}
+            href={`/products/${product.slug}`}
             className="hover:text-primary duration-300 font-medium card-title flex-1 mb-[1rem] text-sm line-clamp-2   "
           >
             {product.name}
@@ -90,7 +92,7 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
                 />
               }
             >
-              {(closeDialog) => <DialogContent closeDialog={closeDialog} id={product.id} />}
+              {(closeDialog) => <DialogContent productWithCart={product} />}
             </DialogDemo>
           </div>
         </div>
@@ -99,16 +101,10 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
   );
 };
 
-const DialogContent = ({ closeDialog = () => {}, id = "" }) => {
-  const { productWithCart, isLoading } = useProductWithCart({ id });
+const DialogContent = ({ productWithCart }: { productWithCart: ProductWithCart }) => {
   return (
     <div className="sm:max-h-[80vh] mb-5 sm:overflow-y-auto [&_.carousel-gallery-wrapper]:top-0 [&_section]:p-0!">
-      <DetailsSection
-        productWithCart={productWithCart}
-        isLoading={isLoading}
-        isInDialog={true}
-      />
-
+      <DetailsSection productWithCart={productWithCart} isLoading={false} isInDialog={true} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 // /app/api/checkout/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe/Stripe";
+import { stripe } from "@/lib/stripe/config/stripe";
 import type { Product } from "@/modules/products/types";
 import type { CartBaseItem } from "@/modules/carts/types";
 import createError from "@/lib/utils/createError";

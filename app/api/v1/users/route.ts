@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       {
         success: true,
         message: "users found successfully",
-        data: users,
+        data: { users },
       },
       { status: 200 },
     );

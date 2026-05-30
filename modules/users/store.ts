@@ -50,8 +50,9 @@ export const useUserStore = create<UserStore>((set, get) => ({
       }
       console.log(data, " =getUsersAsync=");
 
-      set({ users: data.data });
+      set({ users: data.data.users });
       successCB(data);
+      return data
     } finally {
       set({ isUsersLoading: false });
     }
@@ -61,16 +62,17 @@ export const useUserStore = create<UserStore>((set, get) => ({
     set({ isTargetUserLoading: true });
 
     try {
-      const userData = await usersApi.getTargetUser({ userId: userId });
+      const targetUser = await usersApi.getTargetUser({ userId: userId });
 
-      if (!userData.success) {
-        errorCB(userData);
-        return userData;
+      if (!targetUser.success) {
+        errorCB(targetUser);
+        return targetUser;
       }
-      console.log(userData, " =getTargetUserAsync=");
+      console.log(targetUser, " =getTargetUserAsync=");
 
-      set({ targetUser: userData.data });
-      successCB(userData);
+      set({ targetUser: targetUser.data });
+      successCB(targetUser);
+      return targetUser
     } finally {
       set({ isTargetUserLoading: false });
     }
