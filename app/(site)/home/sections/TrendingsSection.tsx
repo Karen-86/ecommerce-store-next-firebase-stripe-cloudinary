@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const TrendingsSection = () => {
   const [inView, setIsInView] = useState(false);
 
-  const { productsWithCart, isLoading } = useProductsWithCart({ query: "?collections=trending" });
+  const { productsWithCart, isLoading } = useProductsWithCart({ query: "?collections=Trending" });
 
   return (
     <section id="trendings-section">

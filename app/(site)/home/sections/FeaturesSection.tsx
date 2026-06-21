@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const FeaturesSection = () => {
   const [inView, setIsInView] = useState(false);
 
-  const { productsWithCart, isLoading } = useProductsWithCart({ query: "?collections=featured" });
+  const { productsWithCart, isLoading } = useProductsWithCart({ query: "?collections=Featured" });
 
   return (
     <section id="features-section">

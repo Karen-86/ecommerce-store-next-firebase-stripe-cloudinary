@@ -26,13 +26,13 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
 
   return (
     <div
-      className={`${className} bg-white hover:[&_.card-image]:scale-110 hover:border-primary/20 hover:shadow-[0_0_10px_rgba(0,0,0,0.05)] duration-300 card product-card border border-primary/10 rounded-xl  flex flex-col`}
+      className={`${className} bg-white hover:[&_.card-image]:scale-110 hover:border-primary/20 hover:shadow-[0_0_10px_rgba(0,0,0,0.05)] duration-300 card product-card border border-primary/10 rounded-xl overflow-hidden flex flex-col`}
     >
       <Link
         href={`/products/${product.slug}`}
-        className="card-header px-5 py-2 border-b border-primary/10 overflow-hidden"
+        className="card-header  border-b border-primary/10 overflow-hidden"
       >
-        <div className="card-image relative pt-[80%] h-0 w-full duration-600">
+        <div className="card-image relative pt-[80%] h-0 w-full duration-600 ">
           <img
             src={imageURL}
             onError={() => setImageURL(productImage)}
