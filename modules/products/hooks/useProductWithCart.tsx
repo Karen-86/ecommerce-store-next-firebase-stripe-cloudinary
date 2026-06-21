@@ -56,7 +56,6 @@ import { useCartStore } from "@/modules/carts/store";
 import type { Product, ProductWithCart } from "@/modules/products/types";
 
 const useProductWithCart = ({ product }: { product: Product }) => {
-  console.log(product,' hhhhhhhhhhhh')
   const cart = useCartStore((s) => s.cart);
 
   const productWithCart = useMemo<ProductWithCart | null>(() => {

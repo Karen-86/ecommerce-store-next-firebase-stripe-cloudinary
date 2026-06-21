@@ -1,3 +1,4 @@
+
 type FileInput = File | Blob
 
 export const compressImage = (
@@ -120,3 +121,5 @@ export const resizeBase64Image = (base64Str: string, maxSizeKB: number): Promise
     img.src = base64Str
   })
 }
+
+

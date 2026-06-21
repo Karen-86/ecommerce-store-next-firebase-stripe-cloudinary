@@ -28,6 +28,7 @@ export const columns: ColumnDef<Product>[] = [
     id: "select",
     header: ({ table }) => (
       <CheckboxDemo
+        variant="dark"
         className="px-3"
         checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
@@ -36,8 +37,11 @@ export const columns: ColumnDef<Product>[] = [
     ),
     cell: ({ row }) => (
       <CheckboxDemo
+        variant="dark"
+        checkboxClassName=" cursor-default!"
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onClick={(e)=>e.stopPropagation()}
+        onCheckedChange={(value) =>{ row.toggleSelected(!!value)}}
         aria-label="Select row"
       />
     ),
@@ -71,25 +75,25 @@ export const columns: ColumnDef<Product>[] = [
   },
 
   {
-    accessorKey: "name",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button variant="ghostStrong" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-          Name
+          Title
           <ArrowUpDown />
         </Button>
       );
     },
     cell: ({ row }) => (
-      <div className="capitalize max-w-50 truncate" title={row.original.name}>
-        {row.original.name}
+      <div className="capitalize max-w-50 truncate" title={row.original.title}>
+        {row.original.title}
       </div>
     ),
   },
   {
     accessorKey: "inventory",
     accessorFn: (row) => {
-       return row.variants.reduce((total, variant) => total + variant.stock, 0);
+       return row.variants.reduce((total, variant) => total + (variant.stock || 0), 0);
     },
     header: ({ column }) => {
       return (
@@ -100,7 +104,7 @@ export const columns: ColumnDef<Product>[] = [
       );
     },
     cell: ({ row }) => {
-      const stock = row.original.variants.reduce((total, variant) => total + variant.stock, 0);
+      const stock = row.original.variants.reduce((total, variant) => total + (variant.stock || 0), 0);
 
       return (
         <div className="max-w-50 truncate">
@@ -119,7 +123,7 @@ export const columns: ColumnDef<Product>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="capitalize">{row.original.category}</div>,
+    cell: ({ row }) => <div className="capitalize">{row.original.category || 'Uncategorized'}</div>,
   },
   {
     id: "price",
@@ -157,9 +161,10 @@ const Actions = ({ row = {} }: { row: any }) => {
   const deleteProduct = async (productId: string = "") => {
     const data: any = await deleteProductAsync({ productId });
     if (!data.success) return alert(data.message || "Something went wrong");
+    alert('Product deleted successfully.')
   };
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end" onClick={(e)=>e.stopPropagation()}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghostStrong" className="h-8 w-8 p-0 cursor-pointer">
@@ -174,7 +179,7 @@ const Actions = ({ row = {} }: { row: any }) => {
           </DropdownMenuItem> */}
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={`/dashboard/products/0f9wjfoejfpisdjf`}>Edit</Link>
+            <Link href={`/dashboard/products/${row.original.id}`}>Edit</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
             <div onClick={() => deleteProduct(row.original.id)}>Delete</div>

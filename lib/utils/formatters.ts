@@ -9,20 +9,11 @@ export function formatTimestampToDate(timestamp: any) {
 export const formatFirestoreDate = (timestamp: any) => {
   if (!timestamp?._seconds) return "";
 
-  return new Date(timestamp._seconds * 1000).toLocaleDateString(
-    "en-GB",
-    {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }
-  );
-};
-
-export const formatWithCommas = (value: string) => {
-  const num = value.replace(/,/g, "");
-  if (!/^\d+$/.test(num)) return value;
-  return Number(num).toLocaleString();
+  return new Date(timestamp._seconds * 1000).toLocaleDateString("en-GB", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 };
 
 export const formatDeliveryRange = (minDays: number, maxDays: number) => {
@@ -34,9 +25,7 @@ export const formatDeliveryRange = (minDays: number, maxDays: number) => {
   const end = new Date(today);
   end.setDate(today.getDate() + maxDays);
 
-  const sameMonth =
-    start.getMonth() === end.getMonth() &&
-    start.getFullYear() === end.getFullYear();
+  const sameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
 
   const startMonth = start.toLocaleString("en-US", { month: "short" });
   const endMonth = end.toLocaleString("en-US", { month: "short" });
@@ -51,3 +40,59 @@ export const formatDeliveryRange = (minDays: number, maxDays: number) => {
 };
 
 export const unformatFromCommas = (value: string) => value.replace(/,/g, "");
+
+export const slugify = (value: string) => {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
+export const formatWithCommas = (value: string) => {
+  const num = value.replace(/,/g, "");
+  if (!/^\d+$/.test(num)) return value;
+  return Number(num).toLocaleString();
+};
+
+export const formatNumberWithCommas = (input: string | number) => {
+  const clean = String(input).replace(/,/g, ""); // only remove commas
+
+  const num = Number(clean);
+  if (!Number.isFinite(num)) return "";
+
+  return num.toLocaleString("en-US");
+};
+
+// export function formatNumberWithCurrency(input: string | number) {
+//   const clean = String(input).replace(/,/g, ""); // only remove commas
+
+//   const num = Number(clean);
+//   if (!Number.isFinite(num)) return "";
+
+//   return num.toLocaleString("en-US", {
+//     minimumFractionDigits: 2,
+//     maximumFractionDigits: 2,
+//   });
+// }
+
+export function formatNumberWithCurrency(input: string | number) {
+  const clean = String(input).replace(/[^\d.]/g, "");
+
+  const num = Number(clean);
+  if (!Number.isFinite(num)) return "";
+
+  return num.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+export const parseFormattedNumber = (v: any) => {
+  if (v === "" || v === null || v === undefined) return null;
+
+  const clean = String(v).replace(/,/g, ""); // remove commas
+  const n = Number(clean);
+
+  return Number.isFinite(n) ? n : null;
+};

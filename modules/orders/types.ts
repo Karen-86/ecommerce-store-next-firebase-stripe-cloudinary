@@ -4,8 +4,6 @@ import Stripe from "stripe";
 
 export type OrderBase = {
   id: string;
-  userId: string;
-  author: string;
   amount: number;
   shippingAddress: { [key: string]: any };
   paymentProvider: string;
@@ -25,9 +23,11 @@ export type Order = OrderBase;
 /* ---------------- API LAYER ---------------- */
 
 export type OrderApi = OrderBase & {
+  userId?: string;
+  guestId?: string;
   expiresAt: Date;
+  createdBy: string;
   createdAt: string;
-  updatedAt: string;
 };
 
 export type ApiResponse<T> = {
@@ -36,7 +36,7 @@ export type ApiResponse<T> = {
   data: T;
 };
 
-export type OrdersApiResponse = ApiResponse<OrderApi[]>;
-export type OrderApiResponse = ApiResponse<OrderApi>;
+export type OrdersApiResponse = ApiResponse<OrderApi[] | any>;
+export type OrderApiResponse = ApiResponse<OrderApi | any>;
 
 /* ---------------- REST ---------------- */

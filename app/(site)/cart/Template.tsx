@@ -110,6 +110,7 @@ const CartList = ({
       <CardContent>
         <div className="flex items-center gap-4 mb-5 mt-4">
           <CheckboxDemo
+            variant="dark"
             className=""
             checked={isAllCartItemsChecked}
             onCheckedChange={() => {

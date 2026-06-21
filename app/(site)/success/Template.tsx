@@ -9,6 +9,7 @@ import { alert } from "@/lib/utils/alert";
 import { useSearchParams } from "next/navigation";
 import { useOrderStore } from "@/modules/orders/store";
 import { useAuthStore } from "@/modules/auth/store";
+import * as ordersApi from "@/modules/orders/api";
 
 const { successImage } = LOCAL_DATA.images;
 
@@ -27,7 +28,6 @@ const HeroSection = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const getOrderAsync = useOrderStore((s) => s.getOrderAsync);
   const authUser = useAuthStore((s) => s.authUser);
 
   const confirmedRef = useRef(false);
@@ -47,7 +47,7 @@ const HeroSection = () => {
     const guestId = JSON.parse(localStorage.getItem("cart") || "null")?.guestId;
 
     const checkOrder = async () => {
-      const data: any = await getOrderAsync({ orderId, ...(guestId ? { query: `?guestId=${guestId}` } : {}) });
+      const data: any = await ordersApi.getOrder({ orderId, ...(guestId ? { query: `?guestId=${guestId}` } : {}) });
 
       if (data.success) {
         if (data?.data?.paymentStatus === "paid" && !confirmedRef.current) {

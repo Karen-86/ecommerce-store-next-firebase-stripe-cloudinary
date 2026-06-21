@@ -54,7 +54,7 @@ const CartSheet = () => {
       setIsOpen={setIsCartSheetOpen}
     >
       {(onClose) => (
-        <>
+        <div className="h-full flex flex-col">
           <div className="px-4 flex-1">
             {!cartItemsWithCheckbox?.length
               ? "Empty"
@@ -87,7 +87,7 @@ const CartSheet = () => {
               />
             </div>
           </div>
-        </>
+        </div>
       )}
     </ControlledSheetDemo>
   );

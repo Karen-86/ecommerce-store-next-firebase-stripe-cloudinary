@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Package } from "lucide-react";
 import Link from "next/link";
+import * as ordersApi from "@/modules/orders/api";
 
 const Template = () => {
   const breadcrumbItems = [{ href: "/", label: "Home" }, { label: "My Orders" }];
@@ -26,7 +27,6 @@ const Template = () => {
 };
 
 const ShowcaseSection = () => {
-  const getOrdersAsync = useOrderStore((s) => s.getOrdersAsync);
   const authUser = useAuthStore((s) => s.authUser);
 
   const [orders, setOrders] = useState([]);
@@ -37,7 +37,7 @@ const ShowcaseSection = () => {
       setIsLoading(true);
 
       const guestId = JSON.parse(localStorage.getItem("cart") || "null")?.guestId;
-      const data: any = await getOrdersAsync({ query: authUser ? `?userId=${authUser.uid}` : `?guestId=${guestId}` });
+      const data: any = await ordersApi.getOrders({ query: authUser ? `?userId=${authUser.uid}` : `?guestId=${guestId}` });
       if (!data.success) return alert(data.message || "Something went wrong");
 
       setOrders(data.data.orders);

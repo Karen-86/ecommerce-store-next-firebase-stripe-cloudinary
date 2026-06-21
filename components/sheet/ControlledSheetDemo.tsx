@@ -21,7 +21,7 @@ type SheetDemoProps = {
   trigger?: ReactNode;
   children?: ReactNode | ((closeSheet: () => void) => ReactNode);
   isOpen: boolean;
-  setIsOpen: (_:boolean) => void;
+  setIsOpen: (_: boolean) => void;
 };
 
 export function ControlledSheetDemo({
@@ -34,18 +34,21 @@ export function ControlledSheetDemo({
   isOpen = false,
   setIsOpen = () => {},
 }: SheetDemoProps) {
-
   const closeSheet = () => setIsOpen(false);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger asChild>{trigger ? trigger : <ButtonDemo variant="outline" text="Open" />}</SheetTrigger>
+      <SheetTrigger asChild>
+        {trigger ? <div>{trigger}</div> : <ButtonDemo variant="outline" text="Open" />}
+      </SheetTrigger>
       <SheetContent className={`${contentClassName} `} side={side}>
         <SheetHeader className="text-left">
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
-        <div className="sheet-body flex-1 flex flex-col">{typeof children === "function" ? children(closeSheet) : children}</div>
+        <div className="sheet-body flex-1 flex flex-col">
+          {typeof children === "function" ? children(closeSheet) : children}
+        </div>
         {/* <SheetFooter>
           <SheetClose asChild>
             <Button type="submit" size="sm">

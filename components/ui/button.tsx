@@ -93,7 +93,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         success: "bg-green-600 text-white shadow-xs hover:bg-green-600/90", // custom added
         dark: "bg-black/90 text-white shadow-xs hover:bg-primary duration-300", // custom added
-        light: "bg-white/90 text-black/90 shadow-xs hover:bg-white/80 duration-300", // custom added
+        light: "bg-white/90 text-black/90 shadow hover:bg-gray-100 duration-300", // custom added
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

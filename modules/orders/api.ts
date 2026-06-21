@@ -10,17 +10,16 @@ import request, { createHeaders, urls, requestMiddleware } from "@/lib/api/clien
 
 // api.interceptors.request.use(requestMiddleware);
 
-
-export async function getOrders({query =''}) {
-  let url = "/orders"
-  if(query ) url += query 
-  const headers = createHeaders()
-  return request({ url, method: "GET", headers })
+export async function getOrders({ query = "" } = {}) {
+  let url = "/orders";
+  if (query) url += query;
+  const headers = createHeaders();
+  return request({ url, method: "GET", headers });
 }
 
 export async function getOrder({ orderId, query }: any) {
   let url = `/orders/${orderId}`;
-  
+
   if (query) url += query;
   const headers = createHeaders();
   return request({ url, method: "GET", headers });

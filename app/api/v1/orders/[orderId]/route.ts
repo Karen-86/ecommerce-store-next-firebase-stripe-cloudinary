@@ -36,7 +36,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ orde
       const guestId = req.nextUrl.searchParams.get("guestId");
 
       if (!guestId || guestId !== order.guestId) {
-        throw createError("Unauthorized attempt to get guest order", 403);
+        throw createError("You are not the owner of this guest document", 403);
       }
     }
 

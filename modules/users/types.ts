@@ -1,18 +1,35 @@
-import { FirestoreDoc } from "@/types"
+import { FirestoreDoc } from "@/types";
 
-export type User = {
-  bio?: string
-  displayName?: string
-  email?: string
-  photoURL?: string
-  base64PhotoURL?: string
-  roles?: [string]
-  uid?: string
-  addresses?: {[key:string]:any}[]
-}
+/* ---------------- BASE DOMAIN ---------------- */
 
-// api response data
-export type UserResponse = FirestoreDoc & User & { id?: string }
+export type UserBase = {
+  id?: string;
+  bio?: string;
+  displayName?: string;
+  email?: string;
+  photoURL?: string;
+  base64PhotoURL?: string;
+  roles?: [string];
+  uid?: string;
+  addresses?: { [key: string]: any }[];
+};
 
-// api request/payload data
-export type UserDto = User
+/* ---------------- UI / DOMAIN LAYER ---------------- */
+
+export type User = UserBase & {
+  // fullName: string;
+};
+
+/* ---------------- API LAYER ---------------- */
+
+export type UserApi = UserBase & FirestoreDoc
+
+export type ApiResponse<T> = {
+  success: boolean;
+  message: string;
+  data: T;
+};
+
+export type UsersApiResponse = ApiResponse<UserApi[] | any>;
+export type UserApiResponse = ApiResponse<UserApi | any>;
+

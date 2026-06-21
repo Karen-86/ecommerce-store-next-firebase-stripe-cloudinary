@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { Package } from "lucide-react";
 import Link from "next/link";
 import { LOCAL_DATA } from "@/constants/index"
+import * as ordersApi from "@/modules/orders/api";
 
 const {} = LOCAL_DATA.images
 
@@ -46,14 +47,13 @@ const ShowcaseSection = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  const getOrdersAsync = useOrderStore((s) => s.getOrdersAsync);
   const authUser = useAuthStore((s) => s.authUser);
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
 
-      const data: any = await getOrdersAsync();
+      const data: any = await ordersApi.getOrders();
       if (!data.success) return alert(data.message || "Something went wrong");
 
       setOrders(data.data.orders);

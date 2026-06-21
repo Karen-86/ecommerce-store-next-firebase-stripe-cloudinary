@@ -41,7 +41,7 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
           />
           <img
             src={variantPrimaryImage?.url}
-            onLoad={() => setImageURL(variantPrimaryImage?.url)}
+            onLoad={() => setImageURL(variantPrimaryImage?.url || "")}
             // onError={() => setImageURL(productImage)}
             alt=""
             className="hidden"
@@ -51,12 +51,12 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
 
       <div className="card-body p-5 flex flex-col justify-between flex-1">
         <div className="row">
-          <p className="text-secondary-v2 text-xs font-medium mb-1.5 capitalize">{product.category}</p>
+          <p className="text-secondary-v2 text-xs font-medium mb-1.5 capitalize">{product.category || 'Uncategorized'}</p>
           <Link
             href={`/products/${product.slug}`}
             className="hover:text-primary duration-300 font-medium card-title flex-1 mb-[1rem] text-sm line-clamp-2   "
           >
-            {product.name}
+            {product.title}
           </Link>
           {/* <p className="card-description text-xs text-gray-500 mb-[1rem]">{product.description}</p> */}
         </div>
@@ -64,8 +64,8 @@ export const ProductCard = ({ product, className }: ProductCardProp) => {
         <div className="row flex items-end gap-2">
           <div className="col flex-1">
             <div className="card-prices flex gap-2 items-center mb-2">
-              <div className="card-price text-sm font-medium text-secondary-v2 line-through">${(45).toFixed(2)}</div>
-              <div className="card-price text-sm font-medium">${product.variants[0].price}</div>
+              <div className="card-price text-sm font-medium text-secondary-v2 line-through">${Number(product.variants[0].compareAtPrice).toFixed(2)}</div>
+              <div className="card-price text-sm font-medium">${Number(product.variants[0].price).toFixed(2)}</div>
             </div>
             <div className="flex">
               {Array.from({ length: 5 }).map((_, i) => (

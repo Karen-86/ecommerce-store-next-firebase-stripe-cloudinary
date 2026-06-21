@@ -38,6 +38,12 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
   };
 
   const [address, setAddress] = useState(initialAddress);
+  const countries = COUNTRIES.map(country => {
+    return {
+      label: country.name,
+      value: country.code
+    }
+  })
 
   useEffect(() => {
     if (!editingItem) return;
@@ -138,7 +144,7 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
         <form onSubmit={onSubmit} className={` h-full flex flex-col ${wasSubmitted ? "was-submitted" : ""}`}>
           <div className="flex-1 py-10 px-5">
             <ComboboxDemo
-              items={COUNTRIES}
+              items={countries}
               value={address.country}
               label="Country*"
               placeholder="Select country..."
@@ -149,7 +155,7 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
                 }));
               }}
               className="max-w-[350px] mb-5"
-              labelClassName="text-xs"
+              labelClassName="text-xs text-black/70"
               triggerClassName={`custom-trigger`}
               contentClassName={`custom-content`}
               errorMessage={errorMessages.country}
@@ -162,7 +168,7 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
               type="text"
               onChange={onChange}
               className="mb-5"
-              labelClassName="text-xs"
+              labelClassName="text-xs text-black/70"
               value={address.state}
               errorMessage={errorMessages.state}
               inputClassName={errorMessages.state ? "is-invalid" : "is-valid"}
@@ -174,7 +180,7 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
               type="text"
               onChange={onChange}
               className="mb-5"
-              labelClassName="text-xs"
+              labelClassName="text-xs text-black/70"
               value={address.city}
               errorMessage={errorMessages.city}
               inputClassName={errorMessages.city ? "is-invalid" : "is-valid"}
@@ -186,7 +192,7 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
               type="text"
               onChange={onChange}
               className="mb-5"
-              labelClassName="text-xs"
+              labelClassName="text-xs text-black/70"
               value={address.streetAddress}
               errorMessage={errorMessages.streetAddress}
               inputClassName={errorMessages.streetAddress ? "is-invalid" : "is-valid"}
@@ -198,7 +204,7 @@ const AddressFormSheet = ({ isOpen, setIsOpen, editingItem = null, setEditingIte
               type="text"
               onChange={onChange}
               className="mb-5"
-              labelClassName="text-xs"
+              labelClassName="text-xs text-black/70"
               value={address.postalCode}
               errorMessage={errorMessages.postalCode}
               inputClassName={errorMessages.postalCode ? "is-invalid" : "is-valid"}

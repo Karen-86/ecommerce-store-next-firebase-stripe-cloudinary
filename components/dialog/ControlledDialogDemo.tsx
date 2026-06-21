@@ -36,7 +36,7 @@ export function ControlledDialogDemo({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>{trigger || <Button variant="outline">Open Dialog</Button>}</DialogTrigger>
+      <DialogTrigger asChild>{trigger ? <div>{trigger}</div> : <Button variant="outline">Open Dialog</Button>}</DialogTrigger>
       <DialogContent
         className={`${contentClassName} sm:max-w-[425px] overflow-y-auto`}
       >

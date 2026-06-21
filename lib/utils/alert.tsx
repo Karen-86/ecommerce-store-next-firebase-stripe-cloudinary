@@ -25,7 +25,7 @@ export const alert = (message: string, description = "", action: any = null) => 
     action: action,
 
     duration: 5000,
-    position: "bottom-right",
+    position: "bottom-left",
     icon: checkIcon,
     className: "sonner-toast",
   });
@@ -39,7 +39,7 @@ export const successAlert = (message: string) => {
     //   onClick: () => console.log("Close"),
     // },
     duration: 5000,
-    position: "bottom-right",
+    position: "bottom-left",
     icon: checkIcon,
     style: { borderColor: "rgba(46, 125, 50,.3)", color: "rgb(46, 125, 50)" },
     className: "sonner-toast sonner-toast-success",
@@ -54,7 +54,7 @@ export const errorAlert = (message: string) => {
     //   onClick: () => console.log("Retrying"),
     // },
     duration: 5000,
-    position: "bottom-right",
+    position: "bottom-left",
     icon: <X style={{ width: "16px" }} />,
     style: { borderColor: "rgba(211, 47, 47,.3)", color: "rgb(211, 47, 47)" },
     className: "sonner-toast sonner-toast-error",

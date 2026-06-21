@@ -37,7 +37,7 @@ const Template = ({ product }: { product: Product }) => {
     { href: "/", label: "Home" },
     { href: "/shop", label: "Products" },
     {
-      label: productWithCart?.name ? <div className="truncate max-w-100">{productWithCart?.name}</div> : "unknown",
+      label: productWithCart?.title ? <div className="truncate max-w-100">{productWithCart?.title}</div> : "unknown",
     },
   ];
 
@@ -69,12 +69,16 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
   const [activeVariant, setActiveVariant] = useState<any>(null);
 
   const defaultVariant = useMemo(() => {
-    return productWithCart?.variants?.find((v: any) => v.stock > 0) || null;
+    return productWithCart?.variants?.find((v: any) => v.stock > 0) || productWithCart.variants[0];
   }, [productWithCart]);
 
   const displayVariant = activeVariant || defaultVariant;
-  const galleryImages = productWithCart?.media.filter((image: any) => displayVariant?.images.includes(image.id));
-
+  // const galleryImages = productWithCart?.media.filter((image: any) => displayVariant?.images.includes(image.id));
+  const galleryImages =
+    displayVariant?.images
+      .map((id: string) => productWithCart?.media.find((image: any) => image.id === id))
+      .filter(Boolean) ?? [];
+  
   const variantKey = displayVariant ? getVariantKey(displayVariant.attributes) : null;
 
   const cartItem = cart?.items?.find(
@@ -148,8 +152,10 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
               </div>
 
               <div className="flex gap-2 mb-5">
-                <div className="line-through text-secondary-v2 text-xl">${displayVariant?.compareAtPrice}</div>
-                <div className="text-xl font-semibold">${displayVariant?.price}</div>
+                <div className="line-through text-secondary-v2 text-xl">
+                  ${Number(displayVariant.compareAtPrice).toFixed(2)}
+                </div>
+                <div className="text-xl font-semibold">${Number(displayVariant.price).toFixed(2)}</div>
               </div>
 
               <p className="text-secondary-v3 font-light line-clamp-3 mb-5">{productWithCart.description}</p>
@@ -180,7 +186,7 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
                     className="rounded-xl flex-1"
                     text="Add to Cart"
                     onClick={addProductToCart}
-                    disabled={isCartItemCreating || isCartItemDeleting || !activeVariant}
+                    disabled={!activeVariant?.stock || isCartItemCreating || isCartItemDeleting || !activeVariant}
                   />
                 )}
 
@@ -189,7 +195,7 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
                   className="rounded-xl flex-1"
                   text="Buy Now"
                   onClick={() => handleBuyNow()}
-                  disabled={isCartItemCreating || isCartItemDeleting || !activeVariant}
+                  disabled={!activeVariant?.stock || isCartItemCreating || isCartItemDeleting || !activeVariant}
                 />
               </div>
 

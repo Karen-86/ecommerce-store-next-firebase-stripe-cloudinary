@@ -16,11 +16,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!data) return null
   
   return {
-    title: data.name,
-    description: data.description,
+    title: data.seo?.title,
+    description: data.seo?.description,
     openGraph: {
-      title: data.name,
-      description: data.description,
+      title: data.seo?.title,
+      description: data.seo?.description,
       type: "article",
       images: data.media?.map((img) => `${img.url}`) || [], // Open Graph doesn’t support base64 data URIs.
     },

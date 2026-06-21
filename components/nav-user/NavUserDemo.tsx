@@ -1,10 +1,21 @@
-"use client"
-import React, { useState, useEffect } from "react"
+"use client";
+import React, { useState, useEffect } from "react";
 
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles, Sun, Moon, Package, ChevronDown, Settings } from "lucide-react"
-import Link from "next/link"
-import { useTheme } from "next-themes"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  BadgeCheck,
+  Bell,
+  CreditCard,
+  LogOut,
+  Sparkles,
+  Sun,
+  Moon,
+  Package,
+  ChevronDown,
+  Settings,
+} from "lucide-react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,15 +24,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { ManageAccountDialog } from "@/components/index"
-import { LOCAL_DATA } from "@/constants/index"
-import { useAuthStore } from "@/modules/auth/store"
-import { useAuthActions } from "@/modules/auth/hooks/useAuthActions"
+} from "@/components/ui/dropdown-menu";
+import { ManageAccountDialog } from "@/components/index";
+import { LOCAL_DATA } from "@/constants/index";
+import { useAuthStore } from "@/modules/auth/store";
+import { useAuthActions } from "@/modules/auth/hooks/useAuthActions";
 
-const { avatarPlaceholderImage, ellipsisPreloaderImage } = LOCAL_DATA.images
+const { avatarPlaceholderImage, ellipsisPreloaderImage } = LOCAL_DATA.images;
 
-const { userIcon } = LOCAL_DATA.svgs
+const { userIcon } = LOCAL_DATA.svgs;
 
 export default function NavUserDemo({
   trigger = "",
@@ -29,22 +40,22 @@ export default function NavUserDemo({
   contentClassName = "",
   align = "end",
 }: any) {
-  const { handleSignOut } = useAuthActions()
-  const user = useAuthStore((s) => s.user)
+  const { handleSignOut } = useAuthActions();
+  const user = useAuthStore((s) => s.user);
   const [_user, _setUser] = useState<any>({
     name: "",
     email: "",
     photoURL: null,
     base64PhotoURL: null,
-  })
-  const { theme, systemTheme, setTheme } = useTheme()
+  });
+  const { theme, systemTheme, setTheme } = useTheme();
 
   const handleCycleTheme = () => {
-    if (theme === "light") setTheme("dark")
+    if (theme === "light") setTheme("dark");
     // else if (theme === "dark") setTheme("system");
     // else setTheme("light");
-    else if (theme === "dark") setTheme("light")
-  }
+    else if (theme === "dark") setTheme("light");
+  };
 
   useEffect(() => {
     _setUser({
@@ -52,13 +63,12 @@ export default function NavUserDemo({
       email: user?.email || "",
       photoURL: user?.photoURL || null,
       base64PhotoURL: user?.base64PhotoURL || null,
-    })
-  }, [user])
+    });
+  }, [user]);
 
-  const [isManageAccoundDialogOpen, setIsManageAccountDialogOpen] = useState(false)
+  const [isManageAccoundDialogOpen, setIsManageAccountDialogOpen] = useState(false);
 
   return (
-    <>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger
           className={` ${triggerClassName} flex cursor-pointer items-center justify-center gap-2 rounded-sm px-2 py-1 ml-2 outline-none hover:bg-gray-50 dark:hover:bg-secondary`}
@@ -125,15 +135,16 @@ export default function NavUserDemo({
           <DropdownMenuItem asChild className="cursor-pointer rounded-none px-5 py-4">
             <div
               onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setIsManageAccountDialogOpen(true)
+                e.preventDefault();
+                e.stopPropagation();
+                setIsManageAccountDialogOpen(true);
               }}
             >
               <Settings className="w-8!" />
               Manage Account
             </div>
           </DropdownMenuItem>
+            <ManageAccountDialog isOpen={isManageAccoundDialogOpen} setIsOpen={setIsManageAccountDialogOpen} />
 
           <DropdownMenuSeparator className="m-0" />
           <DropdownMenuItem className="cursor-pointer rounded-none px-5 py-4" onClick={handleCycleTheme}>
@@ -142,13 +153,11 @@ export default function NavUserDemo({
             {theme}
           </DropdownMenuItem>
           <DropdownMenuSeparator className="m-0" />
-          <DropdownMenuItem className="cursor-pointer rounded-none px-5 py-4" onClick={()=>handleSignOut()}>
+          <DropdownMenuItem className="cursor-pointer rounded-none px-5 py-4" onClick={() => handleSignOut()}>
             <LogOut className="w-8!" />
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ManageAccountDialog isOpen={isManageAccoundDialogOpen} setIsOpen={setIsManageAccountDialogOpen} />
-    </>
-  )
+  );
 }

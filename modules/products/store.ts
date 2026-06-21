@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { ProductWithCart, Product, StripeProduct } from "@/modules/products/types";
-import type {  ProductApiResponse } from './types'
+import type { ProductWithCart, Product, ProductApi, StripeProduct } from "@/modules/products/types";
+import type { ProductApiResponse, ProductsApiResponse } from "./types";
 import Stripe from "stripe";
 import * as productsApi from "@/modules/products/api";
 
@@ -9,10 +9,14 @@ const noop = () => {};
 type ProductStore = {
   products: Product[];
   isProductsLoading: boolean;
+  isProductCreating: boolean;
+  isProductUpdating: boolean;
   isProductsDeleting: boolean;
-  getProductsAsync: (params?: any) => Promise<ProductApiResponse>;
+  getProductsAsync: (params?: any) => Promise<ProductsApiResponse>;
   getProductAsync: (params?: any) => Promise<ProductApiResponse>;
-  deleteProductsAsync: (params?: any) => Promise<ProductApiResponse>;
+  createProductAsync: (params?: any) => Promise<ProductApiResponse>;
+  updateProductAsync: (params?: any) => Promise<ProductApiResponse>;
+  deleteProductsAsync: (params?: any) => Promise<ProductsApiResponse>;
   deleteProductAsync: (params?: any) => Promise<ProductApiResponse>;
 };
 
@@ -21,7 +25,7 @@ const getProduct = (product: Product) => {
     // base
     id: product.id,
     slug: product.slug,
-    name: product.name,
+    title: product.title,
     description: product.description,
     content: product.content,
     rating: product.rating,
@@ -41,6 +45,8 @@ const getProduct = (product: Product) => {
 export const useProductStore = create<ProductStore>((set, get) => ({
   products: [],
   isProductsLoading: false,
+  isProductCreating: false,
+  isProductUpdating: false,
   isProductsDeleting: false,
   getProductsAsync: async ({ query = "", successCB = noop, errorCB = noop } = {}) => {
     set({ isProductsLoading: true });
@@ -65,7 +71,6 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       set({ isProductsLoading: false });
     }
   },
-
   getProductAsync: async ({ productId = "", successCB = noop, errorCB = noop }) => {
     const data = await productsApi.getProduct({ id: productId });
 
@@ -84,6 +89,48 @@ export const useProductStore = create<ProductStore>((set, get) => ({
     successCB({ ...data, data: formattedProduct });
     return { ...data, data: formattedProduct };
   },
+  createProductAsync: async ({ body = {}, successCB = noop, errorCB = noop } = {}) => {
+    set({ isProductCreating: true });
+
+    try {
+      const data = await productsApi.createProduct({ body });
+
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
+
+      console.log(data, " =createProductAsync=");
+
+      get().getProductsAsync();
+
+      successCB(data);
+      return data;
+    } finally {
+      set({ isProductCreating: false });
+    }
+  },
+  updateProductAsync: async ({productId = '', body = {}, successCB = noop, errorCB = noop } = {}) => {
+    set({ isProductUpdating: true });
+
+    try {
+      const data = await productsApi.updateProduct({productId, body });
+
+      if (!data.success) {
+        errorCB(data);
+        return data;
+      }
+
+      console.log(data, " =updateProductAsync=");
+
+      get().getProductsAsync();
+
+      successCB(data);
+      return data;
+    } finally {
+      set({ isProductUpdating: false });
+    }
+  },
   deleteProductsAsync: async ({ query = "", successCB = noop, errorCB = noop } = {}) => {
     set({ isProductsDeleting: true });
 
@@ -97,7 +144,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
 
       console.log(data, " =deleteProductsAsync=");
 
-      get().getProductsAsync()
+      get().getProductsAsync();
 
       successCB(data);
       return data;
@@ -118,7 +165,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
 
       console.log(data, " =deleteProductAsync=");
 
-      get().getProductsAsync()
+      get().getProductsAsync();
 
       successCB(data);
       return data;

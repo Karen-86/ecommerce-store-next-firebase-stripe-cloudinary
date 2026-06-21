@@ -5,6 +5,10 @@ import isAuthenticatedMiddleware from "@/lib/server/middlewares/authentication/i
 import allowRolesMiddleware from "@/lib/server/middlewares/authorization/allowRoles.middleware";
 import loadUserMiddleware from "@/lib/server/middlewares/authentication/loadUser.middleware";
 import createError from "@/lib/utils/createError";
+import validateMiddleware from "@/lib/server/middlewares/validate.middleware";
+import { createProductSchema } from "./products.validator";
+import admin from "firebase-admin";
+import { slugify } from "@/lib/utils/formatters";
 
 // STRIPE
 // export async function GET(req: NextRequest) {
@@ -124,42 +128,53 @@ export async function POST(req: NextRequest) {
     const decoded = await isAuthenticatedMiddleware(req);
 
     const body = await req.json();
+    const value = validateMiddleware({ schema: createProductSchema, body });
 
-    const { userData } = await loadUserMiddleware({ decoded });
+    const { userData: user } = await loadUserMiddleware({ decoded });
 
-    const user = userData;
-
-    allowRolesMiddleware({ userRoles: user.roles, allowedRoles: ["superAdmin"] });
+    allowRolesMiddleware({ userRoles: user.roles, allowedRoles: ["admin", "superAdmin"] });
 
     const productsRef = db.collection("products");
+    const newProductRef = productsRef.doc();
 
-    // 1. delete all existing products
-    const existingProductsSnap = await productsRef.get();
+    const baseProductSlug = slugify(value.slug);
+    const productSlugExists = await productsRef.where("slug", "==", baseProductSlug).get();
+    const slug = productSlugExists.empty ? baseProductSlug : `${baseProductSlug}-${Date.now()}`;
 
-    const deleteBatch = db.batch();
+    const variants =
+      Array.isArray(value.variants) && value.variants.length
+        ? value.variants
+        : [
+            {
+              id: `variant-${crypto.randomUUID()}`,
+              sku: "",
+              stock: 0,
+              price: null,
+              compareAtPrice: null,
+              images: [],
+              primaryImage: "",
+              attributes: {},
+            },
+          ];
 
-    existingProductsSnap.docs.forEach((doc) => {
-      deleteBatch.delete(doc.ref);
+    await newProductRef.create({
+      ...value,
+      slug,
+      variants,
+      userId: user.id,
+      createdBy: user.email,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    await deleteBatch.commit();
-
-    // 2. upload new products
-    const uploadBatch = db.batch();
-
-    // firebase allow max 500 items
-    body.products.forEach((product: any) => {
-      const productRef = productsRef.doc(product.id);
-      uploadBatch.set(productRef, product);
-    });
-
-    await uploadBatch.commit();
+    const createdProductSnap = await newProductRef.get();
+    const createdProductData = { id: createdProductSnap.id, ...createdProductSnap.data() };
 
     return NextResponse.json(
       {
         success: true,
-        message: `${body.products.length} products uploaded successfully`,
-        data: null,
+        message: `Product created successfully`,
+        data: createdProductData,
       },
       { status: 201 },
     );

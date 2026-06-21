@@ -67,6 +67,7 @@ export const CartItemCard = ({
     >
       {!isInSheet && (
         <CheckboxDemo
+          variant="dark"
           id={cartItem.id}
           className=""
           checked={cartItem.isSelected}
@@ -94,8 +95,8 @@ export const CartItemCard = ({
             className="rounded-xl block absolute top-0 left-0 w-full h-full object-cover overflow-visible"
           />
           <img
-            src={variantPrimaryImage.url}
-            onLoad={() => setImageURL(variantPrimaryImage.url)}
+            src={variantPrimaryImage?.url}
+            onLoad={() => setImageURL(variantPrimaryImage?.url)}
             // onError={() => setImageURL(productImage)}
             alt=""
             className="hidden"
@@ -110,7 +111,7 @@ export const CartItemCard = ({
             href={`/products/${cartItem.productId}?variantId=${cartItem.variantDetails.id}`}
             className="hover:text-primary duration-300 font-medium card-title text-sm"
           >
-            <span className=" line-clamp-2">{cartItem.productDetails.name}</span>
+            <span className=" line-clamp-2">{cartItem.productDetails.title}</span>
 
             <div className=" flex gap-1 min-h-4">
               {Object.entries(cartItem.variantDetails.attributes).map(([key, value]: any, index, arr) => (
@@ -135,9 +136,9 @@ export const CartItemCard = ({
           <div className="col">
             <div className="card-prices">
               <div className="card-price text-sm font-medium text-secondary-v2 line-through">
-                ${(cartItem.variantDetails.price * 1.2).toFixed(2)}
+                ${Number(cartItem.variantDetails.compareAtPrice).toFixed(2)}
               </div>
-              <div className="card-price text-sm font-medium">${cartItem.variantDetails.price}</div>
+              <div className="card-price text-sm font-medium">${Number(cartItem.variantDetails.price).toFixed(2)}</div>
             </div>
           </div>
 

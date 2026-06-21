@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     const order = {
       ...(user?.uid ? { userId: user.uid } : {}),
       ...(cart?.guestId ? { guestId: cart.guestId } : {}),
-      author: user?.email || "guest",
+      createdBy: user?.email || "guest",
       items: cart.items,
       amount: cart.items.reduce((sum: number, item: any) => sum + item.quantity * Number(item.variantDetails.price), 0),
       status: "pending",

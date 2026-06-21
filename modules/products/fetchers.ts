@@ -58,7 +58,6 @@ export async function fetchProductBySlug({ productSlug = "" }) {
     const productRef = productDoc.ref;
 
     const data = { id: productDoc.id, ...productDoc.data() } as ProductApi;
-
     const { createdAt, updatedAt, ...rest } = data;
     return { success: true, message: "success", data: rest };
   } catch (err: any) {

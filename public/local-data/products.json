@@ -1,8 +1,10 @@
 [
   {
     "id": "P0001",
+    "userId": null,
+    "createdBy": null,
     "slug": "classic-cotton-t-shirt",
-    "name": "Classic Cotton Relaxed Fit T-Shirt",
+    "title": "Classic Cotton Relaxed Fit T-Shirt",
     "description": "Soft breathable cotton t-shirt designed for everyday comfort with a relaxed fit.",
     "content": "<h2>Everyday Essential</h2><p>Premium cotton fabric with breathable comfort for daily wear.</p>",
     "rating": 4.6,
@@ -42,10 +44,12 @@
     ],
     "options": [
       {
+        "id": "1",
         "name": "size",
         "values": ["S", "M", "L", "XL"]
       },
       {
+        "id": "2",
         "name": "color",
         "values": ["purple", "green", "black", "white"]
       }
@@ -122,8 +126,10 @@
   },
   {
     "id": "P0002",
+    "userId": null,
+    "createdBy": null,
     "slug": "slim-fit-stretch-denim-jeans",
-    "name": "Slim Fit Stretch Denim Jeans",
+    "title": "Slim Fit Stretch Denim Jeans",
     "description": "Modern slim fit jeans with flexible stretch fabric.",
     "content": "<h2>Modern Denim Wear</h2><p>Designed for comfort and movement with premium stretch denim.</p>",
     "rating": 4.5,
@@ -155,6 +161,7 @@
     ],
     "options": [
       {
+        "id": "1",
         "name": "size",
         "values": ["30", "32", "34", "36"]
       }
@@ -202,8 +209,10 @@
   },
   {
     "id": "P0003",
-    "slug":"noise-cancelling-wireless-headphones-pro",
-    "name": "Noise Cancelling Wireless Headphones Pro",
+    "userId": null,
+    "createdBy": null,
+    "slug": "noise-cancelling-wireless-headphones-pro",
+    "title": "Noise Cancelling Wireless Headphones Pro",
     "description": "Over-ear headphones with premium noise cancellation and deep bass.",
     "content": "<h2>Immersive Audio Experience</h2><p>Advanced ANC technology with long battery life.</p>",
     "rating": 4.8,
@@ -247,6 +256,7 @@
     ],
     "options": [
       {
+        "id": "1",
         "name": "color",
         "values": ["black", "white", "purple", "yellow"]
       }

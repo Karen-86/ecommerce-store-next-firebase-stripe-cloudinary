@@ -58,35 +58,38 @@
 //   );
 // }
 
-
 "use client";
 import React, { useId } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type CheckboxProps =  React.ComponentPropsWithoutRef<typeof Checkbox> & {
+type CheckboxProps = React.ComponentPropsWithoutRef<typeof Checkbox> & {
   className?: string;
+  checkboxClassName?: string;
   label?: string;
   variant?: "primary" | "success" | "warning" | "danger" | "dark" | "";
 };
 
-const variants: {[key: string]: string} = {
-  success: "text-green-600 [&>button]:!border-green-600 [&>[data-state='checked']]:bg-green-600"
-}
+const variants: { [key: string]: string } = {
+  success: "text-green-600 [&>button]:!border-green-600 [&>[data-state='checked']]:bg-green-600",
+  primary: " [&>button]:text-primary [&>button]:!border-black/30 [&>[data-state='checked']]:bg-white",
+  dark: " [&>button]:text-black [&>button]:!border-black/30 [&>[data-state='checked']]:bg-white",
+};
 
 export function CheckboxDemo({
   className = "",
+  checkboxClassName = "",
   label = "",
   variant = "",
   ...props
 }: CheckboxProps) {
-  const id = useId()
+  const id = useId();
 
   return (
     <div className={`checkbox flex items-center space-x-2 select-none ${className} ${variants[variant]}`}>
       <Checkbox
         id={`${id}`}
         {...props}
-        className={`cursor-pointer rounded-full border-black/30 [&_svg]:size-5! text-black! bg-white! `}
+        className={`${checkboxClassName} overflow-hidden cursor-pointer rounded-full border-black/30 [&_svg]:size-5!`}
       />
       {label && (
         <label

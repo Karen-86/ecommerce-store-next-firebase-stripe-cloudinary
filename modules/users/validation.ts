@@ -1,5 +1,4 @@
 import Joi, { ValidationResult } from "joi";
-import type { User } from "./types";
 
 export const validateCreateTargetUserAddress = (obj: any): ValidationResult<any> => {
   const createTargetUserAddress = Joi.object({

@@ -36,8 +36,8 @@ export const InputDemo = forwardRef<HTMLInputElement, InputDemoProps>(
           </Label>
         )}
         <Input ref={ref} id={id} {...props} className={`${inputClassName}`} />
-        {successMessage && <div className="valid-feedback text-green-600 text-xs">{successMessage}</div>}
-        {errorMessage && <div className="invalid-feedback text-red-600 text-xs">{errorMessage}</div>}
+        {successMessage && <div className="valid-feedback text-gray-700 text-xs break-all">{successMessage}</div>}
+        {errorMessage && <div className="invalid-feedback text-red-600 text-xs break-all">{errorMessage}</div>}
       </div>
     );
   },

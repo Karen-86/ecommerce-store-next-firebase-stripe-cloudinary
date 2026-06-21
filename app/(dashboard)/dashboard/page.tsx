@@ -14,9 +14,12 @@ import type { User } from "@/modules/users/types";
 import { alert } from "@/lib/utils/alert";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import * as ordersApi from "@/modules/orders/api";
+import * as productsApi from "@/modules/products/api";
+import * as usersApi from "@/modules/users/api";
 
 
-const {product2Image} = LOCAL_DATA.images;
+const {productImage} = LOCAL_DATA.images;
 
 const breadcrumbItems = [
   {
@@ -33,18 +36,14 @@ const Page = () => {
 
       <ShowcaseSection />
 
-      <img src={product2Image} className="absolute bottom-0 right-0  opacity-10" alt="" />
+      <img src={productImage} className="absolute bottom-0 right-0  opacity-10" alt="" />
     </main>
   );
 };
 
 const ShowcaseSection = () => {
   const user = useAuthStore((s) => s.user);
-  const getProductsAsync = useProductStore((s) => s.getProductsAsync);
-
-  const getOrdersAsync = useOrderStore((s) => s.getOrdersAsync);
   const authUser = useAuthStore((s) => s.authUser);
-  const getUsersAsync = useUserStore((s) => s.getUsersAsync);
 
   const [products, setProducts] = useState<Product[]>([]);
   const [customers, setCustomers] = useState<User[]>([]);
@@ -57,9 +56,9 @@ const ShowcaseSection = () => {
       setIsLoading(true);
 
       const [products, customers, orders]: any = await Promise.allSettled([
-        getProductsAsync(),
-        getUsersAsync(),
-        getOrdersAsync(),
+        productsApi.getProducts(),
+        usersApi.getUsers(),
+        ordersApi.getOrders(),
       ]);
 
       if (products.status === "fulfilled" && products.value.success) {
@@ -141,7 +140,7 @@ const ShowcaseSection = () => {
           <Card className="mb-5 pt-5 pb-10">
             <CardContent>
               <div className="uppercase  tracking-widest text-[16px] text-black/25 mb-3">Sales Overview</div>
-              <h2 className="text-2xl font-normal! mb-3">Welcom back, {user.displayName}</h2>
+              <h2 className="text-2xl font-normal! mb-3">Welcome back, {user.displayName}</h2>
               <div className=" font-light">Protected data, order history, products are backed by Firestore.</div>
             </CardContent>
           </Card>

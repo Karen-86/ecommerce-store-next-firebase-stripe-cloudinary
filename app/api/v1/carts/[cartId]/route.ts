@@ -14,7 +14,7 @@ import isResourceOwnerMiddleware from "@/lib/server/middlewares/authorization/is
 // GET CART
 export async function GET(req: NextRequest, { params }: { params: Promise<{ cartId: string }> }) {
   try {
-    const decoded = await isAuthenticatedMiddleware(req);
+    await isAuthenticatedMiddleware(req);
 
     const { cartId } = await params;
     const { cart } = await loadResourceMiddleware({

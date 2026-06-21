@@ -10,7 +10,7 @@ import {
   BlogFormSkeleton,
   DialogDemo,
 } from "@/components/index";
-import UploadProductsDialog from "./dialogs/upload-products-dialog/uploadProductsDialog";
+import UploadProductsDialog from "./components/dialogs/upload-products-dialog/uploadProductsDialog";
 import { PlusIcon, FileJson } from "lucide-react";
 import { LOCAL_DATA } from "@/constants/index";
 import { v4 as uuidv4 } from "uuid";
@@ -20,9 +20,10 @@ import { alert, errorAlert, warningAlert } from "@/lib/utils/alert";
 import { useAuthStore } from "@/modules/auth/store";
 import * as productsApi from "@/modules/products/api";
 import { Card, CardContent } from "@/components/ui/card";
-import { ProductsTable } from "./products-table/ProductsTable";
-import { columns } from "./products-table/columns";
+import { ProductsTable } from "./components/products-table/ProductsTable";
+import { columns } from "./components/products-table/columns";
 import type { Product } from "@/modules/products/types";
+import { useGalleryImagesStore } from "@/modules/gallery-images/store";
 
 const breadcrumbItems = [
   {
@@ -30,7 +31,7 @@ const breadcrumbItems = [
     label: "Dashboard",
   },
   {
-    label: `products`,
+    label: `Products`,
   },
 ];
 
@@ -39,16 +40,12 @@ const page = () => {
   const isProductsLoading = useProductStore((s) => s.isProductsLoading);
   const isProductsDeleting = useProductStore((s) => s.isProductsDeleting);
   const getProductsAsync = useProductStore((s) => s.getProductsAsync);
-  
-
   const authUser = useAuthStore((s) => s.authUser);
 
   const fetchData = async () => {
     const data: any = await getProductsAsync();
     if (!data.success) return alert(data.message || "Something went wrong");
   };
-
-
 
   useEffect(() => {
     // auth still loading

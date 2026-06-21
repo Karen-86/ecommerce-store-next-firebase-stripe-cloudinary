@@ -8,7 +8,6 @@ export type CartBaseItem = {
 };
 
 export type CartBase = {
-  userId?: string;
   guestId?: string;
   items: CartBaseItem[];
   shipping?: number;
@@ -25,7 +24,9 @@ export type CartItemWithCheckbox = CartBaseItem & {
 
 /* ---------------- API LAYER ---------------- */
 
-export type ApiCart = CartBase & {
+export type CartApi = CartBase & {
+  userId: string;
+  createdBy: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -36,5 +37,5 @@ export type ApiResponse<T> = {
   data: T;
 };
 
-export type CartsApiResponse = ApiResponse<ApiCart[]>;
-export type CartApiResponse = ApiResponse<ApiCart>;
+export type CartsApiResponse = ApiResponse<CartApi[] | any>;
+export type CartApiResponse = ApiResponse<CartApi | any>;

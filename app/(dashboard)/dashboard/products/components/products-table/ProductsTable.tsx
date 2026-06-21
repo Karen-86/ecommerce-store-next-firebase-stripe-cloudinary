@@ -14,7 +14,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronDown, ChevronLeft, ChevronRight, EyeIcon } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -36,6 +35,8 @@ import { useAuthStore } from "@/modules/auth/store";
 import type { Product } from "@/modules/products/types";
 import { useProductStore } from "@/modules/products/store";
 import { alert } from "@/lib/utils/alert";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,18 +80,21 @@ export function ProductsTable<TData extends Product, TValue>({ data, columns }: 
 
   const deleteProductsAsync = useProductStore((s) => s.deleteProductsAsync);
 
-    const deleteProducts = async (selectedProductIds: string[] = []) => {
-      const data: any = await deleteProductsAsync({ query: `?productIds=${selectedProductIds.join(",")}` });
-      if (!data.success) return alert(data.message || "Something went wrong");
+  const deleteProducts = async (selectedProductIds: string[] = []) => {
+    const data: any = await deleteProductsAsync({ query: `?productIds=${selectedProductIds.join(",")}` });
+    if (!data.success) return alert(data.message || "Something went wrong");
+    alert("Product(s) deleted successfully.");
   };
-  
+
+  const router = useRouter();
+
   return (
     <div className="w-full">
       <div className="flex flex-wrap items-center py-4 gap-5">
         <Input
           placeholder="Filter products..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
           className="max-w-sm mr-auto"
         />
         {!!selectedRows.length && (
@@ -100,12 +104,19 @@ export function ProductsTable<TData extends Product, TValue>({ data, columns }: 
             // disabled={!table.getIsSomeRowsSelected()}
             onClick={() => {
               console.log(selectedRows.map((r) => r.original.id));
-              deleteProducts(selectedRows.map((r) => r.original.id))
+              deleteProducts(selectedRows.map((r) => r.original.id));
             }}
           >
             Delete selected
           </ButtonDemo>
         )}
+
+        <Link href="/dashboard/products/new">
+          <ButtonDemo className="hover:bg-black/80" variant="dark">
+            Add product
+          </ButtonDemo>
+        </Link>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="">
@@ -153,7 +164,13 @@ export function ProductsTable<TData extends Product, TValue>({ data, columns }: 
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <React.Fragment key={row.id}>
-                  <TableRow data-state={row.getIsSelected() && "selected"}>
+                  <TableRow
+                    data-state={row.getIsSelected() && "selected"}
+                    onClick={() => {
+                      router.push(`/dashboard/products/${row.original.id}`);
+                    }}
+                    className="cursor-pointer"
+                  >
                     {row.getVisibleCells().map((cell, index) => (
                       <TableCell key={cell.id} className={`px-5 ${index === 3 ? "w-full" : ""}`}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

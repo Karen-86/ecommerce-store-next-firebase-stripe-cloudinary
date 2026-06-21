@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import type { UserResponse } from "@/modules/users/types";
+import type { UserApi, UsersApiResponse,UserApiResponse } from "@/modules/users/types";
 import { useAuthStore } from "@/modules/auth/store";
 import * as usersApi from "@/modules/users/api";
 
 const noop = () => {};
 
 type UserStore = {
-  users: UserResponse[];
-  targetUser: UserResponse;
+  users: UserApi[];
+  targetUser: UserApi;
   isTargetUserLoading: boolean;
   isUsersLoading: boolean;
   isTargetUserUpdating: boolean;
@@ -16,14 +16,14 @@ type UserStore = {
   isTargetUserAddressUpdating: boolean;
   isTargetUserAddressDeleting: boolean;
   isTargetUserDeleting: boolean;
-  getUsersAsync: (params?: any) => Promise<void>;
-  getTargetUserAsync: (params?: any) => Promise<void>;
-  updateTargetUserAsync: (params?: any) => Promise<void>;
-  updateTargetUserRolesAsync: (params?: any) => Promise<void>;
-  createTargetUserAddressAsync: (params?: any) => Promise<void>;
-  updateTargetUserAddressAsync: (params?: any) => Promise<void>;
-  deleteTargetUserAddressAsync: (params?: any) => Promise<void>;
-  deleteTargetUserAsync: (params?: any) => Promise<void>;
+  getUsersAsync: (params?: any) => Promise<UsersApiResponse>;
+  getTargetUserAsync: (params?: any) => Promise<UserApiResponse>;
+  updateTargetUserAsync: (params?: any) => Promise<UserApiResponse>;
+  updateTargetUserRolesAsync: (params?: any) => Promise<UserApiResponse>;
+  createTargetUserAddressAsync: (params?: any) => Promise<UserApiResponse>;
+  updateTargetUserAddressAsync: (params?: any) => Promise<UserApiResponse>;
+  deleteTargetUserAddressAsync: (params?: any) => Promise<UserApiResponse>;
+  deleteTargetUserAsync: (params?: any) => Promise<UserApiResponse>;
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -62,17 +62,17 @@ export const useUserStore = create<UserStore>((set, get) => ({
     set({ isTargetUserLoading: true });
 
     try {
-      const targetUser = await usersApi.getTargetUser({ userId: userId });
+      const data = await usersApi.getTargetUser({ userId: userId });
 
-      if (!targetUser.success) {
-        errorCB(targetUser);
-        return targetUser;
+      if (!data.success) {
+        errorCB(data);
+        return data;
       }
-      console.log(targetUser, " =getTargetUserAsync=");
+      console.log(data, " =getTargetUserAsync=");
 
-      set({ targetUser: targetUser.data });
-      successCB(targetUser);
-      return targetUser
+      set({ targetUser: data.data });
+      successCB(data);
+      return data
     } finally {
       set({ isTargetUserLoading: false });
     }
@@ -92,6 +92,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       await get().getUsersAsync();
       successCB({ ...data, message: data.message || "User has been updated successfully." });
+      return data
     } finally {
       set({ isTargetUserUpdating: false });
     }
@@ -121,6 +122,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       await get().getUsersAsync();
       successCB({ ...data, message: data.message || "User roles has been updated successfully." });
+      return data
     } finally {
       set({ isTargetUserRolesUpdating: false });
     }
@@ -140,6 +142,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       await useAuthStore.getState().getProfileAsync();
       successCB({ ...data, message: "Address added." });
+      return data
     } finally {
       set({ isTargetUserAddressCreating: false });
     }
@@ -167,10 +170,12 @@ export const useUserStore = create<UserStore>((set, get) => ({
       await useAuthStore.getState().getProfileAsync();
 
       successCB({ ...data, message: "Address updated." });
+      return data
     } finally {
       set({ isTargetUserAddressUpdating: false });
     }
   },
+
   deleteTargetUserAddressAsync: async ({
     userId = "",
     addressId = "",
@@ -192,6 +197,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
       await useAuthStore.getState().getProfileAsync();
 
       successCB({ ...data, message: "Address deleted." });
+      return data
     } finally {
       set({ isTargetUserAddressDeleting: false });
     }
@@ -217,6 +223,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
         await get().getUsersAsync();
         successCB({ ...data, message: data.message || "User has been deleted successfully." });
       }
+      return data
     } finally {
       set({ isTargetUserDeleting: false });
     }

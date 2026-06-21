@@ -38,7 +38,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ car
 
       await newCartRef.create({
         userId: user.id,
-        author: user.email,
+        createdBy: user.email,
         items: [],
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         // updatedAt: admin.firestore.FieldValue.serverTimestamp(),

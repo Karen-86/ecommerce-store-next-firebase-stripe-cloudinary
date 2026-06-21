@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Cart, CartBaseItem } from "@/modules/carts/types";
+import type { Cart, CartApi, CartsApiResponse, CartApiResponse } from "@/modules/carts/types";
 import * as cartsApi from "@/modules/carts/api";
 import { useAuthStore } from "../auth/store";
 import { v4 as uuidv4 } from "uuid";
@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 const noop = () => {};
 
 type CartStore = {
-  cart: Cart | null;
+  cart: CartApi | Cart | null;
   cartMode: "guest" | "user" | null;
   isCartLoading: boolean;
   isCartCreating: boolean;
@@ -17,13 +17,13 @@ type CartStore = {
   isCartItemDeleting: boolean;
   isCartSheetOpen: boolean;
   setCartMode: (params?: any) => void;
-  getCartAsync: (params?: any) => Promise<void>;
-  createCartAsync: (params?: any) => Promise<void>;
-  deleteCartAsync: (params?: any) => Promise<void>;
-  attachGuestCartItemsAsync: (params?: any) => Promise<any | null>;
-  createCartItemAsync: (params?: any) => Promise<any | null>;
-  updateCartItemAsync: (params?: any) => Promise<any | null>;
-  deleteCartItemAsync: (params?: any) => Promise<any | null>;
+  getCartAsync: (params?: any) => Promise<CartApiResponse | void>;
+  createCartAsync: (params?: any) => Promise<CartApiResponse | void>;
+  deleteCartAsync: (params?: any) => Promise<CartApiResponse | void>;
+  attachGuestCartItemsAsync: (params?: any) => Promise<CartApiResponse | void>;
+  createCartItemAsync: (params?: any) => Promise<CartApiResponse | void>;
+  updateCartItemAsync: (params?: any) => Promise<CartApiResponse | void>;
+  deleteCartItemAsync: (params?: any) => Promise<CartApiResponse | void>;
   setIsCartSheetOpen: (params?: any) => void;
 };
 
@@ -74,7 +74,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
         console.log(data, " =getCartAsync=");
 
         set({ cart: data.data });
+        
         successCB(data);
+        return data
       }
 
       // LocalStorage
@@ -113,6 +115,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
         set({ cart: null });
         successCB({ ...data, message: "Your cart has been cleared." });
+        return data
       }
 
       // LocalStorage
@@ -140,7 +143,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
       console.log(data, " =attachGuestCartItemsAsync=");
 
       set({ cart: data.data });
+
       successCB({ ...data, message: "Attached to cart successfully!" });
+      return data
     } finally {
       set({ isCartItemCreating: false });
     }
@@ -161,7 +166,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
         console.log(data, " =createCartItemAsync=");
 
         set({ cart: data.data });
+
         successCB({ ...data, message: "Added to cart successfully!" });
+        return data
       }
 
       // LocalStorage
