@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
     }
 
     if (collections.length) {
-      productsRef = productsRef.where("collections", "array-contains-any", collections);
+      productsRef = productsRef.where("collectionsNormalized", "array-contains-any", collections);
     }
 
     // old simple scenario

@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { SelectDemo, ComboboxPopup, ComboboxMultiple, InputDemo } from "@/components/index";
+import { ComboboxMultiple, InputDemo } from "@/components/index";
 import { Card, CardContent } from "@/components/ui/card";
-import { CATEGORIES } from "@/constants";
-import type { SeoType, BasicInfoType } from "@/modules/products/types";
-import { Label } from "@/components/ui/label";
-import { slugify } from "@/lib/utils/formatters";
-import { Pencil } from "lucide-react";
-import type { SelectItemPopupType } from "@/components/comboboxes/ComboboxPopup";
 import { valueSlugify } from "@/components/comboboxes/ComboboxMultiple";
 
 const OrganizationSection = ({
@@ -16,12 +10,6 @@ const OrganizationSection = ({
   organization: { [key: string]: any };
   setOrganization: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>;
 }) => {
-  const [fetchedItems, setFetchedItems] = useState([
-    { label: "fjkd", value: "fjkd" },
-    { label: "ddd", value: "ddd" },
-  ]);
-  const [selectedItemPopup, setSelectedItemPopup] = useState<SelectItemPopupType | null>(null);
-
   const collections = useMemo(
     () =>
       ["Featured", "Trending", ...organization.collections]
@@ -89,9 +77,11 @@ const OrganizationSection = ({
             labelClassName="text-xs text-black/70"
             onChange={({ values, items }) => {
               setOrganization((prevOrg) => {
+                const selectedItems = items.filter((i) => values.includes(i.value));
                 return {
                   ...prevOrg,
-                  collections: items.filter((i) => values.includes(i.value)).map((i) => i.label),
+                  collections: selectedItems.map((i) => i.label), // "Trending", "Summer Sale"
+                  collectionsNormalized: values, // "trending", "summer-sale"
                 };
               });
             }}

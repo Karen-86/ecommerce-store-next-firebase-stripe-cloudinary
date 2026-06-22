@@ -12,12 +12,14 @@ type ProductStore = {
   isProductCreating: boolean;
   isProductUpdating: boolean;
   isProductsDeleting: boolean;
+  isProductsExporting: boolean;
   getProductsAsync: (params?: any) => Promise<ProductsApiResponse>;
   getProductAsync: (params?: any) => Promise<ProductApiResponse>;
   createProductAsync: (params?: any) => Promise<ProductApiResponse>;
   updateProductAsync: (params?: any) => Promise<ProductApiResponse>;
   deleteProductsAsync: (params?: any) => Promise<ProductsApiResponse>;
   deleteProductAsync: (params?: any) => Promise<ProductApiResponse>;
+  exportProductsAsync: (params?: any) => Promise<ProductsApiResponse>;
 };
 
 const getProduct = (product: Product) => {
@@ -48,6 +50,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
   isProductCreating: false,
   isProductUpdating: false,
   isProductsDeleting: false,
+  isProductsExporting: false,
   getProductsAsync: async ({ query = "", successCB = noop, errorCB = noop } = {}) => {
     set({ isProductsLoading: true });
     try {
@@ -110,11 +113,11 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       set({ isProductCreating: false });
     }
   },
-  updateProductAsync: async ({productId = '', body = {}, successCB = noop, errorCB = noop } = {}) => {
+  updateProductAsync: async ({ productId = "", body = {}, successCB = noop, errorCB = noop } = {}) => {
     set({ isProductUpdating: true });
 
     try {
-      const data = await productsApi.updateProduct({productId, body });
+      const data = await productsApi.updateProduct({ productId, body });
 
       if (!data.success) {
         errorCB(data);
@@ -171,6 +174,42 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       return data;
     } finally {
       set({ isProductsDeleting: false });
+    }
+  },
+  exportProductsAsync: async ({  successCB = noop, errorCB = noop } = {}) => {
+    set({ isProductsExporting: true });
+
+    try {
+      const response = await productsApi.exportProducts({  });
+
+      const blob = response.data;
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "products.json";
+      document.body.appendChild(a);
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      a.remove();
+
+      console.log(response, " =exportProductsAsync=");
+
+      successCB({ success: true, message: "Products exported successfully", data: null });
+      return { success: true, message: "Products exported successfully", data: null };
+    } catch (err) {
+      const res = {
+        success: false,
+        message: "Failed to export products",
+        data: null,
+      };
+
+      errorCB(res);
+      return res;
+    } finally {
+      set({ isProductsExporting: false });
     }
   },
 }));

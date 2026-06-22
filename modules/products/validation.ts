@@ -62,6 +62,7 @@ export const validateCreateProduct = (obj: any): ValidationResult<any> => {
 
     brand: Joi.string().allow(''),
     collections: Joi.array().items(Joi.string()).unique(),
+    collectionsNormalized: Joi.array().items(Joi.string().lowercase()).unique(),
     tags: Joi.array().items(Joi.string()).unique(),
   }).options({ abortEarly: false });
 

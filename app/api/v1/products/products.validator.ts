@@ -61,5 +61,6 @@ export const createProductSchema = Joi.object({
 
   brand: Joi.string().allow(""),
   collections: Joi.array().items(Joi.string()).unique(),
+    collectionsNormalized: Joi.array().items(Joi.string().lowercase()).unique(),
   tags: Joi.array().items(Joi.string()).unique(),
 });

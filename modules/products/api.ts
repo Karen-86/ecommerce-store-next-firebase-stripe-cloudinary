@@ -53,3 +53,9 @@ export async function deleteProduct({ productId = "" }) {
   const headers = createHeaders();
   return request({ url, method: "DELETE", headers });
 }
+
+export async function exportProducts({ }) {
+  let url = "/products/export";
+  const headers = createHeaders();
+  return request({ url, method: "GET", headers, responseType: "blob" });
+}

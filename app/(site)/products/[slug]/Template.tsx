@@ -148,7 +148,7 @@ export const DetailsSection = ({ productWithCart, isLoading, isInDialog }: Produ
                     }`}
                   />
                 ))}
-                <div className="text-sm text-secondary-v3 font-medium ml-2">({productWithCart?.rating})</div>
+                <div className="text-sm text-secondary-v3 font-medium ml-2">({productWithCart?.rating || 4})</div>
               </div>
 
               <div className="flex gap-2 mb-5">

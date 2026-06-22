@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, ChevronLeft, ChevronRight, EyeIcon } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, EyeIcon, Download,TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -79,6 +79,7 @@ export function ProductsTable<TData extends Product, TValue>({ data, columns }: 
   const [selectedValue, setSelectedValue] = useState(table.getState().pagination.pageSize.toString());
 
   const deleteProductsAsync = useProductStore((s) => s.deleteProductsAsync);
+  const exportProductsAsync = useProductStore((s) => s.exportProductsAsync);
 
   const deleteProducts = async (selectedProductIds: string[] = []) => {
     const data: any = await deleteProductsAsync({ query: `?productIds=${selectedProductIds.join(",")}` });
@@ -86,40 +87,62 @@ export function ProductsTable<TData extends Product, TValue>({ data, columns }: 
     alert("Product(s) deleted successfully.");
   };
 
+  const exportProducts = async (selectedProductIds: string[] = []) => {
+    const data: any = await exportProductsAsync({ query: `?productIds=${selectedProductIds.join(",")}` });
+    if (!data.success) return alert(data.message || "Something went wrong");
+    alert("Product(s) exported successfully.");
+  };
+
   const router = useRouter();
 
   return (
     <div className="w-full">
-      <div className="flex flex-wrap items-center py-4 gap-5">
+      <div className="flex flex-wrap items-center py-4 gap-2">
         <Input
           placeholder="Filter products..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
-          className="max-w-sm mr-auto"
+          className="max-w-sm mr-auto h-8 rounded-md! text-xs!"
         />
         {!!selectedRows.length && (
           <ButtonDemo
             className="hover:bg-black/80"
             variant="dark"
+            endIcon={<TrashIcon/>}
             // disabled={!table.getIsSomeRowsSelected()}
             onClick={() => {
               console.log(selectedRows.map((r) => r.original.id));
               deleteProducts(selectedRows.map((r) => r.original.id));
             }}
+            size='xs'
           >
             Delete selected
           </ButtonDemo>
         )}
 
+        <ButtonDemo
+          className="hover:bg-black/80"
+          variant="dark"
+          // disabled={!table.getIsSomeRowsSelected()}
+          onClick={() => {
+            console.log(selectedRows.map((r) => r.original.id));
+            exportProducts(selectedRows.map((r) => r.original.id));
+          }}
+          endIcon={<Download />}
+          size='xs'
+        >
+          Export
+        </ButtonDemo>
+
         <Link href="/dashboard/products/new">
-          <ButtonDemo className="hover:bg-black/80" variant="dark">
+          <ButtonDemo className="hover:bg-black/80" variant="dark" size='xs'>
             Add product
           </ButtonDemo>
         </Link>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="">
+            <Button variant="outline" className="" size='xs'>
               Columns <ChevronDown />
             </Button>
           </DropdownMenuTrigger>

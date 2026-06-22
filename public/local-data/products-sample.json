@@ -1,0 +1,1559 @@
+{
+  "products": [
+    {
+      "id": "9m5el37nxkDiKojkcSKd",
+      "description": "Charlotte Brontë’s classic Gothic romance about independence, love, and moral strength in Victorian England",
+      "media": [
+        {
+          "id": "SgVkJ7aeaRDWiL0OZxSf",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782127060/products/gallery-images/SgVkJ7aeaRDWiL0OZxSf_1782127058657.avif"
+        }
+      ],
+      "category": "home",
+      "brand": "",
+      "collections": [
+        "Featured",
+        "Trending"
+      ],
+      "collectionsNormalized": [
+        "featured",
+        "trending"
+      ],
+      "tags": [],
+      "status": "active",
+      "options": [],
+      "variants": [
+        {
+          "id": "variant-e6c00a29-68b3-48f8-a460-c4c7b5b99974",
+          "sku": "",
+          "stock": 34,
+          "price": 5.45,
+          "compareAtPrice": 8.65,
+          "images": [
+            "SgVkJ7aeaRDWiL0OZxSf"
+          ],
+          "primaryImage": "SgVkJ7aeaRDWiL0OZxSf",
+          "attributes": {}
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782127192,
+        "_nanoseconds": 338000000
+      },
+      "seo": {
+        "title": "Jane Eyre | Charlotte Brontë",
+        "description": "Charlotte Brontë’s classic Gothic romance about independence, love, and moral strength in Victorian England"
+      },
+      "title": "Jane Eyre | Charlotte Brontë",
+      "slug": "jane-eyre-charlotte-bront",
+      "updatedAt": {
+        "_seconds": 1782127380,
+        "_nanoseconds": 799000000
+      }
+    },
+    {
+      "id": "Jeqn0ZDPX0N5xSE2ltzR",
+      "title": "Wuthering Heights | Emily Brontë",
+      "slug": "wuthering-heights-emily-bront",
+      "description": "Wuthering Heights | Emily Brontë’s Timeless Gothic Romance for Classic Literature Lovers",
+      "media": [
+        {
+          "id": "OtbC0nS5HfaP7ZXAeSUJ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782127484/products/gallery-images/OtbC0nS5HfaP7ZXAeSUJ_1782127481558.avif"
+        }
+      ],
+      "category": "home",
+      "brand": "",
+      "collections": [],
+      "collectionsNormalized": [],
+      "tags": [],
+      "seo": {
+        "title": "Wuthering Heights | Emily Brontë",
+        "description": "Wuthering Heights | Emily Brontë’s Timeless Gothic Romance for Classic Literature Lovers"
+      },
+      "status": "active",
+      "options": [],
+      "variants": [
+        {
+          "id": "variant-72ed611d-22de-4ebe-9ab4-b9fd7a4964c6",
+          "sku": "",
+          "stock": 23,
+          "price": 6.48,
+          "compareAtPrice": 7.39,
+          "images": [
+            "OtbC0nS5HfaP7ZXAeSUJ"
+          ],
+          "primaryImage": "OtbC0nS5HfaP7ZXAeSUJ",
+          "attributes": {}
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782127531,
+        "_nanoseconds": 267000000
+      },
+      "updatedAt": {
+        "_seconds": 1782127531,
+        "_nanoseconds": 267000000
+      }
+    },
+    {
+      "id": "KiijyJiorwQ9st3NQFMI",
+      "title": "Lapel Jacket",
+      "slug": "lapel-jacket",
+      "description": "Autumn/Winter New Arrival Men's Lapel Jacket, Casual Streetwear Fashion Versatile Outerwear, Multi-Pocket Khaki Jacket, Vintage Style Coat",
+      "media": [
+        {
+          "id": "6BuyoSFyv1WQBfflQZDn",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782124629/products/gallery-images/6BuyoSFyv1WQBfflQZDn_1782124626300.avif"
+        },
+        {
+          "id": "zoqB60BYbYdlcMy714fm",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782124629/products/gallery-images/zoqB60BYbYdlcMy714fm_1782124626293.avif"
+        },
+        {
+          "id": "9QaCtegMauwSCPmtgTTG",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782124628/products/gallery-images/9QaCtegMauwSCPmtgTTG_1782124626296.avif"
+        },
+        {
+          "id": "8HRHb8kxY54DqEi5rHql",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782124533/products/gallery-images/8HRHb8kxY54DqEi5rHql_1782124531456.webp"
+        },
+        {
+          "id": "cjdbO46PyHjiFsSwDRcM",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782124533/products/gallery-images/cjdbO46PyHjiFsSwDRcM_1782124530550.avif"
+        },
+        {
+          "id": "5GVBWplc3SjsxHDxPAMo",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782124532/products/gallery-images/5GVBWplc3SjsxHDxPAMo_1782124530525.avif"
+        }
+      ],
+      "brand": "",
+      "collections": [
+        "Featured"
+      ],
+      "collectionsNormalized": [
+        "featured"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Lapel Jacket",
+        "description": "Autumn/Winter New Arrival Men's Lapel Jacket, Casual Streetwear Fashion Versatile Outerwear, Multi-Pocket Khaki Jacket, Vintage Style Coat"
+      },
+      "status": "active",
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782124815,
+        "_nanoseconds": 280000000
+      },
+      "options": [
+        {
+          "id": "f75f8661-0e89-4b8f-8386-44d4045003d7",
+          "name": "size",
+          "values": [
+            "S",
+            "M"
+          ]
+        },
+        {
+          "id": "310f5afa-245c-472b-8967-d8e997f0eb06",
+          "name": "color",
+          "values": [
+            "green",
+            "blue"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-f6779870-9461-4697-be1f-72b0ae246508",
+          "sku": "TS-S-GRE",
+          "price": 34.46,
+          "compareAtPrice": 38.22,
+          "stock": 6,
+          "images": [
+            "cjdbO46PyHjiFsSwDRcM",
+            "8HRHb8kxY54DqEi5rHql",
+            "5GVBWplc3SjsxHDxPAMo"
+          ],
+          "primaryImage": "cjdbO46PyHjiFsSwDRcM",
+          "attributes": {
+            "size": "S",
+            "color": "green"
+          }
+        },
+        {
+          "id": "variant-0fe7def9-203b-4009-8e79-cc858c1b213e",
+          "sku": "TS-S-BLU",
+          "price": 34.46,
+          "compareAtPrice": 38.22,
+          "stock": 7,
+          "images": [
+            "6BuyoSFyv1WQBfflQZDn",
+            "zoqB60BYbYdlcMy714fm",
+            "9QaCtegMauwSCPmtgTTG"
+          ],
+          "primaryImage": "6BuyoSFyv1WQBfflQZDn",
+          "attributes": {
+            "size": "S",
+            "color": "blue"
+          }
+        },
+        {
+          "id": "variant-73aa142d-9f30-4227-b563-0ff20e318148",
+          "sku": "TS-M-GRE",
+          "price": 34.46,
+          "compareAtPrice": 38.22,
+          "stock": 8,
+          "images": [
+            "cjdbO46PyHjiFsSwDRcM",
+            "8HRHb8kxY54DqEi5rHql",
+            "5GVBWplc3SjsxHDxPAMo"
+          ],
+          "primaryImage": "cjdbO46PyHjiFsSwDRcM",
+          "attributes": {
+            "size": "M",
+            "color": "green"
+          }
+        },
+        {
+          "id": "variant-9bb659f6-2cdd-48d6-8bdc-ac01c97cd39b",
+          "sku": "TS-M-BLU",
+          "price": 34.46,
+          "compareAtPrice": 38.22,
+          "stock": 8,
+          "images": [
+            "6BuyoSFyv1WQBfflQZDn",
+            "zoqB60BYbYdlcMy714fm",
+            "9QaCtegMauwSCPmtgTTG"
+          ],
+          "primaryImage": "6BuyoSFyv1WQBfflQZDn",
+          "attributes": {
+            "size": "M",
+            "color": "blue"
+          }
+        }
+      ],
+      "category": "clothing",
+      "updatedAt": {
+        "_seconds": 1782125093,
+        "_nanoseconds": 813000000
+      }
+    },
+    {
+      "id": "NBoUaFDPBsPAf7TsKmQ3",
+      "title": "Sailor Uniform",
+      "slug": "sailor-uniform",
+      "description": "Japanese Uniform JK Uniform Japanese Academy Style Suit Sailor Outfit Women'S Blouse Pleated Skirt",
+      "media": [
+        {
+          "id": "j0a6LrPSt9JnYPrqL1IU",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125641/products/gallery-images/j0a6LrPSt9JnYPrqL1IU_1782125639130.avif"
+        },
+        {
+          "id": "NymUzpmZSqgp1B9Q5C9z",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125640/products/gallery-images/NymUzpmZSqgp1B9Q5C9z_1782125639142.avif"
+        },
+        {
+          "id": "mQGOJJphiqK30FhVNgzx",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125640/products/gallery-images/mQGOJJphiqK30FhVNgzx_1782125639150.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "collections": [
+        "Featured",
+        "Trending"
+      ],
+      "collectionsNormalized": [
+        "trending",
+        "featured"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Sailor Uniform",
+        "description": "Japanese Uniform JK Uniform Japanese Academy Style Suit Sailor Outfit Women'S Blouse Pleated Skirt"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "adcb9cb2-3669-4dc6-b732-37061d99d316",
+          "name": "size",
+          "values": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-f8532782-ee12-4616-a71b-02b53ecf0cd9",
+          "sku": "TS-S",
+          "price": 27.33,
+          "compareAtPrice": 34.5,
+          "stock": 8,
+          "images": [
+            "mQGOJJphiqK30FhVNgzx",
+            "j0a6LrPSt9JnYPrqL1IU",
+            "NymUzpmZSqgp1B9Q5C9z"
+          ],
+          "primaryImage": "mQGOJJphiqK30FhVNgzx",
+          "attributes": {
+            "size": "S"
+          }
+        },
+        {
+          "id": "variant-148b97b5-653b-4fde-9e2e-65e0a729d6f0",
+          "sku": "TS-M",
+          "price": 27.33,
+          "compareAtPrice": 34.5,
+          "stock": 8,
+          "images": [
+            "mQGOJJphiqK30FhVNgzx",
+            "j0a6LrPSt9JnYPrqL1IU",
+            "NymUzpmZSqgp1B9Q5C9z"
+          ],
+          "primaryImage": "mQGOJJphiqK30FhVNgzx",
+          "attributes": {
+            "size": "M"
+          }
+        },
+        {
+          "id": "variant-e6572ccb-6de4-43a9-87bb-9ff43ccad617",
+          "sku": "TS-L",
+          "price": 27.33,
+          "compareAtPrice": 34.5,
+          "stock": 8,
+          "images": [
+            "mQGOJJphiqK30FhVNgzx",
+            "j0a6LrPSt9JnYPrqL1IU",
+            "NymUzpmZSqgp1B9Q5C9z"
+          ],
+          "primaryImage": "mQGOJJphiqK30FhVNgzx",
+          "attributes": {
+            "size": "L"
+          }
+        },
+        {
+          "id": "variant-c3962216-7054-442e-877d-016c877d22ee",
+          "sku": "TS-XL",
+          "price": 27.33,
+          "compareAtPrice": 34.5,
+          "stock": 8,
+          "images": [
+            "mQGOJJphiqK30FhVNgzx",
+            "j0a6LrPSt9JnYPrqL1IU",
+            "NymUzpmZSqgp1B9Q5C9z"
+          ],
+          "primaryImage": "mQGOJJphiqK30FhVNgzx",
+          "attributes": {
+            "size": "XL"
+          }
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782125756,
+        "_nanoseconds": 415000000
+      },
+      "updatedAt": {
+        "_seconds": 1782125756,
+        "_nanoseconds": 415000000
+      }
+    },
+    {
+      "id": "Oygiii2A62Ar8HeY9GX3",
+      "title": "Sailor Uniform",
+      "slug": "sailor-uniform-1782125993436",
+      "description": "New Original Japanese-Style Uniform for, JK Set with Red Tie, White Three-Bar Collar, Basic Sailor Uniform, Women's Short-Sleeve Set",
+      "media": [
+        {
+          "id": "oZMoQF5ULxnKndYFrKVf",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125893/products/gallery-images/oZMoQF5ULxnKndYFrKVf_1782125891416.avif"
+        },
+        {
+          "id": "cn3iZqheDsjRnxGBoKji",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125893/products/gallery-images/cn3iZqheDsjRnxGBoKji_1782125891413.avif"
+        },
+        {
+          "id": "nfTb26K4nxzAxLqsS8Gs",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125893/products/gallery-images/nfTb26K4nxzAxLqsS8Gs_1782125891410.avif"
+        },
+        {
+          "id": "8fFrEkUMTkVsVAZ2qCfR",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125893/products/gallery-images/8fFrEkUMTkVsVAZ2qCfR_1782125891402.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "collections": [
+        "Featured"
+      ],
+      "collectionsNormalized": [
+        "featured"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Sailor Uniform",
+        "description": "New Original Japanese-Style Uniform for, JK Set with Red Tie, White Three-Bar Collar, Basic Sailor Uniform, Women's Short-Sleeve Set"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "2a57d13d-f71f-45f3-adaf-40769a6cd72c",
+          "name": "size",
+          "values": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-0202d82e-fc66-4c8b-81d8-0bced5271172",
+          "sku": "TS-S",
+          "price": 32.99,
+          "compareAtPrice": 37.47,
+          "stock": 5,
+          "images": [
+            "oZMoQF5ULxnKndYFrKVf",
+            "cn3iZqheDsjRnxGBoKji",
+            "nfTb26K4nxzAxLqsS8Gs",
+            "8fFrEkUMTkVsVAZ2qCfR"
+          ],
+          "primaryImage": "oZMoQF5ULxnKndYFrKVf",
+          "attributes": {
+            "size": "S"
+          }
+        },
+        {
+          "id": "variant-2207f2e8-eaaa-4a10-8fae-b38c04267f0c",
+          "sku": "TS-M",
+          "price": 32.99,
+          "compareAtPrice": 37.47,
+          "stock": 5,
+          "images": [
+            "oZMoQF5ULxnKndYFrKVf",
+            "cn3iZqheDsjRnxGBoKji",
+            "nfTb26K4nxzAxLqsS8Gs",
+            "8fFrEkUMTkVsVAZ2qCfR"
+          ],
+          "primaryImage": "oZMoQF5ULxnKndYFrKVf",
+          "attributes": {
+            "size": "M"
+          }
+        },
+        {
+          "id": "variant-c501c369-0825-4333-9f6c-1a0d7714ecf7",
+          "sku": "TS-L",
+          "price": 32.99,
+          "compareAtPrice": 37.47,
+          "stock": 5,
+          "images": [
+            "oZMoQF5ULxnKndYFrKVf",
+            "cn3iZqheDsjRnxGBoKji",
+            "nfTb26K4nxzAxLqsS8Gs",
+            "8fFrEkUMTkVsVAZ2qCfR"
+          ],
+          "primaryImage": "oZMoQF5ULxnKndYFrKVf",
+          "attributes": {
+            "size": "L"
+          }
+        },
+        {
+          "id": "variant-ced9060f-9cef-4f23-8a24-687595f05623",
+          "sku": "TS-XL",
+          "price": 32.99,
+          "compareAtPrice": 37.47,
+          "stock": 1,
+          "images": [
+            "oZMoQF5ULxnKndYFrKVf",
+            "cn3iZqheDsjRnxGBoKji",
+            "nfTb26K4nxzAxLqsS8Gs",
+            "8fFrEkUMTkVsVAZ2qCfR"
+          ],
+          "primaryImage": "oZMoQF5ULxnKndYFrKVf",
+          "attributes": {
+            "size": "XL"
+          }
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782125994,
+        "_nanoseconds": 97000000
+      },
+      "updatedAt": {
+        "_seconds": 1782125994,
+        "_nanoseconds": 97000000
+      }
+    },
+    {
+      "id": "Thz9XRgkiShb2rRJF7DG",
+      "title": "Summer Unisex Pattern T-Shirt",
+      "slug": "summer-unisex-pattern-t-shirt",
+      "description": "Y2K Summer Unisex Pattern T-Shirt - Featuring \"Darkest Before Dawn\" Design with Black Cat And Sky Patterns. This Loose Round Neck Top Is Casual And Versatile, Perfect for Everyday Wear. It Offers Fun Prints And Comfortable Fit, Plus Size Available",
+      "media": [
+        {
+          "id": "6UrI1KLJwu7Rte2F1nGZ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129537/products/gallery-images/6UrI1KLJwu7Rte2F1nGZ_1782129534296.avif"
+        },
+        {
+          "id": "SAa0HvHePSKohuDKHmL5",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129537/products/gallery-images/SAa0HvHePSKohuDKHmL5_1782129534301.avif"
+        },
+        {
+          "id": "nHcndSNYuKgC7JxHDryq",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129536/products/gallery-images/nHcndSNYuKgC7JxHDryq_1782129534306.avif"
+        },
+        {
+          "id": "DGH6rNvC0Bn7kAvjdBOQ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129536/products/gallery-images/DGH6rNvC0Bn7kAvjdBOQ_1782129534312.avif"
+        },
+        {
+          "id": "iJWBBR8V0UAabuj0W2U8",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129536/products/gallery-images/iJWBBR8V0UAabuj0W2U8_1782129534315.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "collections": [
+        "Trending"
+      ],
+      "collectionsNormalized": [
+        "trending"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Summer Unisex Pattern T-Shirt",
+        "description": "Y2K Summer Unisex Pattern T-Shirt - Featuring \"Darkest Before Dawn\" Design with Black Cat And Sky Patterns. This Loose Round Neck Top Is Casual And Versatile, P"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "f6496278-126e-4bd8-ba60-26c3d90089d9",
+          "name": "size",
+          "values": [
+            "S",
+            "M",
+            "L"
+          ]
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782129616,
+        "_nanoseconds": 87000000
+      },
+      "variants": [
+        {
+          "id": "variant-bfbe4d68-7722-4ce6-9442-942f4921821d",
+          "sku": "TS-S",
+          "price": 11.24,
+          "compareAtPrice": 13.33,
+          "stock": 8,
+          "images": [
+            "iJWBBR8V0UAabuj0W2U8",
+            "6UrI1KLJwu7Rte2F1nGZ",
+            "SAa0HvHePSKohuDKHmL5",
+            "nHcndSNYuKgC7JxHDryq",
+            "DGH6rNvC0Bn7kAvjdBOQ"
+          ],
+          "primaryImage": "iJWBBR8V0UAabuj0W2U8",
+          "attributes": {
+            "size": "S"
+          }
+        },
+        {
+          "id": "variant-2115044b-151a-497b-811b-59538f3b39a3",
+          "sku": "TS-M",
+          "price": 11.24,
+          "compareAtPrice": 13.33,
+          "stock": 5,
+          "images": [
+            "iJWBBR8V0UAabuj0W2U8",
+            "6UrI1KLJwu7Rte2F1nGZ",
+            "SAa0HvHePSKohuDKHmL5",
+            "nHcndSNYuKgC7JxHDryq",
+            "DGH6rNvC0Bn7kAvjdBOQ"
+          ],
+          "primaryImage": "iJWBBR8V0UAabuj0W2U8",
+          "attributes": {
+            "size": "M"
+          }
+        },
+        {
+          "id": "variant-16feb51f-58c3-4185-ad83-d8051bdca2cc",
+          "sku": "TS-L",
+          "price": 11.24,
+          "compareAtPrice": 13.33,
+          "stock": 4,
+          "images": [
+            "iJWBBR8V0UAabuj0W2U8",
+            "6UrI1KLJwu7Rte2F1nGZ",
+            "SAa0HvHePSKohuDKHmL5",
+            "nHcndSNYuKgC7JxHDryq",
+            "DGH6rNvC0Bn7kAvjdBOQ"
+          ],
+          "primaryImage": "iJWBBR8V0UAabuj0W2U8",
+          "attributes": {
+            "size": "L"
+          }
+        }
+      ],
+      "updatedAt": {
+        "_seconds": 1782131734,
+        "_nanoseconds": 876000000
+      }
+    },
+    {
+      "id": "WVYnOqVe6B6ZYbBfh2Hc",
+      "title": "Women's T-shirt",
+      "slug": "women-s-t-shirt",
+      "description": "Women's T-shirt, Front and Back Panels Made by UOYOUDA, Anime Couple Print Fashion Short Sleeve, Double-sided Pattern Design, Women's Daily Wear - Round Neck Casual T-shirt, Comfortable Fit, for Casual Outings",
+      "media": [
+        {
+          "id": "14vZwydzqNIrzOUgGi3n",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129201/products/gallery-images/14vZwydzqNIrzOUgGi3n_1782129199035.avif"
+        },
+        {
+          "id": "bkIScERodzmoG6oXy7tb",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782129201/products/gallery-images/bkIScERodzmoG6oXy7tb_1782129199041.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "collections": [],
+      "collectionsNormalized": [],
+      "tags": [],
+      "seo": {
+        "title": "Women's T-shirt",
+        "description": "Women's T-shirt, Front and Back Panels Made by UOYOUDA, Anime Couple Print Fashion Short Sleeve, Double-sided Pattern Design, Women's Daily Wear - Round Neck Ca"
+      },
+      "status": "active",
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782129242,
+        "_nanoseconds": 796000000
+      },
+      "options": [
+        {
+          "id": "11cda02b-77d2-4a7f-80f3-c266e22b6b8a",
+          "name": "size",
+          "values": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-4a50be14-ad20-4fd9-9aee-d3f2b89ada0c",
+          "sku": "TS-S",
+          "price": 7.47,
+          "compareAtPrice": 9.03,
+          "stock": 5,
+          "images": [
+            "bkIScERodzmoG6oXy7tb",
+            "14vZwydzqNIrzOUgGi3n"
+          ],
+          "primaryImage": "bkIScERodzmoG6oXy7tb",
+          "attributes": {
+            "size": "S"
+          }
+        },
+        {
+          "id": "variant-ca80d31a-ba14-4dbc-94bd-d09178b541fc",
+          "sku": "TS-M",
+          "price": 7.47,
+          "compareAtPrice": 9.03,
+          "stock": 6,
+          "images": [
+            "bkIScERodzmoG6oXy7tb",
+            "14vZwydzqNIrzOUgGi3n"
+          ],
+          "primaryImage": "bkIScERodzmoG6oXy7tb",
+          "attributes": {
+            "size": "M"
+          }
+        },
+        {
+          "id": "variant-b0e32d5a-0a7e-46c9-ab2b-74ca726207a2",
+          "sku": "TS-L",
+          "price": 7.47,
+          "compareAtPrice": 9.03,
+          "stock": 8,
+          "images": [
+            "bkIScERodzmoG6oXy7tb",
+            "14vZwydzqNIrzOUgGi3n"
+          ],
+          "primaryImage": "bkIScERodzmoG6oXy7tb",
+          "attributes": {
+            "size": "L"
+          }
+        },
+        {
+          "id": "variant-dfb19f01-56bc-4f53-b45b-cc775ced8437",
+          "sku": "TS-XL",
+          "price": 7.47,
+          "compareAtPrice": 9.03,
+          "stock": 12,
+          "images": [
+            "bkIScERodzmoG6oXy7tb",
+            "14vZwydzqNIrzOUgGi3n"
+          ],
+          "primaryImage": "bkIScERodzmoG6oXy7tb",
+          "attributes": {
+            "size": "XL"
+          }
+        }
+      ],
+      "updatedAt": {
+        "_seconds": 1782129386,
+        "_nanoseconds": 932000000
+      }
+    },
+    {
+      "id": "ZoPaREokJ523ydIL4qxh",
+      "title": "Peter Pan | J. M. Barrie",
+      "slug": "peter-pan-j-m-barrie",
+      "description": "Peter Pan: The Timeless Tale of Neverland, Flying Adventures, and the Magic of Never Growing Up\n",
+      "media": [
+        {
+          "id": "2Fax9dNEh8DFDdEjPW4P",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782127912/products/gallery-images/2Fax9dNEh8DFDdEjPW4P_1782127910348.avif"
+        },
+        {
+          "id": "Ji7oYOwUW06PQSqwL0bx",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782127912/products/gallery-images/Ji7oYOwUW06PQSqwL0bx_1782127910372.avif"
+        }
+      ],
+      "category": "home",
+      "brand": "",
+      "collections": [],
+      "collectionsNormalized": [],
+      "tags": [],
+      "seo": {
+        "title": "Peter Pan | J. M. Barrie",
+        "description": "Peter Pan: The Timeless Tale of Neverland, Flying Adventures, and the Magic of Never Growing Up\n"
+      },
+      "status": "active",
+      "options": [],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782127950,
+        "_nanoseconds": 94000000
+      },
+      "variants": [
+        {
+          "id": "variant-d9040016-b680-4aaf-bda0-f20cb5d8651f",
+          "sku": "",
+          "stock": 43,
+          "price": 4.55,
+          "compareAtPrice": 4.97,
+          "images": [
+            "Ji7oYOwUW06PQSqwL0bx",
+            "2Fax9dNEh8DFDdEjPW4P"
+          ],
+          "primaryImage": "Ji7oYOwUW06PQSqwL0bx",
+          "attributes": {}
+        }
+      ],
+      "updatedAt": {
+        "_seconds": 1782127984,
+        "_nanoseconds": 7000000
+      }
+    },
+    {
+      "id": "fLHSWLfm3Ewhq4hNTHCq",
+      "title": "Casual Long-sleeve Shirt",
+      "slug": "casual-long-sleeve-shirt",
+      "description": "Men's Basic Solid Color Casual Long-sleeve Shirt, Classic, Simple, Versatile Daily Shirt",
+      "media": [
+        {
+          "id": "2krmnrzox219WP8q4sqG",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/2krmnrzox219WP8q4sqG_1782023094945.avif"
+        },
+        {
+          "id": "iGGUQsEMqk0fRXE2NKJQ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/iGGUQsEMqk0fRXE2NKJQ_1782023094934.avif"
+        },
+        {
+          "id": "NCWu28E6cFwKyTnzaSdc",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/NCWu28E6cFwKyTnzaSdc_1782023094932.avif"
+        },
+        {
+          "id": "QU841EjiAvyIwtoaQebC",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/QU841EjiAvyIwtoaQebC_1782023094904.avif"
+        },
+        {
+          "id": "de0Dx9aTn5199JOW1iyz",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/de0Dx9aTn5199JOW1iyz_1782023094928.avif"
+        },
+        {
+          "id": "Y3tCjmGOlUk5lUhNOD4v",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/Y3tCjmGOlUk5lUhNOD4v_1782023094933.avif"
+        },
+        {
+          "id": "KkwMZhAsFUGLalnLcvth",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/KkwMZhAsFUGLalnLcvth_1782023094927.avif"
+        },
+        {
+          "id": "PUFtKN8vPSkYCQTeYpF5",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/PUFtKN8vPSkYCQTeYpF5_1782023094941.avif"
+        },
+        {
+          "id": "CdUqGi5bf0ktYX5PPrAe",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/CdUqGi5bf0ktYX5PPrAe_1782023094944.avif"
+        },
+        {
+          "id": "Cb0bkWLt9omTy8vYNY7T",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/Cb0bkWLt9omTy8vYNY7T_1782023094940.avif"
+        },
+        {
+          "id": "AaL0spx24R20n09NSKyM",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/AaL0spx24R20n09NSKyM_1782023094936.avif"
+        },
+        {
+          "id": "DHtP5mihR8fjlPNvnIvw",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/DHtP5mihR8fjlPNvnIvw_1782023094942.avif"
+        },
+        {
+          "id": "ayOiWmIJ6mQP7HZkyqkM",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/ayOiWmIJ6mQP7HZkyqkM_1782023094937.avif"
+        },
+        {
+          "id": "FtvwobJoPqDSbNi13dv1",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/FtvwobJoPqDSbNi13dv1_1782023094930.avif"
+        },
+        {
+          "id": "3NV8DvBGQukEKYMsKSiq",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/3NV8DvBGQukEKYMsKSiq_1782023094939.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "tags": [
+        "shirt"
+      ],
+      "seo": {
+        "title": "Casual Long-sleeve Shirt",
+        "description": "Men's Basic Solid Color Casual Long-sleeve Shirt, Classic, Simple, Versatile Daily Shirt"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "625fb137-182f-4f86-88f4-1d91bd90127c",
+          "name": "size",
+          "values": [
+            "S",
+            "M",
+            "L"
+          ]
+        },
+        {
+          "id": "40ecbbcb-92d7-44c7-9c0b-7ad7f5a0e182",
+          "name": "color",
+          "values": [
+            "white",
+            "blue",
+            "grey"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-a18f4cf3-e5ed-4b32-95c4-42ca1c3cbdcf",
+          "sku": "TS-S-WHI",
+          "price": 10.94,
+          "compareAtPrice": 12.55,
+          "stock": 10,
+          "images": [
+            "3NV8DvBGQukEKYMsKSiq",
+            "iGGUQsEMqk0fRXE2NKJQ",
+            "Y3tCjmGOlUk5lUhNOD4v",
+            "AaL0spx24R20n09NSKyM",
+            "ayOiWmIJ6mQP7HZkyqkM"
+          ],
+          "primaryImage": "3NV8DvBGQukEKYMsKSiq",
+          "attributes": {
+            "size": "S",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-19fa63f1-5597-4cb6-be2f-13b7a3259202",
+          "sku": "TS-S-BLU",
+          "price": 10.32,
+          "compareAtPrice": 12.55,
+          "stock": 9,
+          "images": [
+            "2krmnrzox219WP8q4sqG",
+            "PUFtKN8vPSkYCQTeYpF5",
+            "CdUqGi5bf0ktYX5PPrAe",
+            "Cb0bkWLt9omTy8vYNY7T",
+            "DHtP5mihR8fjlPNvnIvw"
+          ],
+          "primaryImage": "2krmnrzox219WP8q4sqG",
+          "attributes": {
+            "size": "S",
+            "color": "blue"
+          }
+        },
+        {
+          "id": "variant-d1b3d81e-fe5e-4c66-849d-3da2c0b489ee",
+          "sku": "TS-S-GRE",
+          "price": 8.24,
+          "compareAtPrice": 12.55,
+          "stock": 8,
+          "images": [
+            "NCWu28E6cFwKyTnzaSdc",
+            "QU841EjiAvyIwtoaQebC",
+            "de0Dx9aTn5199JOW1iyz",
+            "KkwMZhAsFUGLalnLcvth",
+            "FtvwobJoPqDSbNi13dv1"
+          ],
+          "primaryImage": "NCWu28E6cFwKyTnzaSdc",
+          "attributes": {
+            "size": "S",
+            "color": "grey"
+          }
+        },
+        {
+          "id": "variant-4b753dd9-ce38-4539-923e-efa0731bea63",
+          "sku": "TS-M-WHI",
+          "price": 4.46,
+          "compareAtPrice": 12.55,
+          "stock": 7,
+          "images": [
+            "3NV8DvBGQukEKYMsKSiq",
+            "iGGUQsEMqk0fRXE2NKJQ",
+            "Y3tCjmGOlUk5lUhNOD4v",
+            "AaL0spx24R20n09NSKyM",
+            "ayOiWmIJ6mQP7HZkyqkM"
+          ],
+          "primaryImage": "3NV8DvBGQukEKYMsKSiq",
+          "attributes": {
+            "size": "M",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-369826e9-d0b1-48ff-bcbf-f6c37d69b279",
+          "sku": "TS-M-BLU",
+          "price": 10.94,
+          "compareAtPrice": 12.55,
+          "stock": 6,
+          "images": [
+            "2krmnrzox219WP8q4sqG",
+            "PUFtKN8vPSkYCQTeYpF5",
+            "CdUqGi5bf0ktYX5PPrAe",
+            "Cb0bkWLt9omTy8vYNY7T",
+            "DHtP5mihR8fjlPNvnIvw"
+          ],
+          "primaryImage": "2krmnrzox219WP8q4sqG",
+          "attributes": {
+            "size": "M",
+            "color": "blue"
+          }
+        },
+        {
+          "id": "variant-06dd8933-10c1-459d-952a-705de7ef845d",
+          "sku": "TS-M-GRE",
+          "price": 10.94,
+          "compareAtPrice": 12.55,
+          "stock": 5,
+          "images": [
+            "NCWu28E6cFwKyTnzaSdc",
+            "QU841EjiAvyIwtoaQebC",
+            "de0Dx9aTn5199JOW1iyz",
+            "KkwMZhAsFUGLalnLcvth",
+            "FtvwobJoPqDSbNi13dv1"
+          ],
+          "primaryImage": "NCWu28E6cFwKyTnzaSdc",
+          "attributes": {
+            "size": "M",
+            "color": "grey"
+          }
+        },
+        {
+          "id": "variant-6e591a75-7987-400a-a082-00f5633af344",
+          "sku": "TS-L-WHI",
+          "price": 10.94,
+          "compareAtPrice": 12.55,
+          "stock": 4,
+          "images": [
+            "3NV8DvBGQukEKYMsKSiq",
+            "iGGUQsEMqk0fRXE2NKJQ",
+            "Y3tCjmGOlUk5lUhNOD4v",
+            "AaL0spx24R20n09NSKyM",
+            "ayOiWmIJ6mQP7HZkyqkM"
+          ],
+          "primaryImage": "3NV8DvBGQukEKYMsKSiq",
+          "attributes": {
+            "size": "L",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-f4fa3495-1387-429a-833c-273355bfb631",
+          "sku": "TS-L-BLU",
+          "price": 10.94,
+          "compareAtPrice": 12.55,
+          "stock": 0,
+          "images": [
+            "2krmnrzox219WP8q4sqG",
+            "PUFtKN8vPSkYCQTeYpF5",
+            "CdUqGi5bf0ktYX5PPrAe",
+            "Cb0bkWLt9omTy8vYNY7T",
+            "DHtP5mihR8fjlPNvnIvw"
+          ],
+          "primaryImage": "2krmnrzox219WP8q4sqG",
+          "attributes": {
+            "size": "L",
+            "color": "blue"
+          }
+        },
+        {
+          "id": "variant-d6405a2d-059f-43a7-b92b-acaf8610b9e4",
+          "sku": "TS-L-GRE",
+          "price": 10.94,
+          "compareAtPrice": 12.55,
+          "stock": 0,
+          "images": [
+            "NCWu28E6cFwKyTnzaSdc",
+            "QU841EjiAvyIwtoaQebC",
+            "de0Dx9aTn5199JOW1iyz",
+            "KkwMZhAsFUGLalnLcvth",
+            "FtvwobJoPqDSbNi13dv1"
+          ],
+          "primaryImage": "NCWu28E6cFwKyTnzaSdc",
+          "attributes": {
+            "size": "L",
+            "color": "grey"
+          }
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782023587,
+        "_nanoseconds": 658000000
+      },
+      "collections": [
+        "Featured",
+        "Trending",
+        "Best deals"
+      ],
+      "collectionsNormalized": [
+        "featured",
+        "trending",
+        "best-deals"
+      ],
+      "updatedAt": {
+        "_seconds": 1782119525,
+        "_nanoseconds": 46000000
+      }
+    },
+    {
+      "id": "gdtEII5kuz8axJ79CHhJ",
+      "title": "Men's Long-Sleeve Shirt",
+      "slug": "men-s-long-sleeve-shirt",
+      "description": "Men's Long-Sleeve Shirt, Solid Color Pocket Button-Up Cardigan Shirt, Business Attire, Formal Wear, Suitable for All Seasons",
+      "media": [
+        {
+          "id": "eA9B0vJabtpdEgCl4qOX",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782114637/products/gallery-images/eA9B0vJabtpdEgCl4qOX_1782114637625.avif"
+        },
+        {
+          "id": "VU0knfOoe67X0Oi9nBoZ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782114420/products/gallery-images/VU0knfOoe67X0Oi9nBoZ_1782114420251.avif"
+        },
+        {
+          "id": "iGGUQsEMqk0fRXE2NKJQ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/iGGUQsEMqk0fRXE2NKJQ_1782023094934.avif"
+        },
+        {
+          "id": "Y3tCjmGOlUk5lUhNOD4v",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/Y3tCjmGOlUk5lUhNOD4v_1782023094933.avif"
+        },
+        {
+          "id": "AaL0spx24R20n09NSKyM",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/AaL0spx24R20n09NSKyM_1782023094936.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "tags": [],
+      "seo": {
+        "title": "Men's Long-Sleeve Shirt",
+        "description": "Men's Long-Sleeve Shirt, Solid Color Pocket Button-Up Cardigan Shirt, Business Attire, Formal Wear, Suitable for All Seasons"
+      },
+      "status": "active",
+      "options": [],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782114684,
+        "_nanoseconds": 753000000
+      },
+      "collections": [
+        "Best deals"
+      ],
+      "collectionsNormalized": [
+        "best deals"
+      ],
+      "variants": [
+        {
+          "id": "variant-a19a16e0-4845-4945-b459-a3efb1b6a4f4",
+          "sku": "",
+          "stock": 10,
+          "price": 12.05,
+          "compareAtPrice": 13.44,
+          "images": [
+            "eA9B0vJabtpdEgCl4qOX",
+            "VU0knfOoe67X0Oi9nBoZ",
+            "iGGUQsEMqk0fRXE2NKJQ",
+            "Y3tCjmGOlUk5lUhNOD4v",
+            "AaL0spx24R20n09NSKyM"
+          ],
+          "primaryImage": "eA9B0vJabtpdEgCl4qOX",
+          "attributes": {}
+        }
+      ],
+      "updatedAt": {
+        "_seconds": 1782118304,
+        "_nanoseconds": 970000000
+      }
+    },
+    {
+      "id": "gxz2FJGOVSWmiDSssjJO",
+      "title": "Spread Collar Long Sleeve Shirts",
+      "slug": "spread-collar-long-sleeve-shirts",
+      "description": "New Basic Men'S Solid Color Spread Collar Long Sleeve Shirts, Versatile And Easy to Match for Daily Commuting, Office Work, And Outdoor Activities. Available in Multiple Colors, a Must-Have Layering Essential for All Seasons",
+      "media": [
+        {
+          "id": "VU0knfOoe67X0Oi9nBoZ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782114420/products/gallery-images/VU0knfOoe67X0Oi9nBoZ_1782114420251.avif"
+        },
+        {
+          "id": "7wsqn9nZXw6ytWpXBQRO",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782114409/products/gallery-images/7wsqn9nZXw6ytWpXBQRO_1782114408927.avif"
+        },
+        {
+          "id": "iGGUQsEMqk0fRXE2NKJQ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/iGGUQsEMqk0fRXE2NKJQ_1782023094934.avif"
+        },
+        {
+          "id": "QU841EjiAvyIwtoaQebC",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/QU841EjiAvyIwtoaQebC_1782023094904.avif"
+        },
+        {
+          "id": "de0Dx9aTn5199JOW1iyz",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/de0Dx9aTn5199JOW1iyz_1782023094928.avif"
+        },
+        {
+          "id": "Y3tCjmGOlUk5lUhNOD4v",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/Y3tCjmGOlUk5lUhNOD4v_1782023094933.avif"
+        },
+        {
+          "id": "KkwMZhAsFUGLalnLcvth",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/KkwMZhAsFUGLalnLcvth_1782023094927.avif"
+        },
+        {
+          "id": "AaL0spx24R20n09NSKyM",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782023095/products/gallery-images/AaL0spx24R20n09NSKyM_1782023094936.avif"
+        }
+      ],
+      "category": "",
+      "brand": "",
+      "collections": [
+        "Trending"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Spread Collar Long Sleeve Shirts",
+        "description": "New Basic Men'S Solid Color Spread Collar Long Sleeve Shirts, Versatile And Easy to Match for Daily Commuting, Office Work, And Outdoor Activities. Available in"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "af143a8e-5efa-4535-bd7c-1094de3f765d",
+          "name": "size",
+          "values": [
+            "M",
+            "L"
+          ]
+        },
+        {
+          "id": "5571d6fd-e08b-46d5-bf15-23be46a9ab19",
+          "name": "color",
+          "values": [
+            "white",
+            "grey"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-3171535e-09ee-416a-9e64-856861bafc05",
+          "sku": "TS-M-WHI",
+          "price": 14.37,
+          "compareAtPrice": 17.07,
+          "stock": 5,
+          "images": [
+            "VU0knfOoe67X0Oi9nBoZ",
+            "iGGUQsEMqk0fRXE2NKJQ",
+            "Y3tCjmGOlUk5lUhNOD4v",
+            "AaL0spx24R20n09NSKyM"
+          ],
+          "primaryImage": "VU0knfOoe67X0Oi9nBoZ",
+          "attributes": {
+            "size": "M",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-58d3a3b0-861b-4feb-b392-dcbd6ed8296b",
+          "sku": "TS-M-GRE",
+          "price": 14.37,
+          "compareAtPrice": 17.07,
+          "stock": 4,
+          "images": [
+            "7wsqn9nZXw6ytWpXBQRO",
+            "QU841EjiAvyIwtoaQebC",
+            "de0Dx9aTn5199JOW1iyz",
+            "KkwMZhAsFUGLalnLcvth"
+          ],
+          "primaryImage": "7wsqn9nZXw6ytWpXBQRO",
+          "attributes": {
+            "size": "M",
+            "color": "grey"
+          }
+        },
+        {
+          "id": "variant-9b17d2b5-a90c-4265-9d94-6761b281cb7f",
+          "sku": "TS-L-WHI",
+          "price": 14.37,
+          "compareAtPrice": 17.07,
+          "stock": 8,
+          "images": [
+            "VU0knfOoe67X0Oi9nBoZ",
+            "iGGUQsEMqk0fRXE2NKJQ",
+            "Y3tCjmGOlUk5lUhNOD4v",
+            "AaL0spx24R20n09NSKyM"
+          ],
+          "primaryImage": "VU0knfOoe67X0Oi9nBoZ",
+          "attributes": {
+            "size": "L",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-0328245c-7088-444b-a290-94c024db24e6",
+          "sku": "TS-L-GRE",
+          "price": 14.37,
+          "compareAtPrice": 17.07,
+          "stock": 13,
+          "images": [
+            "7wsqn9nZXw6ytWpXBQRO",
+            "QU841EjiAvyIwtoaQebC",
+            "de0Dx9aTn5199JOW1iyz",
+            "KkwMZhAsFUGLalnLcvth"
+          ],
+          "primaryImage": "7wsqn9nZXw6ytWpXBQRO",
+          "attributes": {
+            "size": "L",
+            "color": "grey"
+          }
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782114491,
+        "_nanoseconds": 743000000
+      },
+      "collectionsNormalized": [
+        "trending"
+      ],
+      "updatedAt": {
+        "_seconds": 1782119513,
+        "_nanoseconds": 436000000
+      }
+    },
+    {
+      "id": "ix38XTcbXsIleoldnj9t",
+      "title": "Heavyweight  Pure Cotton T-Shirt ",
+      "slug": "heavyweight-pure-cotton-t-shirt",
+      "description": "Men's Heavyweight Pure Cotton T-Shirt - Summer Casual Crew Neck Tee with \"\" Print, Loose Fit, Short Sleeve, Breathable & Comfortable for Casual",
+      "media": [
+        {
+          "id": "rW5H06uvWSBX37lRPm7n",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782128375/products/gallery-images/rW5H06uvWSBX37lRPm7n_1782128372956.avif"
+        },
+        {
+          "id": "cZBbrl9aml6kSCCrzMgC",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782128375/products/gallery-images/cZBbrl9aml6kSCCrzMgC_1782128372951.avif"
+        },
+        {
+          "id": "RNdAgL8dahKD7OL3Smji",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782128293/products/gallery-images/RNdAgL8dahKD7OL3Smji_1782128290147.avif"
+        },
+        {
+          "id": "7O8oEf2cOCrD0fk1zM3s",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782128293/products/gallery-images/7O8oEf2cOCrD0fk1zM3s_1782128290144.avif"
+        },
+        {
+          "id": "SKsbZpOdKj0MVZbIdiFP",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782128292/products/gallery-images/SKsbZpOdKj0MVZbIdiFP_1782128290140.avif"
+        },
+        {
+          "id": "cNpPw4C8FsMebwIqyQ6x",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782128292/products/gallery-images/cNpPw4C8FsMebwIqyQ6x_1782128290125.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "collections": [
+        "Featured"
+      ],
+      "collectionsNormalized": [
+        "featured"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Heavyweight  Pure Cotton T-Shirt ",
+        "description": "Men's Heavyweight Pure Cotton T-Shirt - Summer Casual Crew Neck Tee with \"\" Print, Loose Fit, Short Sleeve, Breathable & Comfortable for Casual"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "1b4cfb49-7a4c-4003-ac77-e63cf8f2425e",
+          "name": "color",
+          "values": [
+            "white",
+            "black",
+            "grey"
+          ]
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782128459,
+        "_nanoseconds": 280000000
+      },
+      "variants": [
+        {
+          "id": "variant-39e00eeb-e592-40af-9af1-3e3c15ae2abd",
+          "sku": "TS-WHI",
+          "price": 8.44,
+          "compareAtPrice": 12.25,
+          "stock": 9,
+          "images": [
+            "RNdAgL8dahKD7OL3Smji",
+            "7O8oEf2cOCrD0fk1zM3s"
+          ],
+          "primaryImage": "RNdAgL8dahKD7OL3Smji",
+          "attributes": {
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-34841bd9-0ae2-4dab-8d0a-e3629af970e9",
+          "sku": "TS-BLA",
+          "price": 8.44,
+          "compareAtPrice": 12.25,
+          "stock": 9,
+          "images": [
+            "SKsbZpOdKj0MVZbIdiFP",
+            "cNpPw4C8FsMebwIqyQ6x"
+          ],
+          "primaryImage": "SKsbZpOdKj0MVZbIdiFP",
+          "attributes": {
+            "color": "black"
+          }
+        },
+        {
+          "id": "variant-9003121e-1211-404e-bfa9-1b07f33cd1b9",
+          "sku": "TS-GRE",
+          "price": 8.44,
+          "compareAtPrice": 12.25,
+          "stock": 9,
+          "images": [
+            "rW5H06uvWSBX37lRPm7n",
+            "cZBbrl9aml6kSCCrzMgC"
+          ],
+          "primaryImage": "rW5H06uvWSBX37lRPm7n",
+          "attributes": {
+            "color": "grey"
+          }
+        }
+      ],
+      "updatedAt": {
+        "_seconds": 1782128495,
+        "_nanoseconds": 485000000
+      }
+    },
+    {
+      "id": "vbz0kWDyEfXc1WS0E8Wj",
+      "title": "Shirt with Fashionable Lapel",
+      "slug": "shirt-with-fashionable-lapel",
+      "description": "Men's Casual Solid Color Shirt with Fashionable Lapel, Button-Up Long Sleeves, Left Chest Pocket, Thin and Breathable Business Casual Shirt, Suit Top Outerwear",
+      "media": [
+        {
+          "id": "g9RX5XV1c1vZvGrZxyyv",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125276/products/gallery-images/g9RX5XV1c1vZvGrZxyyv_1782125273377.avif"
+        },
+        {
+          "id": "kd1b5Bi85DdApWX0Rr0p",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125276/products/gallery-images/kd1b5Bi85DdApWX0Rr0p_1782125273381.avif"
+        },
+        {
+          "id": "VjgqmguRA7Em4xQamqPi",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125275/products/gallery-images/VjgqmguRA7Em4xQamqPi_1782125273370.avif"
+        },
+        {
+          "id": "6nIsPfiay5o5HbAAEYxS",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125276/products/gallery-images/6nIsPfiay5o5HbAAEYxS_1782125273386.avif"
+        },
+        {
+          "id": "hmqHr7i6zXcD7tQCJ3eQ",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125276/products/gallery-images/hmqHr7i6zXcD7tQCJ3eQ_1782125273347.avif"
+        },
+        {
+          "id": "vdwzwIKqoIjaDKxS6Wdu",
+          "url": "https://res.cloudinary.com/deppnjugs/image/upload/v1782125275/products/gallery-images/vdwzwIKqoIjaDKxS6Wdu_1782125273373.avif"
+        }
+      ],
+      "category": "clothing",
+      "brand": "",
+      "collections": [
+        "Featured"
+      ],
+      "collectionsNormalized": [
+        "featured"
+      ],
+      "tags": [],
+      "seo": {
+        "title": "Shirt with Fashionable Lapel",
+        "description": "Men's Casual Solid Color Shirt with Fashionable Lapel, Button-Up Long Sleeves, Left Chest Pocket, Thin and Breathable Business Casual Shirt, Suit Top Outerwear"
+      },
+      "status": "active",
+      "options": [
+        {
+          "id": "ce82ae8f-238d-41b2-89fd-d0d2ffe88fb4",
+          "name": "size",
+          "values": [
+            "S",
+            "M"
+          ]
+        },
+        {
+          "id": "186c6d86-56fc-461b-ac13-ad581669cc83",
+          "name": "color",
+          "values": [
+            "white",
+            "grey"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": "variant-43d86270-1069-4224-a788-0ab7c655c437",
+          "sku": "TS-S-WHI",
+          "price": 22.43,
+          "compareAtPrice": 25.04,
+          "stock": 8,
+          "images": [
+            "vdwzwIKqoIjaDKxS6Wdu",
+            "VjgqmguRA7Em4xQamqPi",
+            "hmqHr7i6zXcD7tQCJ3eQ"
+          ],
+          "primaryImage": "vdwzwIKqoIjaDKxS6Wdu",
+          "attributes": {
+            "size": "S",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-a90f7f37-e800-4be0-bed4-8bc4494a39b8",
+          "sku": "TS-S-GRE",
+          "price": 22.43,
+          "compareAtPrice": 25.04,
+          "stock": 8,
+          "images": [
+            "6nIsPfiay5o5HbAAEYxS",
+            "g9RX5XV1c1vZvGrZxyyv",
+            "kd1b5Bi85DdApWX0Rr0p"
+          ],
+          "primaryImage": "6nIsPfiay5o5HbAAEYxS",
+          "attributes": {
+            "size": "S",
+            "color": "grey"
+          }
+        },
+        {
+          "id": "variant-2864f601-b501-4ebd-b941-8833231d5b78",
+          "sku": "TS-M-WHI",
+          "price": 22.43,
+          "compareAtPrice": 25.04,
+          "stock": 8,
+          "images": [
+            "vdwzwIKqoIjaDKxS6Wdu",
+            "VjgqmguRA7Em4xQamqPi",
+            "hmqHr7i6zXcD7tQCJ3eQ"
+          ],
+          "primaryImage": "vdwzwIKqoIjaDKxS6Wdu",
+          "attributes": {
+            "size": "M",
+            "color": "white"
+          }
+        },
+        {
+          "id": "variant-9016da97-751c-4f82-ace5-b4a702fc2aef",
+          "sku": "TS-M-GRE",
+          "price": 22.43,
+          "compareAtPrice": 25.04,
+          "stock": 8,
+          "images": [
+            "6nIsPfiay5o5HbAAEYxS",
+            "g9RX5XV1c1vZvGrZxyyv",
+            "kd1b5Bi85DdApWX0Rr0p"
+          ],
+          "primaryImage": "6nIsPfiay5o5HbAAEYxS",
+          "attributes": {
+            "size": "M",
+            "color": "grey"
+          }
+        }
+      ],
+      "userId": "pNtjdxo20sXFoFZOzU3aQsswTqi2",
+      "createdBy": "viktor_tech@gmail.com",
+      "createdAt": {
+        "_seconds": 1782125399,
+        "_nanoseconds": 701000000
+      },
+      "updatedAt": {
+        "_seconds": 1782125399,
+        "_nanoseconds": 701000000
+      }
+    }
+  ]
+}

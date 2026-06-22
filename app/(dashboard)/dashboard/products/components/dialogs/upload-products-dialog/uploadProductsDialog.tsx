@@ -47,7 +47,7 @@ const UploadProductsDialogContent = ({
       const text = await file.text();
       const jsonData = JSON.parse(text);
 
-      const data = await productsApi.uploadProducts({ body: { products: jsonData } });
+      const data = await productsApi.uploadProducts({ body: { products: jsonData.products } });
 
       if (!data.success) return errorAlert(data.message || "Upload failed");
       setFile(null);

@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const FeaturesSection = () => {
   const [inView, setIsInView] = useState(false);
 
-  const { productsWithCart, isLoading } = useProductsWithCart({ query: "?collections=Featured" });
+  const { productsWithCart, isLoading } = useProductsWithCart({ query: "?collections=featured" });
 
   return (
     <section id="features-section">
@@ -48,7 +48,7 @@ const FeaturesSection = () => {
         </motion.div>
 
         <div className="flex justify-end mt-18">
-          <Link href="/shop?collections=featured">
+          <Link href="/shop?collections=Featured">
             <ButtonDemo className="" variant="ghost" text="View All" endIcon={<ArrowRight />} />
           </Link>
         </div>

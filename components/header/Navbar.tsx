@@ -34,16 +34,19 @@ export default function Navbar() {
   const setIsCartSheetOpen = useCartStore((s) => s.setIsCartSheetOpen);
   const getProductsAsync = useProductStore((s) => s.getProductsAsync);
 
+  
   const fetchProducts = async ({ query = "" }: { query: string }) => {
     try {
       setIsLoading(true);
-
+      
       const data: any = await getProductsAsync({ query });
       
       // if (!data.success) return alert(data.message || "Something went wrong");
       if (!data.success) return setSearchProducts([]);
-
+      
       const products: SearchProduct[] = data.data.products.map((product: any) => {
+        const variantPrimaryImage = product.media.find((image:any) => image.id === product.variants[0].primaryImage);
+
         return {
           id: product.id,
           label: product.name,
@@ -53,7 +56,7 @@ export default function Navbar() {
           startIcon: (
             <img
               className="w-full h-full object-contain"
-              src={product.primaryImage || productImage}
+              src={variantPrimaryImage?.url || productImage}
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = productImage;
               }}

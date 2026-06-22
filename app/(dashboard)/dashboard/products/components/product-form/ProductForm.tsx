@@ -52,6 +52,7 @@ const ProductForm = ({ editingProduct = null, isProductLoading = false }: any) =
   const [organization, setOrganization] = useState<{ [key: string]: any }>({
     brand: "",
     collections: [],
+    collectionsNormalized:[],
     tags: [],
   });
   const [media, setMedia] = useState<MediaItemType[]>([]);
@@ -147,8 +148,8 @@ const ProductForm = ({ editingProduct = null, isProductLoading = false }: any) =
           body: formattedProduct,
           successCB: (data: any) => {
             alert(data.message);
-            // router.push(`/dashboard/products/${data.data.id}`);
-            window.open(`/dashboard/products/${data.data.id}`, "_blank");
+            router.push(`/dashboard/products/${data.data.id}`);
+            // window.open(`/dashboard/products/${data.data.id}`, "_blank");
           },
           errorCB: (data: any) => errorAlert(data.message),
         });
