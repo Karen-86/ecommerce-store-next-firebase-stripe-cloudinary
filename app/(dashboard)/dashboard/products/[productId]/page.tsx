@@ -43,7 +43,7 @@ const EditProduct = () => {
       label: `Products`,
     },
     {
-      label: `Edit Products`,
+      label: `Edit Product`,
     },
   ];
 

@@ -39,7 +39,7 @@ const AddProduct = () => {
       label: `Products`,
     },
     {
-      label: `Add Products`,
+      label: `Add Product`,
     },
   ];
 
