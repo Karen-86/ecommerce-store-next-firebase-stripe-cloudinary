@@ -194,7 +194,7 @@ const ProductForm = ({ editingProduct = null, isProductLoading = false }: any) =
       <div className="row flex flex-col lg:flex-row gap-5 [&_input,&_textarea,select,button,.combobox-chips,.dark-border-field]:border-black/40! ">
         <div className="col flex-1 min-w-0">
           <BasicInfoSection {...{ basicInfo, setBasicInfo, media, setMedia, onChange, errorMessages }} />
-          <PricingSection {...{ variants, setVariants }} />
+          {variants.length === 1 && <PricingSection {...{ variants, setVariants }} />}
           <InventorySection {...{ variants, setVariants }} />
           <VariantsSection {...{ options, setOptions, variants, setVariants, media }} />
           <SeoSection {...{ setSeo, slug, setSlug, basicInfo }} />
