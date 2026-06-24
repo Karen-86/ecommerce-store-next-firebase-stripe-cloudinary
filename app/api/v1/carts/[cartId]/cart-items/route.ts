@@ -11,6 +11,7 @@ import checkRoleHierarchyMiddleware from "@/lib/server/middlewares/authorization
 import loadUserMiddleware from "@/lib/server/middlewares/authentication/loadUser.middleware";
 import isResourceOwnerMiddleware from "@/lib/server/middlewares/authorization/isResourceOwner.middleware";
 import { v4 as uuidv4 } from "uuid";
+import { enrichCartWithProducts } from "@/lib/server/utils/enrichCartWithProducts";
 
 // CREATE CART ITEM
 export async function POST(req: NextRequest, { params }: { params: Promise<{ cartId: string }> }) {
@@ -67,10 +68,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ car
         {
           id: uuidv4(),
           productId: body.productId,
+          variantId: body.variantId,
           variantKey: body.variantKey,
           quantity: body.quantity,
-          variantDetails: body.variantDetails,
-          productDetails: body.productDetails,
+          // variantDetails: body.variantDetails,
+          // productDetails: body.productDetails,
         },
       ],
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -81,11 +83,13 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ car
     const updatedCartSnap = await cartRef.get();
     const updatedCartData = { id: updatedCartSnap.id, ...updatedCartSnap.data() };
 
+    const {cartData} = await enrichCartWithProducts({cart: updatedCartData})
+
     return NextResponse.json(
       {
         success: true,
         message: "cart item created successfully",
-        data: updatedCartData,
+        data: cartData,
       },
       { status: 201 },
     );

@@ -14,12 +14,6 @@ import { alert } from "@/lib/utils/alert";
 
 const { productImage, preloader } = LOCAL_DATA.images;
 
-const getVariantKey = (attributes: any = {}) =>
-  Object.entries(attributes)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([k, v]) => `${k}:${v}`)
-    .join("|");
-
 export const CartItemCard = ({
   cartItem,
   isInSheet = false,
@@ -37,10 +31,6 @@ export const CartItemCard = ({
   const authUser = useAuthStore((s) => s.authUser);
 
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const variantPrimaryImage = cartItem.productDetails.media.find(
-    (product: any) => product.id === cartItem.variantDetails.primaryImage,
-  );
 
   const deleteCart = async () => {
     try {
@@ -61,9 +51,18 @@ export const CartItemCard = ({
     }
   };
 
+  if (cartItem.productDetails === "unknown" || cartItem.variantDetails === "unknown") {
+    return <CartPlaceholder {...{ cartItem, isInSheet, setCartItemsWithCheckbox, isDeleting, deleteCart }} />;
+  }
+
+  const productDetails = cartItem.productDetails;
+  const variantDetails = cartItem.variantDetails;
+
+  const variantPrimaryImage = productDetails.media.find((product: any) => product.id === variantDetails.primaryImage);
+
   return (
     <div
-      className={`${isDeleting ? "opacity-50 pointer-events-none" : ""} card cart-product-card border-b  flex gap-3 py-4`}
+      className={`${isDeleting ? "opacity-50 pointer-events-none" : ""}  card cart-product-card border-b  flex gap-3 py-4`}
     >
       {!isInSheet && (
         <CheckboxDemo
@@ -151,6 +150,55 @@ export const CartItemCard = ({
   );
 };
 
+const CartPlaceholder = ({ cartItem, isInSheet, setCartItemsWithCheckbox, isDeleting, deleteCart }: any) => {
+  return (
+    <div
+      className={`${isDeleting ? "opacity-50 pointer-events-none" : ""} card cart-product-card border-b  flex gap-3 py-4`}
+    >
+      {!isInSheet && (
+        <CheckboxDemo
+          variant="dark"
+          id={cartItem.id}
+          className=""
+          checked={cartItem.isSelected}
+          onCheckedChange={(checked) => {
+            setCartItemsWithCheckbox((prev: CartItemWithCheckbox[]) => {
+              return prev.map((item) => ({
+                ...item,
+                isSelected: cartItem.id == item.id ? checked : item.isSelected,
+              }));
+            });
+          }}
+        />
+      )}
+      <div className="card-header overflow-hidden">
+        <div className="card-image relative h-20 w-20  duration-600">
+          <img
+            src={productImage}
+            alt=""
+            className="rounded-xl block absolute top-0 left-0 w-full h-full object-cover overflow-visible"
+          />
+        </div>
+      </div>
+
+      <div className="card-body flex flex-col justify-between flex-1 ">
+        <div className="row flex gap-3 items-start justify-between mb-4">
+          <div className="text-black/20 font-medium card-title text-sm">
+            <span className=" line-clamp-2">This item is no longer available.</span>
+          </div>
+          <ButtonDemo
+            onClick={deleteCart}
+            size="icon-sm"
+            icon={<Trash />}
+            variant="ghostSecondary"
+            className="rounded-full "
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithCheckbox; deleteCart: () => void }) => {
   const updateCartItemAsync = useCartStore((s) => s.updateCartItemAsync);
   const authUser = useAuthStore((s) => s.authUser);
@@ -201,6 +249,7 @@ const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithChec
   };
 
   const changeQty = (delta: number) => {
+    if (cartItem.variantDetails === "unknown") return;
     let next = localQuantity + delta;
     if (next < 0) next = 0;
     if (next > (cartItem.variantDetails?.stock || 0)) {
@@ -225,6 +274,7 @@ const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithChec
         <input
           value={localQuantity}
           onChange={(e) => {
+            if (cartItem.variantDetails === "unknown") return;
             const val = Number(e.target.value);
 
             if (isNaN(val)) return;
@@ -246,7 +296,7 @@ const QuantitySelector = ({ cartItem, deleteCart }: { cartItem: CartItemWithChec
           size="icon-sm"
           className="[&_svg]:h-3! rounded-none text-black"
           onClick={() => changeQty(+1)}
-          disabled={localQuantity === cartItem.variantDetails?.stock}
+          disabled={cartItem.variantDetails !== "unknown" && localQuantity === cartItem.variantDetails?.stock}
         />
       </div>
 

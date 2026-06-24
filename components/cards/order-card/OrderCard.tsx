@@ -16,7 +16,7 @@ export const OrderCard = ({ order, className='' }: { order: OrderApi, className?
             {order.items.map((item, index) => {
               return (
                 <li key={index} className="flex items-center gap-1 mb-1 max-w-45">
-                  <span className="truncate " title={item.productDetails.name}>{item.productDetails.name}</span>×
+                  <span className="truncate " title={item.productDetails.title}>{item.productDetails.title}</span>×
                   <span className=''> {item.quantity}</span>
                 </li>
               );

@@ -69,10 +69,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ car
           return {
             id: uuidv4(),
             productId: guestCartItem.productId,
+            variantId: guestCartItem.variantId,
             variantKey: guestCartItem.variantKey,
             quantity: guestCartItem.quantity,
-            variantDetails: guestCartItem.variantDetails,
-            productDetails: guestCartItem.productDetails,
+            // variantDetails: guestCartItem.variantDetails,
+            // productDetails: guestCartItem.productDetails,
           };
         }),
       ],

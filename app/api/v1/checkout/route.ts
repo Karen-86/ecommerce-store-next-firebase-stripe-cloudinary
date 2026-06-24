@@ -44,24 +44,29 @@ export async function POST(req: NextRequest) {
       paymentStatus: "unpaid",
       ...(user?.addresses ? { shippingAddress: user.addresses?.find((address: any) => address.isDefault) } : {}),
       // expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // auto-delete after 24h
-      expiresAt: new Date(Date.now() + 1000 * 60 * 3 ), // auto-delete after 3m
+      expiresAt: new Date(Date.now() + 1000 * 60 * 3), // auto-delete after 3m
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     await orderRef.create(order);
 
     // 2. CREATE STRIPE SESSION
-    const line_items = cart.items.map((item: any) => ({
-      price_data: {
-        currency: item.productDetails.currency,
-        product_data: {
-          name: item.productDetails.name,
-          images: [item.variantDetails.images[0].url],
+    const line_items = cart.items.map((item: any) => {
+      const media = item.productDetails.media;
+      const variantPrimaryImage = media.find((mediaItem: any) => mediaItem.id === item.variantDetails.primaryImage);
+
+      return {
+        price_data: {
+          currency: item.productDetails.currency,
+          product_data: {
+            name: item.productDetails.title,
+            images: [variantPrimaryImage.url],
+          },
+          unit_amount: Math.round(Number(item.variantDetails.price) * 100),
         },
-        unit_amount: Math.round(Number(item.variantDetails.price) * 100),
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      };
+    });
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -348,56 +353,3 @@ export async function POST(req: NextRequest) {
     return errorHandlerMiddleware(err);
   }
 }
-
-// OlD VERSION WITHOUT ORER SYSTEM
-// export async function POST(req: Request) {
-//   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
-//   try {
-//     const body = await req.json();
-//     if (!body.cart) throw createError("Cart items are missing", 400);
-
-//     const line_items = body.cart.items.map((cartItem: CartBaseItem) => ({
-//       price_data: {
-//         currency: cartItem.productDetails.currency, //cad, amd
-//         product_data: {
-//           name: cartItem.productDetails.name,
-//           images: [cartItem.variantDetails.images[0].url],
-//         },
-//         unit_amount: Math.round(Number(cartItem.variantDetails.price) * 100), // Stripe expects amount in cents
-//       },
-//       quantity: cartItem.quantity,
-//     }));
-
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ["card"],
-//       line_items,
-//       mode: "payment",
-//       success_url: `${baseUrl}/success`,
-//       cancel_url: `${baseUrl}/cart`,
-//       // customer_email: user.email,
-//       // metadata: {
-//       //   userId: user.userId,
-//       // },
-//       // mode: 'subscription'
-//     });
-
-//     return NextResponse.json(
-//       {
-//         success: true,
-//         message: "Connected with Stripe successfully",
-//         url: session.url,
-//       },
-//       { status: 200 },
-//     );
-//   } catch (err: any) {
-//     console.error("Stripe checkout error:", err);
-//     return errorHandlerMiddleware(err);
-//   }
-// }
-
-// export async function POST() {
-//   return new Response(JSON.stringify({ message: 'Dummy placeholder to prevent errors' }), {
-//     status: 501
-//   });
-// }

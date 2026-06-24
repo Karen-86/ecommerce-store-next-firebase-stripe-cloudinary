@@ -72,6 +72,7 @@ export type BasicInfoType = {
   description?: string;
   media: { [key: string]: any }[];
   category: string;
+  currency: string
 };
 
 export type OptionType = {

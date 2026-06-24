@@ -2,7 +2,9 @@ import { create } from "zustand";
 import type { Cart, CartApi, CartsApiResponse, CartApiResponse } from "@/modules/carts/types";
 import * as cartsApi from "@/modules/carts/api";
 import { useAuthStore } from "../auth/store";
+import { useProductStore } from "../products/store";
 import { v4 as uuidv4 } from "uuid";
+// import { enrichCartWithProducts } from "@/lib/server/utils/enrichCartWithProducts";
 
 const noop = () => {};
 
@@ -74,9 +76,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
         console.log(data, " =getCartAsync=");
 
         set({ cart: data.data });
-        
+
         successCB(data);
-        return data
+        return data;
       }
 
       // LocalStorage
@@ -84,7 +86,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
         await new Promise((r) => setTimeout(() => r(false), 3000));
 
         let cart = JSON.parse(localStorage.getItem("cart") || "null");
-        set({ cart: cart });
+
+        const { cartData } = await enrichCartWithProducts({ cart });
+
+        console.log(cartData, " =getCartAsync=");
+        set({ cart: cartData });
       }
     } finally {
       set({ isCartLoading: false });
@@ -114,8 +120,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
         console.log(data, " =deleteCartAsync=");
 
         set({ cart: null });
+        // get().getCartAsync({cartId})
         successCB({ ...data, message: "Your cart has been cleared." });
-        return data
+        return data;
       }
 
       // LocalStorage
@@ -142,10 +149,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
       }
       console.log(data, " =attachGuestCartItemsAsync=");
 
-      set({ cart: data.data });
+      // set({ cart: data.data });
+      get().getCartAsync({ cartId });
 
       successCB({ ...data, message: "Attached to cart successfully!" });
-      return data
+      return data;
     } finally {
       set({ isCartItemCreating: false });
     }
@@ -166,36 +174,42 @@ export const useCartStore = create<CartStore>((set, get) => ({
         console.log(data, " =createCartItemAsync=");
 
         set({ cart: data.data });
+        // get().getCartAsync({cartId})
 
         successCB({ ...data, message: "Added to cart successfully!" });
-        return data
+        return data;
       }
 
       // LocalStorage
       else {
-        await new Promise((r) => setTimeout(() => r(false), 300));
+        // await new Promise((r) => setTimeout(() => r(false), 300));
+        const storedCart = JSON.parse(localStorage.getItem("cart") || "null");
 
-        let cart: Cart = get().cart || { guestId: `guest-${Date.now()}`, items: [] };
+        let cart = storedCart || { guestId: `guest-${Date.now()}`, items: [] };
+
+        const newCartItem = {
+          id: uuidv4(),
+          productId: body.productId,
+          variantId: body.variantId,
+          variantKey: body.variantKey,
+          quantity: body.quantity,
+          // productDetails: body.productDetails,
+          // variantDetails: body.variantDetails,
+        };
 
         cart = {
           ...cart,
-          items: [
-            ...cart.items,
-            {
-              id: uuidv4(),
-              productId: body.productId,
-              variantKey: body.variantKey,
-              quantity: body.quantity,
-              variantDetails: body.variantDetails,
-              productDetails: body.productDetails,
-            },
-          ],
+          items: [...cart.items, newCartItem],
         };
 
         localStorage.setItem("cart", JSON.stringify(cart));
 
-        set({ cart });
+        const { cartData } = await enrichCartWithProducts({ cart });
+
+        console.log(cartData, " =createCartItemAsync=");
+        set({ cart: cartData });
         successCB("Added to cart successfully!");
+        return cartData;
       }
     } finally {
       set({ isCartItemCreating: false });
@@ -217,6 +231,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
         console.log(data, " =updateCartItemAsync=");
 
         set({ cart: data.data });
+        // get().getCartAsync({cartId})
         successCB({ ...data, message: "Updated successfully!" });
       }
 
@@ -224,11 +239,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
       else {
         await new Promise((r) => setTimeout(() => r(false), 300));
 
-        let cart: Cart = get().cart || { guestId: `guest-${Date.now()}`, items: [] };
+        const storedCart = JSON.parse(localStorage.getItem("cart") || "null");
+
+        let cart = storedCart || { guestId: `guest-${Date.now()}`, items: [] };
 
         cart = {
           ...cart,
-          items: cart.items.map((item) => {
+          items: cart.items.map((item: any) => {
             if (item.id === cartItemId) {
               return {
                 ...item,
@@ -242,7 +259,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
         localStorage.setItem("cart", JSON.stringify(cart));
 
-        set({ cart });
+        const { cartData } = await enrichCartWithProducts({ cart });
+
+        console.log(cartData, " =updateCartItemAsync=");
+
+        set({ cart: cartData });
         successCB("Updated successfully!");
       }
     } finally {
@@ -259,10 +280,12 @@ export const useCartStore = create<CartStore>((set, get) => ({
         const data = await cartsApi.deleteCartItem({ cartId, cartItemId });
         if (!data.success) {
           errorCB(data);
-          return data
+          return data;
         }
         console.log(data, " =deleteCartItemAsync=");
+
         set({ cart: data.data });
+        // get().getCartAsync({cartId})
         successCB({ ...data, message: "Deleted successfully!" });
       }
 
@@ -289,3 +312,36 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   setIsCartSheetOpen: (isOpen) => set({ isCartSheetOpen: isOpen }),
 }));
+
+const enrichCartWithProducts = async ({ cart }: any) => {
+  const getProductsAsync = useProductStore.getState().getProductsAsync;
+
+  const items = cart.items || [];
+  const productIds = items.map((item: any) => item.productId);
+
+  let products: any[] = [];
+
+  if (productIds.length) {
+    const data = await getProductsAsync({ query: `?productIds=${productIds.join(",")}` });
+    if (data.success) products = data.data.products;
+  }
+
+  const enrichedItems = items.map((item: any) => {
+    const product = products.find((p) => p.id === item.productId);
+
+    const variant = product?.variants?.find((v: any) => v.id === item.variantId);
+
+    return {
+      ...item,
+      productDetails: product || "unknown",
+      variantDetails: variant || "unknown",
+    };
+  });
+
+  const cartData = {
+    ...cart,
+    items: enrichedItems,
+  };
+
+  return { cartData };
+};

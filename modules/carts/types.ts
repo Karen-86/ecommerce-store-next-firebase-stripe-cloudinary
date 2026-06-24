@@ -1,10 +1,11 @@
 export type CartBaseItem = {
   id: string;
   productId: string;
+  variantId: string;
   quantity: number;
   variantKey: string;
-  productDetails: { [key: string]: any };
-  variantDetails: { [key: string]: any };
+  productDetails: { [key: string]: any } | 'unknown';
+  variantDetails: { [key: string]: any } | 'unknown';
 };
 
 export type CartBase = {

@@ -3,6 +3,8 @@ import type { Cart, CartItemWithCheckbox } from "../types";
 export const subtotal = (items: CartItemWithCheckbox[]) => {
   return items
     .reduce((total, item) => {
+      if (item.productDetails === "unknown" || item.variantDetails === "unknown") return total;
+
       // const compareAtPrice = item.variantDetails.compareAtPrice ?? 0;
       const compareAtPrice = item.variantDetails.price * 1.2;
       return total + compareAtPrice * item.quantity;
@@ -21,6 +23,8 @@ export const subtotal = (items: CartItemWithCheckbox[]) => {
 export const discount = (items: CartItemWithCheckbox[]) => {
   return Math.abs(
     items.reduce((total, item) => {
+      if (item.productDetails === "unknown" || item.variantDetails === "unknown") return total;
+
       // const compareAtPrice = item.variantDetails.compareAtPrice ?? 0;
       const compareAtPrice = item.variantDetails.price * 1.2;
       const price = item.variantDetails.price ?? 0;
@@ -38,6 +42,8 @@ export const tax = (cart: Cart | null) => Number(cart?.tax ?? 0);
 export const total = (cart: Cart | null, items: CartItemWithCheckbox[]) => {
   return (
     (items.reduce((total, item) => {
+      if (item.productDetails === "unknown" || item.variantDetails === "unknown") return total;
+
       const price = item.variantDetails.price ?? 0;
 
       return total + price * item.quantity;

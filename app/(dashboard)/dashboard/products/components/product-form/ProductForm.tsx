@@ -40,6 +40,7 @@ const ProductForm = ({ editingProduct = null, isProductLoading = false }: any) =
     description: "",
     media: [],
     category: "",
+    currency: "USD",
   });
   const [options, setOptions] = useState<OptionType[]>([]);
   const [variants, setVariants] = useState<VariantType[]>([DEFAULT_VARIANT]);
@@ -52,7 +53,7 @@ const ProductForm = ({ editingProduct = null, isProductLoading = false }: any) =
   const [organization, setOrganization] = useState<{ [key: string]: any }>({
     brand: "",
     collections: [],
-    collectionsNormalized:[],
+    collectionsNormalized: [],
     tags: [],
   });
   const [media, setMedia] = useState<MediaItemType[]>([]);
@@ -67,6 +68,7 @@ const ProductForm = ({ editingProduct = null, isProductLoading = false }: any) =
       description: editingProduct.description,
       media: editingProduct.media,
       category: editingProduct.category,
+      currency: editingProduct.currency,
     });
 
     setOptions(

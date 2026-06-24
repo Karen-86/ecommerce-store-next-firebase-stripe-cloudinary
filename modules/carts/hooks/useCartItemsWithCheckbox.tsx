@@ -7,6 +7,7 @@ const useCartItemsWithCheckbox = () => {
 
   const cart = useCartStore((s) => s.cart);
 
+
   const isAllCartItemsChecked =
     cartItemsWithCheckbox?.length > 0 && cartItemsWithCheckbox.every((item) => item.isSelected);
 

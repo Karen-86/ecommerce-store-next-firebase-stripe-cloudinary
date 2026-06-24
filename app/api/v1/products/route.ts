@@ -50,6 +50,9 @@ export async function GET(req: NextRequest) {
 
     const collectionsParam = url.searchParams.get("collections");
     const collections = collectionsParam ? collectionsParam.split(",").filter(Boolean) : [];
+    
+    const productIdsParams = url.searchParams.get("productIds");
+    const productIds = productIdsParams ? productIdsParams.split(",").filter(Boolean) : [];
 
     let productsRef: FirebaseFirestore.Query = db.collection("products");
 
@@ -74,6 +77,10 @@ export async function GET(req: NextRequest) {
 
     if (collections.length) {
       productsRef = productsRef.where("collectionsNormalized", "array-contains-any", collections);
+    }
+
+    if (productIds.length) {
+      productsRef = productsRef.where(admin.firestore.FieldPath.documentId(), "in", productIds);
     }
 
     // old simple scenario

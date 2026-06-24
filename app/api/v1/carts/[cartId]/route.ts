@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/firebase/config/firebaseAdmin";
 import isAuthenticatedMiddleware from "@/lib/server/middlewares/authentication/isAuthenticated.middleware";
 import errorHandlerMiddleware from "@/lib/server/middlewares/system/errorHandler.middleware";
-import createError from "@/lib/utils/createError";
 import loadResourceMiddleware from "@/lib/server/middlewares/database/loadResource.middleware";
 import admin from "firebase-admin";
-import validateMiddleware from "@/lib/server/middlewares/validate.middleware";
-import allowRolesMiddleware from "@/lib/server/middlewares/authorization/allowRoles.middleware";
-import checkRoleHierarchyMiddleware from "@/lib/server/middlewares/authorization/checkRoleHierarchy.middleware";
-import loadUserMiddleware from "@/lib/server/middlewares/authentication/loadUser.middleware";
 import isResourceOwnerMiddleware from "@/lib/server/middlewares/authorization/isResourceOwner.middleware";
+import { enrichCartWithProducts } from "@/lib/server/utils/enrichCartWithProducts";
+
 
 // GET CART
 export async function GET(req: NextRequest, { params }: { params: Promise<{ cartId: string }> }) {
@@ -17,17 +13,20 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ cart
     await isAuthenticatedMiddleware(req);
 
     const { cartId } = await params;
+
     const { cart } = await loadResourceMiddleware({
       id: cartId,
       reqKey: "cart",
       collectionName: "carts",
     });
 
+    const {cartData} = await enrichCartWithProducts({cart})
+
     return NextResponse.json(
       {
         success: true,
         message: "cart found successfully",
-        data: cart,
+        data: cartData,
       },
       { status: 200 },
     );
@@ -36,7 +35,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ cart
   }
 }
 
-// DELETE CART 
+// DELETE CART
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ cartId: string }> }) {
   try {
     const decoded = await isAuthenticatedMiddleware(req);

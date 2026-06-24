@@ -35,6 +35,7 @@ export const createProductSchema = Joi.object({
         id: Joi.string().required(),
         sku: Joi.string().allow("").required(),
         price: Joi.number().allow(null).required(),
+       
         compareAtPrice: Joi.number().allow(null).required(),
         stock: Joi.number().integer().min(0).allow(null).required(),
         images: Joi.array().items(Joi.string().trim()).unique().required(),
@@ -60,6 +61,7 @@ export const createProductSchema = Joi.object({
   status: Joi.string().allow(""),
 
   brand: Joi.string().allow(""),
+   currency: Joi.string().required(),
   collections: Joi.array().items(Joi.string()).unique(),
     collectionsNormalized: Joi.array().items(Joi.string().lowercase()).unique(),
   tags: Joi.array().items(Joi.string()).unique(),
