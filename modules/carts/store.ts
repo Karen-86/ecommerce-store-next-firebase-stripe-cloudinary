@@ -87,10 +87,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
         let cart = JSON.parse(localStorage.getItem("cart") || "null");
 
-        const { cartData } = await enrichCartWithProducts({ cart });
+        if (cart) {
+          const { cartData } = await enrichCartWithProducts({ cart });
+          cart = cartData;
+        }
 
-        console.log(cartData, " =getCartAsync=");
-        set({ cart: cartData });
+        console.log(cart, " =getCartAsync=");
+        set({ cart: cart });
       }
     } finally {
       set({ isCartLoading: false });
