@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/modules/auth/AuthProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
+import Script from "next/script";
 import "../styles/index.css";
 
 const geistSans = Geist({
@@ -68,6 +68,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${jakarta.variable} antialiased`}
       >
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-KSH53H5C6R" strategy="afterInteractive" />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KSH53H5C6R');
+          `}
+        </Script>
         <Provider>
           <ThemeProvider>
             <AuthProvider>
@@ -75,7 +86,6 @@ export default function RootLayout({
             </AuthProvider>
           </ThemeProvider>
           <Toaster className="pointer-events-auto!" />
-
         </Provider>
       </body>
     </html>

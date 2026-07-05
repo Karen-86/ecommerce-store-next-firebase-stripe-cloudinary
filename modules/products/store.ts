@@ -60,6 +60,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
         errorCB(data);
         return data;
       }
+      
       console.log(data, " =getProductsAsync=");
 
       const formattedProducts = data.data.products.map((product: Product) => {
