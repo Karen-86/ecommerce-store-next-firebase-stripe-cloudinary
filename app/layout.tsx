@@ -69,7 +69,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${jakarta.variable} antialiased`}
       >
         {/* Google Analytics */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-KSH53H5C6R" strategy="afterInteractive" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-P51DVV12KF" strategy="afterInteractive" />
 
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -77,7 +77,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             
             gtag('js', new Date());
-            gtag('config', 'G-KSH53H5C6R');
+            gtag('config', 'G-P51DVV12KF');
           `}
         </Script>
         <Provider>
