@@ -68,23 +68,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${jakarta.variable} antialiased`}
       >
-        {/* Google Analytics */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-KSH53H5C6R" strategy="afterInteractive" />
-
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-                function gtag(){
-      window.dataLayer.push(arguments);
-    }
-
-    window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', 'G-KSH53H5C6R', {
-              send_page_view: true,
-            });
-          `}
-        </Script>
         <Provider>
           <ThemeProvider>
             <AuthProvider>
@@ -93,6 +76,18 @@ export default function RootLayout({
           </ThemeProvider>
           <Toaster className="pointer-events-auto!" />
         </Provider>
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-KSH53H5C6R" strategy="afterInteractive" />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            
+            gtag('js', new Date());
+            gtag('config', 'G-KSH53H5C6R');
+          `}
+        </Script>
       </body>
     </html>
   );
