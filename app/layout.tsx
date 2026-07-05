@@ -75,9 +75,10 @@ export default function RootLayout({
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            window.gtag = gtag;
             gtag('js', new Date());
-            gtag('config', 'G-KSH53H5C6R');
+               gtag('config', 'G-KSH53H5C6R', {
+              send_page_view: true,
+            });
           `}
         </Script>
         <Provider>
