@@ -68,14 +68,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${jakarta.variable} antialiased`}
       >
-        <Provider>
-          <ThemeProvider>
-            <AuthProvider>
-              <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
-            </AuthProvider>
-          </ThemeProvider>
-          <Toaster className="pointer-events-auto!" />
-        </Provider>
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-KSH53H5C6R" strategy="afterInteractive" />
 
@@ -88,6 +80,14 @@ export default function RootLayout({
             gtag('config', 'G-KSH53H5C6R');
           `}
         </Script>
+        <Provider>
+          <ThemeProvider>
+            <AuthProvider>
+              <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
+            </AuthProvider>
+          </ThemeProvider>
+          <Toaster className="pointer-events-auto!" />
+        </Provider>
       </body>
     </html>
   );
