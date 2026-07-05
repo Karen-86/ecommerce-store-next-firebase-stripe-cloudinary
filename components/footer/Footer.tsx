@@ -8,7 +8,7 @@ import { ButtonDemo, InputDemo } from "@/components/index";
 import useSendEmail from "@/hooks/useSendEmail";
 import { ArrowRight, Phone, Mail } from "lucide-react";
 
-const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const { logo } = LOCAL_DATA.images;
 const { twitterIcon, facebookIcon, linkedInIcon, githubIcon } = LOCAL_DATA.svgs;
